@@ -7,7 +7,7 @@
 
 #include "Territorio.h"
 
-class TerritorioInicial : Territorio {
+class TerritorioInicial : public Territorio {
 
 
 

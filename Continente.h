@@ -8,7 +8,7 @@
 
 #include "Territorio.h"
 
-class Continente : Territorio {
+class Continente : public Territorio {
 
 };
 

@@ -8,7 +8,7 @@
 
 #include "Territorio.h"
 
-class Ilha : Territorio {
+class Ilha : public Territorio {
 
 };
 

@@ -18,7 +18,6 @@ protected:
     int goldProduction;
     int VictoryPoints;
 
-
 };
 
 
