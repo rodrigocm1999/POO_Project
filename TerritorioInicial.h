@@ -1,0 +1,14 @@
+//
+// Created by cenas on 17/11/2020.
+//
+
+#ifndef TRABALHOPRATICO_TERRITORIOINICIAL_H
+#define TRABALHOPRATICO_TERRITORIOINICIAL_H
+
+
+class TerritorioInicial {
+
+};
+
+
+#endif //TRABALHOPRATICO_TERRITORIOINICIAL_H
