@@ -6,7 +6,9 @@
 #define TRABALHOPRATICO_ILHA_H
 
 
-class Ilha {
+#include "Territorio.h"
+
+class Ilha : Territorio {
 
 };
 

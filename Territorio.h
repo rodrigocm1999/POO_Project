@@ -12,11 +12,11 @@ class Territorio {
 
 protected:
 
-    std::string nome;
-    int resistencia;
-    int producaoProdutos;
-    int producaoOuro;
-    int pontosVitoria;
+    std::string name;
+    int resistance;
+    int productProduction;
+    int goldProduction;
+    int VictoryPoints;
 
 
 };

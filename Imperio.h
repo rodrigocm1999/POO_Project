@@ -10,11 +10,11 @@
 
 class Imperio {
 
-    std::vector<Territorio> territorios;
-    int armazem = 3;
-    int cofre = 3;
+    std::vector<Territorio> territories;
+    int warehouse = 3;
+    int safe = 3;
 
-    int forcaMilitar;
+    int militaryForce;
 
 };
 

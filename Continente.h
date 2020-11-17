@@ -6,7 +6,9 @@
 #define TRABALHOPRATICO_CONTINENTE_H
 
 
-class Continente {
+#include "Territorio.h"
+
+class Continente : Territorio {
 
 };
 
