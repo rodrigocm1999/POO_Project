@@ -3,4 +3,4 @@ project(TrabalhoPratico)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(TrabalhoPratico main.cpp)
+add_executable(TrabalhoPratico main.cpp Imperio.cpp Imperio.h Mundo.cpp Mundo.h)

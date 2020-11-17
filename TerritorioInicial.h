@@ -5,8 +5,11 @@
 #ifndef TRABALHOPRATICO_TERRITORIOINICIAL_H
 #define TRABALHOPRATICO_TERRITORIOINICIAL_H
 
+#include "Territorio.h"
 
-class TerritorioInicial {
+class TerritorioInicial : public Territorio {
+
+
 
 };
 
