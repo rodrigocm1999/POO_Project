@@ -13,7 +13,7 @@ class Imperio {
     std::vector<Territorio *> territories;
     int warehouse = 3;
     int safe = 3;
-    int militaryForce;
+    int militaryForce = 0;
 
 public:
 
@@ -36,6 +36,8 @@ public:
     int getSize() const;
 
     void gotConquered(Territorio *conquered);
+
+    void print(std::ostream &out) const;
 };
 
 

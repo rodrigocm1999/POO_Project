@@ -15,6 +15,11 @@ public:
 
     std::string getType() const { return "Continente"; }
 
+    Continente() {
+        this->victoryPoints = 1;
+    }
+
+
 };
 
 

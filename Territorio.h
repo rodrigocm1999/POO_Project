@@ -8,54 +8,57 @@
 
 #include <string>
 #include <ostream>
+#include <iostream>
 
 class Territorio {
 
 protected:
 
-    std::string name;
-    int resistance;
-    int productProduction;
-    int goldProduction;
-    int victoryPoints;
+	std::string name;
+	int resistance = 0;
+	int productProduction = 0;
+	int goldProduction = 0;
+	int victoryPoints = 0;
 
 public:
+//TODO saber porque é que da problemas de linkagem se colocar os construtores no cpp em todas as classes
+	Territorio() = default;
 
-    virtual bool isContinent() const { return false; }
+	virtual bool isContinent() const { return false; }
 
-    virtual bool isIsland() const { return false; }
+	virtual bool isIsland() const { return false; }
 
-    virtual std::string getType() const {return "";}
+	virtual std::string getType() const { return ""; }
 
-    const std::string &getName() const {
-        return name;
-    }
+	const std::string &getName() const {
+		return name;
+	}
 
-    int getResistance() const {
-        return resistance;
-    }
+	int getResistance() const {
+		return resistance;
+	}
 
-    int getProductProduction() const {
-        return productProduction;
-    }
+	int getProductProduction() const {
+		return productProduction;
+	}
 
-    int getGoldProduction() const {
-        return goldProduction;
-    }
+	int getGoldProduction() const {
+		return goldProduction;
+	}
 
-    int getVictoryPoints() const {
-        return victoryPoints;
-    }
+	int getVictoryPoints() const {
+		return victoryPoints;
+	}
 
-    friend std::ostream &operator<<(std::ostream &os, const Territorio &territorio) {
-        os << "tipo : " << territorio.getType()
-           << ", nome: " << territorio.name
-           << ", resistencia: " << territorio.resistance
-           << ", produtos: " << territorio.productProduction
-           << ", ouro: " << territorio.goldProduction
-           << ", pontos: " << territorio.victoryPoints;
-        return os;
-    }
+	friend std::ostream &operator<<(std::ostream &os, const Territorio &territorio) {
+		os << "tipo : " << territorio.getType()
+		   << ", nome: " << territorio.name
+		   << ", resistencia: " << territorio.resistance
+		   << ", produtos: " << territorio.productProduction
+		   << ", ouro: " << territorio.goldProduction
+		   << ", pontos: " << territorio.victoryPoints;
+		return os;
+	}
 
 };
 

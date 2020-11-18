@@ -25,7 +25,7 @@ public:
 
     void gotConquered(const Territorio *territory);
 
-
+	void print(std::ostream &out) const;
 
 };
 

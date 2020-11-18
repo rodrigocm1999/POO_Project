@@ -9,6 +9,16 @@
 
 class Montanha : public Continente {
 
+public:
+    std::string getType() const override { return Continente::getType() + "_Montanha"; }
+
+    Montanha() {
+		static int idCounter = 0;
+		this->name = "Montanha" + std::to_string(++idCounter);
+        this->resistance = 9;
+        this->goldProduction = 1;
+        this->productProduction = 1;
+    }
 };
 
 

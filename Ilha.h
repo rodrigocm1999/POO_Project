@@ -14,6 +14,8 @@ public:
     bool isIsland() const { return true; }
 
     std::string getType() const { return "Ilha"; }
+
+    Ilha() { this->victoryPoints = 2; }
 };
 
 
