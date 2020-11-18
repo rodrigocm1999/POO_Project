@@ -1,0 +1,6 @@
+duna 3
+pescaria 1
+refugio 2
+montanha 2
+planicie 5
+mina 1
