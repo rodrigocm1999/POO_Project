@@ -11,12 +11,17 @@
 
 class Jogo {
 
-    std::string name;
+private:
 
-    int turn = 0;
-    int phase = 1;
+    std::string name;
+    int turn = -1;
+    int phase = -1;
     Mundo world;
     Imperio kingdom;
+
+    Territorio *getWorldTerritoryByName(const std::string &name) const;
+
+    Territorio *getKingdomTerritoryByName(const std::string &name) const;
 
 public:
 
@@ -24,18 +29,29 @@ public:
 
     explicit Jogo(const Jogo *otherGame);
 
-    const std::string &getName() const;
+    void addTerritoryToWorld(Territorio *newTerritory);
 
-    int getTurn() const;
+    int conquer(std::string &territoryName);
 
-    int getPhase() const;
+    bool isInProgress() const { return turn > 0; }
 
-    const Mundo &getWorld() const;
+    const std::string &getName() const { return name; }
 
-    const Imperio &getKingdom() const;
+    int getTurn() const { return turn; }
 
+    int getPhase() const { return phase; }
 
-    void setName(const std::string &name);
+    const Mundo &getWorld() const { return world; }
+
+    const Imperio &getKingdom() const { return kingdom; }
+
+    void setName(const std::string &_name) { name = _name; }
+
+    const Territorio *getTerritoryByName(const std::string &name) const;
+
+    std::vector<Territorio *> getAllTerritories() const;
+
+    void printGame(std::ostream &out) const;
 };
 
 

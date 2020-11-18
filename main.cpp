@@ -1,10 +1,12 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <time.h>
+#include <fstream>
 
 #include "Castelo.h"
 #include "Continente.h"
-#include "ComandoFase.h"
+#include "ComanFase.h"
 #include "Duna.h"
 #include "Fortaleza.h"
 #include "Ilha.h"
@@ -22,79 +24,179 @@
 
 using namespace std;
 
-void saveGame(string name, Jogo *currentGame, vector<Jogo *> &otherGames);
+void saveGame(const string &name, Jogo *currentGame, vector<Jogo *> &otherGames);
 
-bool usedSaveGameName(string gameName, vector<Jogo *> &otherGames);
+bool usedSaveGameName(const string &gameName, vector<Jogo *> &otherGames);
+
+Territorio *createTerritoryFromType(const string &type);
 
 int main() {
+    srand((unsigned) time(nullptr));
+
+    ComanFase phaseCommand[] = {ComanFase("conquista", 1), ComanFase("passa", 1),
+                                ComanFase("maisouro", 1), ComanFase("maisprod", 1),
+                                ComanFase("maismilitar", 1), ComanFase("adquire", 1),
+                                ComanFase("lista", 1), ComanFase("avanca", 1),
+                                ComanFase("maismilitar", 1), ComanFase("adquire", 1),
+                                ComanFase("lista", 1), ComanFase("avanca", 1),
+                                ComanFase("grava", 1), ComanFase("ativa", 1),
+                                ComanFase("apaga", 1), ComanFase("toma", 1),
+                                ComanFase("modifica", 1), ComanFase("fevento", 1)};
 
     vector<Jogo *> savedGames;
     Jogo *currentGame = new Jogo();
 
     vector<Territorio *> createdTerrains;
 
-    while (true) {
+    bool exit = false;
+
+    while (!exit) {
 
         string inputString;
         getline(cin, inputString);
         vector<string> inputParts = Utils::stringSplit(inputString, " ");
         if (inputParts.empty()) {
-            cout << "Comando inválido. Introduza novamente\n";
+            cout << "Comando vazio. Introduza novamente\n";
         }
         string &action = inputParts[0];
 
-//Criação do jogo
+        //TODO separar o codigo melhor pelas phases tipo: pregame , ingame
+
+        // Pre Game ----------------------------------------------------------------------------------------------------
+        //Criação do jogo
         if (action == "cria") {
             //cria <tipo> <n> - Acrescenta ao mundo n territórios de um determinado tipo (exemplo:
             //mina, refugio, para respetivamente um território do tipo Mina ou do tipo Refugio).
-            if (inputParts.size() != 3) {
+            if (inputParts.size() == 3) {
+                int amount = stoi(inputParts[2]);
+                string &type = inputParts[1];
 
+                for (int i = 0; i < amount; ++i) {
+                    Territorio *newTerritory = createTerritoryFromType(type);
+                    currentGame->addTerritoryToWorld(newTerritory);
+                }
             } else {
-                cout << "sintaxe válida -> cria <tipo> <quantidade>\n";
+                cout << "sintaxe valida -> cria <tipo> <quantidade>\n";
             }
         } else if (action == "carrega") {
             //TODO carrega os territorios a partir de um ficheiro
+            if (inputParts.size() == 2) {
+                string filePath = inputParts[1];
+                ifstream stream;
+                stream.open(filePath);
+                cout << "opened file \n";
+                Jogo *newGame = new Jogo;
+
+                int fileLine = 0;
+                string line;
+                string type;
+                int amount;
+
+                while (getline(stream, line)) {
+                    cout << "read line : " << line << " \n";
+                    fileLine++;
+                    istringstream stringStream(line);
+
+                    stringStream >> type;
+                    stringStream >> amount;
+
+                    Territorio *terr = createTerritoryFromType(type);
+                    if (terr == nullptr) {
+                        cout << "Ficheiro contem tipos inválidos na linha : " << fileLine << " -> " << type << "\n";
+                        cout << "Mundo ficara imcompleto \n";
+                        continue;
+                    }
+                    newGame->addTerritoryToWorld(terr);
+                }
+
+                cout << "Territorios lidos : " << fileLine << "";
+                delete currentGame;
+                currentGame = newGame;
+                //Created game from file
+                //TODO fix load from file
+            } else {
+                cout << "sintaxe valida -> carrega <nome_ficheiro>\n";
+            }
         }
 
-//Durante o jogo
+        //In Game ------------------------------------------------------------------------------------------------------
+        //Durante o jogo
         if (action == "grava") {
-            if (inputParts.size() != 2) {
-                string name = inputParts[1];
+            if (inputParts.size() == 2) {
+                string &name = inputParts[1];
                 if (!usedSaveGameName(name, savedGames)) {
                     saveGame(name, currentGame, savedGames);
                 } else {
                     cout << "Ja existe um jogo guardado com esse nome\n";
                 }
             } else {
-                cout << "sintaxe válida -> grava <nome_do_jogo>\n";
+                cout << "sintaxe valida -> grava <nome_do_jogo>\n";
             }
         } else if (action == "conquista") {
+            //conquista <nome> - Dá a ordem ao império para adquirir um determinado território
+            //neste turno desde que este esteja disponível no Mundo. O parâmetro nome indica
+            //qual o nome do território a conquistar (planicie1, duna3, etc.).
+
+            if (inputParts.size() == 2) {
+                int whatHappened = currentGame->conquer(inputParts[1]);
+                if (whatHappened == -1) {
+                    cout << "Nome de territorio invalido\n";
+                } else if (whatHappened == false) {
+                    cout << "Nao consegui conquistar\n";
+                }
+            } else {
+                cout << "sintaxe valida -> conquista <nome_do_territorio>\n";
+            }
 
         } else if (action == "lista") {
+            //lista <nome>- Obtém a informação do jogo, tanto globalmente como apenas de um
+            //território específico caso o seu nome seja indicado como parâmetro.
 
+            if (inputParts.size() == 1) {
+                currentGame->printGame(cout); // Print the whole game
+            } else if (inputParts.size() == 2) {
+                string &name = inputParts[1];
+                const Territorio *territory = currentGame->getTerritoryByName(name);
+                if (territory != nullptr) {
+                    cout << territory << endl;
+                } else {
+                    cout << "Territorio com esse nome nao encontrado\n";
+                }
+            } else {
+                cout << "sintaxe valida -> lista OU lista <nome_do_territorio>\n";
+            }
         } else if (action == "sair") {
+            exit = true;
             break;
         }
-
     }
 
     return 0;
 }
 
-}
-
-void saveGame(string name, Jogo *currentGame, vector<Jogo *> &otherGames) {
+void saveGame(const string &name, Jogo *currentGame, vector<Jogo *> &otherGames) {
     Jogo *gameCopy = new Jogo(currentGame);
+    gameCopy->setName(name);
     otherGames.push_back(gameCopy);
 }
 
-bool usedSaveGameName(string gameName, vector<Jogo *> &otherGames) {
-    for (int i = 0; i < otherGames.size(); ++i) {
-        if (otherGames[i].getName() == gameName) {
+bool usedSaveGameName(const string &gameName, vector<Jogo *> &otherGames) {
+    for (auto &otherGame : otherGames)
+        if (otherGame->getName() == gameName)
             return true;
-        }
-    }
     return false;
+}
+
+Territorio *createTerritoryFromType(const string &type) {
+    if (type == "planicie") return new Planicie;
+    if (type == "montanha") return new Montanha;
+    if (type == "fortaleza") return new Fortaleza;
+    if (type == "mina") return new Mina;
+    if (type == "duna") return new Duna;
+    if (type == "castelo") return new Castelo;
+    if (type == "refugio") return new Refugio;
+    if (type == "pescaria") return new Pescaria;
+    return nullptr;
 }
 
 

@@ -6,7 +6,9 @@
 #define TRABALHOPRATICO_CASTELO_H
 
 
-class Castelo {
+#include "Continente.h"
+
+class Castelo : public Continente {
 
 };
 

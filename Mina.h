@@ -5,8 +5,9 @@
 #ifndef TRABALHOPRATICO_MINA_H
 #define TRABALHOPRATICO_MINA_H
 
+#include "Continente.h"
 
-class Mina {
+class Mina : public Continente {
 
 };
 

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-std::vector<std::string> Utils::stringSplit(const std::string oriStr, const std::string delimiter) {
+std::vector<std::string> Utils::stringSplit(const std::string &oriStr, const std::string &delimiter) {
     vector<string> list;
     string str(oriStr);
     size_t pos;
@@ -18,4 +18,9 @@ std::vector<std::string> Utils::stringSplit(const std::string oriStr, const std:
     }
     list.push_back(str);
     return list;
+}
+
+
+int Utils::getRandom(int lower, int higher) {
+    return lower + (rand() % (higher - lower + 1));
 }

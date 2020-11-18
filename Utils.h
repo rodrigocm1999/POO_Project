@@ -12,7 +12,9 @@
 
 class Utils {
 public:
-    static std::vector<std::string> stringSplit(const std::string oriStr, std::string delimiter);
+    static std::vector<std::string> stringSplit(const std::string &oriStr, const std::string &delimiter);
+
+    static int getRandom(int lower, int higher);
 };
 
 

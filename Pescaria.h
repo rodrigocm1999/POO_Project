@@ -5,8 +5,9 @@
 #ifndef TRABALHOPRATICO_PESCARIA_H
 #define TRABALHOPRATICO_PESCARIA_H
 
+#include "Ilha.h"
 
-class Pescaria {
+class Pescaria : public Ilha{
 
 };
 

@@ -5,8 +5,9 @@
 #ifndef TRABALHOPRATICO_PLANICIE_H
 #define TRABALHOPRATICO_PLANICIE_H
 
+#include "Continente.h"
 
-class Planicie {
+class Planicie : public Continente {
 
 };
 

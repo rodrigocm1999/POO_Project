@@ -5,8 +5,9 @@
 #ifndef TRABALHOPRATICO_FORTALEZA_H
 #define TRABALHOPRATICO_FORTALEZA_H
 
+#include "Continente.h"
 
-class Fortaleza {
+class Fortaleza : public Continente {
 
 };
 

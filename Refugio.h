@@ -5,8 +5,9 @@
 #ifndef TRABALHOPRATICO_REFUGIO_H
 #define TRABALHOPRATICO_REFUGIO_H
 
+#include "Ilha.h"
 
-class Refugio {
+class Refugio : public Ilha {
 
 };
 

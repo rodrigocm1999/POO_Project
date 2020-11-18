@@ -5,8 +5,9 @@
 #ifndef TRABALHOPRATICO_MONTANHA_H
 #define TRABALHOPRATICO_MONTANHA_H
 
+#include "Continente.h"
 
-class Montanha {
+class Montanha : public Continente {
 
 };
 

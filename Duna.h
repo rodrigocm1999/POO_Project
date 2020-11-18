@@ -5,8 +5,12 @@
 #ifndef TRABALHOPRATICO_DUNA_H
 #define TRABALHOPRATICO_DUNA_H
 
+#include "Continente.h"
 
-class Duna {
+class Duna : public Continente {
+
+public:
+    std::string getType() const override { return Continente::getType() + "_Duna"; }
 
 };
 

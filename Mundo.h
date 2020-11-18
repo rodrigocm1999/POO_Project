@@ -11,8 +11,19 @@
 
 class Mundo {
 
-    std::vector<Territorio> territorios;
+    std::vector<Territorio *> territories;
 
+public:
+
+    virtual ~Mundo();
+
+    const std::vector<Territorio *> &getTerritories() const;
+
+    void setTerritories(const std::vector<Territorio *> &territories);
+
+    void addTerritory(Territorio *territory);
+
+    void gotConquered(const Territorio *territory);
 
 
 

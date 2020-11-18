@@ -10,6 +10,11 @@
 
 class Continente : public Territorio {
 
+public:
+    bool isContinent() const { return true; }
+
+    std::string getType() const { return "Continente"; }
+
 };
 
 

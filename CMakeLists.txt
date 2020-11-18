@@ -3,4 +3,4 @@ project(TrabalhoPratico)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(TrabalhoPratico main.cpp Imperio.cpp Imperio.h Mundo.cpp Mundo.h Utils.cpp Utils.h Jogo.cpp Jogo.h ComandoFase.cpp ComandoFase.h)
+add_executable(TrabalhoPratico main.cpp Imperio.cpp Imperio.h Mundo.cpp Mundo.h Utils.cpp Utils.h Jogo.cpp Jogo.h ComanFase.cpp ComanFase.h)
