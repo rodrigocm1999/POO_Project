@@ -6,7 +6,7 @@
 #define TRABALHOPRATICO_IMPERIO_H
 
 #include <vector>
-#include "Territorio.h"
+#include "Territorios/Territorio.h"
 
 class Imperio {
 

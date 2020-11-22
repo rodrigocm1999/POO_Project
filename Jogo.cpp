@@ -4,7 +4,7 @@
 
 #include "Jogo.h"
 #include "Utils.h"
-#include "TerritorioInicial.h"
+#include "Territorios/TerritorioInicial.h"
 
 using namespace std;
 

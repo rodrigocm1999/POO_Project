@@ -7,7 +7,7 @@
 
 
 #include <vector>
-#include "Territorio.h"
+#include "Territorios/Territorio.h"
 
 class Mundo {
 
