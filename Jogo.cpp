@@ -21,10 +21,12 @@ Jogo::Jogo(const Jogo *otherGame) {
 vector<Territorio *> Jogo::getAllTerritories() const {
 	vector<Territorio *> all;
 	vector<Territorio *> territoriesKingdom = kingdom.getTerritories();
+	vector<Territorio *> territoriesWorld = world.getTerritories();
+
+	all.reserve(territoriesKingdom.size() + territoriesWorld.size());
 	for (int i = 0; i < territoriesKingdom.size(); ++i) {
 		all.push_back(territoriesKingdom[i]);
 	}
-	vector<Territorio *> territoriesWorld = world.getTerritories();
 	for (int i = 0; i < territoriesWorld.size(); ++i) {
 		all.push_back(territoriesWorld[i]);
 	}

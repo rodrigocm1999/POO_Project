@@ -21,14 +21,13 @@
 #include "Territorio.h"
 #include "TerritorioInicial.h"
 #include "Utils.h"
+#include "GameSaver.h"
 
 using namespace std;
 
-void saveGame(const string &name, Jogo *currentGame, vector<Jogo *> &otherGames);
-
-bool usedSaveGameName(const string &gameName, vector<Jogo *> &otherGames);
-
 Territorio *createTerritoryFromType(const string &type);
+
+void printMenu();
 
 int main() {
 	srand((unsigned) time(nullptr));
@@ -43,12 +42,15 @@ int main() {
 								ComanFase("apaga", 1), ComanFase("toma", 1),
 								ComanFase("modifica", 1), ComanFase("fevento", 1)};
 
-	vector<Jogo *> savedGames;
+
+	GameSaver gameSaver;
 	Jogo *currentGame = new Jogo();
 
 	bool exit = false;
 
 	while (!exit) {
+
+		printMenu();
 
 		string inputString;
 		getline(cin, inputString);
@@ -124,8 +126,8 @@ int main() {
 		else if (action == "grava") {
 			if (inputParts.size() == 2) {
 				string &name = inputParts[1];
-				if (!usedSaveGameName(name, savedGames)) {
-					saveGame(name, currentGame, savedGames);
+				if (!gameSaver.usedSaveGameName(name)) {
+					gameSaver.saveGame(name, currentGame);
 				} else {
 					cout << "Ja existe um jogo guardado com esse nome\n";
 				}
@@ -178,17 +180,9 @@ int main() {
 	return 0;
 }
 
-void saveGame(const string &name, Jogo *currentGame, vector<Jogo *> &otherGames) {
-	Jogo *gameCopy = new Jogo(currentGame);
-	gameCopy->setName(name);
-	otherGames.push_back(gameCopy);
-}
-
-bool usedSaveGameName(const string &gameName, vector<Jogo *> &otherGames) {
-	for (auto &otherGame : otherGames)
-		if (otherGame->getName() == gameName)
-			return true;
-	return false;
+void printMenu() {
+	//TODO make this proper
+	cout << "Introduza o commando que deseja correr\n -> ";
 }
 
 Territorio *createTerritoryFromType(const string &type) {
