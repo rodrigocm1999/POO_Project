@@ -25,7 +25,7 @@ void Mundo::addTerritory(Territorio *territory) {
 }
 
 void Mundo::gotConquered(const Territorio *territory) {
-	for (vector<Territorio *>::iterator item = territories.begin(); item != territories.end(); ++item) {
+	for (auto item = territories.begin(); item != territories.end(); ++item) {
 		if (*item == territory) {
 			territories.erase(item);
 			return;
@@ -41,4 +41,3 @@ void Mundo::print(ostream &out) const {
 	}
 	out << "------------------------------ \n";
 }
-

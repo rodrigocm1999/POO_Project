@@ -12,11 +12,7 @@ class Fortaleza : public Continente {
 public:
     std::string getType() const override { return Continente::getType() + "_Fortaleza"; }
 
-    Fortaleza() {
-		static int idCounter = 0;
-		this->name = "Fortaleza" + std::to_string(++idCounter);
-        this->resistance = 8;
-    }
+    Fortaleza();
 };
 
 

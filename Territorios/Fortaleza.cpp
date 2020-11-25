@@ -3,3 +3,9 @@
 //
 
 #include "Fortaleza.h"
+
+Fortaleza::Fortaleza() {
+	static int idCounter = 0;
+	this->name = "Fortaleza" + std::to_string(++idCounter);
+	this->resistance = 8;
+}

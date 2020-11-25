@@ -12,12 +12,7 @@ class TerritorioInicial : public Territorio {
 public:
 	std::string getType() const override { return "Inicial"; }
 
-	TerritorioInicial() {
-		this->name = "territorio_inicial";
-		this->resistance = 9;
-		this->goldProduction = 1;
-		this->productProduction = 1;
-	}
+	TerritorioInicial();
 };
 
 

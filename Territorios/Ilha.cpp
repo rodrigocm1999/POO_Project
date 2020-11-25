@@ -4,3 +4,6 @@
 
 #include "Ilha.h"
 
+Ilha::Ilha() {
+	this->victoryPoints = 2;
+}

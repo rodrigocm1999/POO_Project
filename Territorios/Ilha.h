@@ -15,7 +15,7 @@ public:
 
     std::string getType() const { return "Ilha"; }
 
-    Ilha() { this->victoryPoints = 2; }
+    Ilha();
 };
 
 

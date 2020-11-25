@@ -3,3 +3,7 @@
 //
 
 #include "Continente.h"
+
+Continente::Continente() {
+	this->victoryPoints = 1;
+}

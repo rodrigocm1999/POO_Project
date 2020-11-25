@@ -14,46 +14,46 @@ class Jogo {
 private:
 
 	std::string gameName;
-    int turn = -1;
-    int phase = -1;
-    Mundo world;
-    Imperio kingdom;
+	int turn = -1;
+	int phase = -1;
+	Mundo world;
+	Imperio kingdom;
 
-    Territorio *getWorldTerritoryByName(const std::string &name) const;
+	Territorio *getWorldTerritoryByName(const std::string &name) const;
 
-    Territorio *getKingdomTerritoryByName(const std::string &name) const;
+	Territorio *getKingdomTerritoryByName(const std::string &name) const;
 
 public:
 
-    Jogo();
+	Jogo();
 
-    explicit Jogo(const Jogo *otherGame);
+	explicit Jogo(const Jogo *otherGame);
 
-	Jogo(std::ifstream &file,std::ostream &out);
+	Jogo(std::ifstream &file, std::ostream &out);
 
-    void addTerritoryToWorld(Territorio *newTerritory);
+	void addTerritoryToWorld(Territorio *newTerritory);
 
-    int conquer(std::string &territoryName);
+	int conquer(std::string &territoryName);
 
-    bool isInProgress() const { return turn > 0; }
+	bool isInProgress() const { return turn > 0; }
 
-    const std::string &getName() const { return gameName; }
+	const std::string &getName() const { return gameName; }
 
-    int getTurn() const { return turn; }
+	int getTurn() const { return turn; }
 
-    int getPhase() const { return phase; }
+	int getPhase() const { return phase; }
 
-    const Mundo &getWorld() const { return world; }
+	const Mundo &getWorld() const { return world; }
 
-    const Imperio &getKingdom() const { return kingdom; }
+	const Imperio &getKingdom() const { return kingdom; }
 
-    void setName(const std::string &_name) { gameName = _name; }
+	void setName(const std::string &_name) { gameName = _name; }
 
-    const Territorio *getTerritoryByName(const std::string &name) const;
+	const Territorio *getTerritoryByName(const std::string &name) const;
 
-    std::vector<Territorio *> getAllTerritories() const;
+	std::vector<Territorio *> getAllTerritories() const;
 
-    void printGame(std::ostream &out) const;
+	void printGame(std::ostream &out) const;
 
 	static Territorio *createTerritoryFromType(const std::string &type);
 };

@@ -3,3 +3,10 @@
 //
 
 #include "TerritorioInicial.h"
+
+TerritorioInicial::TerritorioInicial() {
+	this->name = "territorio_inicial";
+	this->resistance = 9;
+	this->goldProduction = 1;
+	this->productProduction = 1;
+}

@@ -30,35 +30,17 @@ public:
 
 	virtual std::string getType() const { return ""; }
 
-	const std::string &getName() const {
-		return name;
-	}
+	const std::string &getName() const { return name; }
 
-	int getResistance() const {
-		return resistance;
-	}
+	int getResistance() const { return resistance; }
 
-	int getProductProduction() const {
-		return productProduction;
-	}
+	int getProductProduction() const { return productProduction; }
 
-	int getGoldProduction() const {
-		return goldProduction;
-	}
+	int getGoldProduction() const { return goldProduction; }
 
-	int getVictoryPoints() const {
-		return victoryPoints;
-	}
+	int getVictoryPoints() const { return victoryPoints; }
 
-	friend std::ostream &operator<<(std::ostream &os, const Territorio &terr) {
-		os << "tipo : " << terr.getType()
-		   << ", nome: " << terr.name
-		   << ", resistencia: " << terr.resistance
-		   << ", produtos: " << terr.productProduction
-		   << ", ouro: " << terr.goldProduction
-		   << ", pontos: " << terr.victoryPoints;
-		return os;
-	}
+	friend std::ostream &operator<<(std::ostream &os, const Territorio &terr);
 
 };
 
