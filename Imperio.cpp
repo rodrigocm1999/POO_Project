@@ -47,6 +47,8 @@ void Imperio::gotConquered(Territorio *conquered) {
 }
 
 void Imperio::print(std::ostream &out) const {
+	out << "Imperio --------------------- \nArmazem : " << getWarehouse() << "\tCofre : " << getSafe()
+		<< "\tForca Militar : " << getMilitaryForce() << "\n";
 	out << "Todos os territorios do Imperio (quantidade : " << getSize() << " ) : \n";
 	for (Territorio *territory : territories) {
 		out << "\t" << *territory << "\n";

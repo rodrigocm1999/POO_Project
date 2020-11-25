@@ -4,28 +4,14 @@
 #include <ctime>
 #include <fstream>
 
-#include "Territorios/Castelo.h"
-#include "Territorios/Continente.h"
 #include "ComanFase.h"
-#include "Territorios/Duna.h"
-#include "Territorios/Fortaleza.h"
-#include "Territorios/Ilha.h"
 #include "Imperio.h"
 #include "Jogo.h"
-#include "Territorios/Mina.h"
-#include "Territorios/Montanha.h"
-#include "Mundo.h"
-#include "Territorios/Pescaria.h"
-#include "Territorios/Planicie.h"
-#include "Territorios/Refugio.h"
-#include "Territorios/Territorio.h"
-#include "Territorios/TerritorioInicial.h"
+
 #include "Utils.h"
 #include "GameSaver.h"
 
 using namespace std;
-
-Territorio *createTerritoryFromType(const string &type);
 
 void printMenu();
 
@@ -72,7 +58,7 @@ int main() {
 				string &type = inputParts[1];
 
 				for (int i = 0; i < amount; ++i) {
-					Territorio *newTerritory = createTerritoryFromType(type);
+					Territorio *newTerritory = Jogo::createTerritoryFromType(type);
 					currentGame->addTerritoryToWorld(newTerritory);
 				}
 			} else {
@@ -82,39 +68,14 @@ int main() {
 			if (inputParts.size() == 2) {
 				string filePath = inputParts[1];
 				ifstream file(filePath);
-				if (file.is_open()) {
+				if (!file.is_open()) {
+					cout << "Couldnt open file : " << filePath << " \n";
+				} else {
 
-					Jogo *newGame = new Jogo;
-					int fileLine = 0;
-					string line;
-					string type;
-					int amount;
-
-					while (getline(file, line)) {
-						cout << "read line : " << line << " \n";
-						fileLine++;
-						istringstream stringStream(line);
-
-						stringStream >> type;
-						stringStream >> amount;
-
-						for (int i = 0; i < amount; i++) {
-							Territorio *terr = createTerritoryFromType(type);
-							if (terr != nullptr) newGame->addTerritoryToWorld(terr);
-							else {
-								cout << "Ficheiro contem tipos inválidos na linha : " << fileLine << " -> " << type
-									 << "\nMundo ficara imcompleto \n";
-								break;
-							}
-						}
-					}
-
-					cout << "Territorios lidos : " << fileLine << " \n";
+					Jogo *newGame = new Jogo(file,cout);
 					delete currentGame;
 					currentGame = newGame;
 					currentGame->printGame(cout);
-				} else {
-					cout << "Couldnt open file : " << filePath << " \n";
 				}
 			} else {
 				cout << "sintaxe valida -> carrega <nome_ficheiro>\n";
@@ -184,18 +145,4 @@ void printMenu() {
 	//TODO make this proper
 	cout << "Introduza o commando que deseja correr\n -> ";
 }
-
-Territorio *createTerritoryFromType(const string &type) {
-	if (type == "planicie") return new Planicie;
-	if (type == "montanha") return new Montanha;
-	if (type == "fortaleza") return new Fortaleza;
-	if (type == "mina") return new Mina;
-	if (type == "duna") return new Duna;
-	if (type == "castelo") return new Castelo;
-	if (type == "refugio") return new Refugio;
-	if (type == "pescaria") return new Pescaria;
-	return nullptr;
-}
-
-
 

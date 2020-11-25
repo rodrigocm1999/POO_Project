@@ -50,13 +50,13 @@ public:
 		return victoryPoints;
 	}
 
-	friend std::ostream &operator<<(std::ostream &os, const Territorio &territorio) {
-		os << "tipo : " << territorio.getType()
-		   << ", nome: " << territorio.name
-		   << ", resistencia: " << territorio.resistance
-		   << ", produtos: " << territorio.productProduction
-		   << ", ouro: " << territorio.goldProduction
-		   << ", pontos: " << territorio.victoryPoints;
+	friend std::ostream &operator<<(std::ostream &os, const Territorio &terr) {
+		os << "tipo : " << terr.getType()
+		   << ", nome: " << terr.name
+		   << ", resistencia: " << terr.resistance
+		   << ", produtos: " << terr.productProduction
+		   << ", ouro: " << terr.goldProduction
+		   << ", pontos: " << terr.victoryPoints;
 		return os;
 	}
 
