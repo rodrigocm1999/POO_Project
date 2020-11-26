@@ -77,6 +77,7 @@ void Jogo::printGame(ostream &out) const {
 	out << "Turno : " << getTurn() << " \tFase : " << getPhase() << "\n";
 
 	kingdom.print(out);
+	out << "------------------------------ \n";
 	world.print(out);
 	//TODO adicionar tecnologias e restantes cenas
 }
@@ -107,7 +108,7 @@ int Jogo::conquer(std::string &territoryName) {
 	return false;
 }
 
-Jogo::Jogo(ifstream &file,ostream &out) : Jogo() {
+Jogo::Jogo(ifstream &file, ostream &out) : Jogo() {
 
 	int fileLine = 0;
 	string line;
@@ -126,7 +127,7 @@ Jogo::Jogo(ifstream &file,ostream &out) : Jogo() {
 			if (terr != nullptr) this->addTerritoryToWorld(terr);
 			else {
 				out << "Ficheiro contem tipos inválidos na linha : " << fileLine << " -> " << type
-					 << "\nMundo ficara imcompleto \n";
+					<< "\nMundo ficara imcompleto \n";
 				break;
 			}
 		}

@@ -10,34 +10,32 @@
 
 class Imperio {
 
-    std::vector<Territorio *> territories;
-    int warehouse = 3;
-    int safe = 3;
-    int militaryForce = 0;
+	std::vector<Territorio *> territories;
+	int warehouse = 3;
+	int safe = 3;
+	int militaryForce = 0;
 
 public:
 
-    const std::vector<Territorio *> &getTerritories() const;
+	const std::vector<Territorio *> &getTerritories() const;
 
-    virtual ~Imperio();
+	virtual ~Imperio();
 
-    int getWarehouse() const;
+	int getProducts() const;
 
-    void setWarehouse(int warehouse);
+	int getProductsCapacity() const;
 
-    int getSafe() const;
+	int getGold() const;
 
-    void setSafe(int safe);
+	int getGoldCapacity() const;
 
-    int getMilitaryForce() const;
+	int getMilitaryForce() const;
 
-    void setMilitaryForce(int militaryForce);
+	int getSize() const;
 
-    int getSize() const;
+	void gotConquered(Territorio *conquered);
 
-    void gotConquered(Territorio *conquered);
-
-    void print(std::ostream &out) const;
+	void print(std::ostream &out) const;
 };
 
 

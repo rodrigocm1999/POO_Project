@@ -34,7 +34,7 @@ void Mundo::gotConquered(const Territorio *territory) {
 }
 
 void Mundo::print(ostream &out) const {
-	out << "------------------------------ \nTerritorios no mundo (quantidade : "
+	out << "Territorios no mundo (quantidade : "
 		<< territories.size() << " ) : \n";
 	for (Territorio *territory : territories) {
 		out << "\t" << *territory << endl;
