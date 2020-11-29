@@ -2,22 +2,22 @@
 // Created by Rodrigo on 17/11/2020.
 //
 
-#ifndef TRABALHOPRATICO_JOGO_H
-#define TRABALHOPRATICO_JOGO_H
+#ifndef TRABALHOPRATICO_GAME_H
+#define TRABALHOPRATICO_GAME_H
 
 
-#include "Mundo.h"
-#include "Imperio.h"
+#include "World.h"
+#include "Kingdom.h"
 
-class Jogo {
+class Game {
 
 private:
 
 	std::string gameName;
 	int turn = -1;
 	int phase = -1;
-	Mundo world;
-	Imperio kingdom;
+	World world;
+	Kingdom kingdom;
 
 	Territorio *getWorldTerritoryByName(const std::string &name) const;
 
@@ -25,11 +25,11 @@ private:
 
 public:
 
-	Jogo();
+	Game();
 
-	explicit Jogo(const Jogo *otherGame);
+	explicit Game(const Game *otherGame);
 
-	Jogo(std::ifstream &file, std::ostream &out);
+	Game(std::ifstream &file, std::ostream &out);
 
 	void addTerritoryToWorld(Territorio *newTerritory);
 
@@ -43,9 +43,9 @@ public:
 
 	int getPhase() const { return phase; }
 
-	const Mundo &getWorld() const { return world; }
+	const World &getWorld() const { return world; }
 
-	const Imperio &getKingdom() const { return kingdom; }
+	const Kingdom &getKingdom() const { return kingdom; }
 
 	void setName(const std::string &_name) { gameName = _name; }
 
@@ -59,4 +59,4 @@ public:
 };
 
 
-#endif //TRABALHOPRATICO_JOGO_H
+#endif //TRABALHOPRATICO_GAME_H

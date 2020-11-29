@@ -2,20 +2,20 @@
 // Created by Rodrigo on 17/11/2020.
 //
 
-#ifndef TRABALHOPRATICO_MUNDO_H
-#define TRABALHOPRATICO_MUNDO_H
+#ifndef TRABALHOPRATICO_WORLD_H
+#define TRABALHOPRATICO_WORLD_H
 
 
 #include <vector>
 #include "Territorios/Territorio.h"
 
-class Mundo {
+class World {
 
     std::vector<Territorio *> territories;
 
 public:
 
-    virtual ~Mundo();
+    virtual ~World();
 
     const std::vector<Territorio *> &getTerritories() const;
 
@@ -30,4 +30,4 @@ public:
 };
 
 
-#endif //TRABALHOPRATICO_MUNDO_H
+#endif //TRABALHOPRATICO_WORLD_H

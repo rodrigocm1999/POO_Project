@@ -2,29 +2,29 @@
 // Created by Rodrigo on 17/11/2020.
 //
 
-#include "Mundo.h"
+#include "World.h"
 
 using namespace std;
 
-const std::vector<Territorio *> &Mundo::getTerritories() const {
+const std::vector<Territorio *> &World::getTerritories() const {
 	return territories;
 }
 
-void Mundo::setTerritories(const std::vector<Territorio *> &territories) {
-	Mundo::territories = territories;
+void World::setTerritories(const std::vector<Territorio *> &territories) {
+	World::territories = territories;
 }
 
-Mundo::~Mundo() {
+World::~World() {
 	for (Territorio *item : territories) {
 		delete item;
 	}
 }
 
-void Mundo::addTerritory(Territorio *territory) {
+void World::addTerritory(Territorio *territory) {
 	territories.push_back(territory);
 }
 
-void Mundo::gotConquered(const Territorio *territory) {
+void World::gotConquered(const Territorio *territory) {
 	for (auto item = territories.begin(); item != territories.end(); ++item) {
 		if (*item == territory) {
 			territories.erase(item);
@@ -33,7 +33,7 @@ void Mundo::gotConquered(const Territorio *territory) {
 	}
 }
 
-void Mundo::print(ostream &out) const {
+void World::print(ostream &out) const {
 	out << "Territorios no mundo (quantidade : "
 		<< territories.size() << " ) : \n";
 	for (Territorio *territory : territories) {

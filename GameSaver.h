@@ -7,15 +7,15 @@
 
 #include <vector>
 #include <string>
-#include "Jogo.h"
+#include "Game.h"
 
 class GameSaver {
 
-	std::vector<Jogo *> savedGames;
+	std::vector<Game *> savedGames;
 
 public:
 
-	void saveGame(const std::string &name, Jogo *currentGame);
+	void saveGame(const std::string &name, Game *currentGame);
 
 	bool usedSaveGameName(const std::string &gameName);
 };

@@ -2,11 +2,11 @@
 // Created by Rodrigo on 17/11/2020.
 //
 
-#include "Jogo.h"
+#include "Game.h"
 #include "Utils.h"
 
-#include "Mundo.h"
-#include "Imperio.h"
+#include "World.h"
+#include "Kingdom.h"
 
 #include "Territorios/Castelo.h"
 #include "Territorios/Continente.h"
@@ -26,17 +26,17 @@
 
 using namespace std;
 
-Jogo::Jogo() {
+Game::Game() {
 	kingdom.gotConquered(new TerritorioInicial);;
 }
 
-Jogo::Jogo(const Jogo *otherGame) {
+Game::Game(const Game *otherGame) {
 
 	//TODO create a full game copy
 
 }
 
-vector<Territorio *> Jogo::getAllTerritories() const {
+vector<Territorio *> Game::getAllTerritories() const {
 	vector<Territorio *> all;
 	vector<Territorio *> territoriesKingdom = kingdom.getTerritories();
 	vector<Territorio *> territoriesWorld = world.getTerritories();
@@ -51,12 +51,12 @@ vector<Territorio *> Jogo::getAllTerritories() const {
 	return all;
 }
 
-const Territorio *Jogo::getTerritoryByName(const string &name) const {
+const Territorio *Game::getTerritoryByName(const string &name) const {
 	Territorio *land = getWorldTerritoryByName(name);
 	return land != nullptr ? land : getKingdomTerritoryByName(name);
 }
 
-Territorio *Jogo::getWorldTerritoryByName(const string &name) const {
+Territorio *Game::getWorldTerritoryByName(const string &name) const {
 	vector<Territorio *> territoriesWorld = world.getTerritories();
 	for (auto &territory : territoriesWorld) {
 		if (territory->getName() == name) return territory;
@@ -64,7 +64,7 @@ Territorio *Jogo::getWorldTerritoryByName(const string &name) const {
 	return nullptr;
 }
 
-Territorio *Jogo::getKingdomTerritoryByName(const string &name) const {
+Territorio *Game::getKingdomTerritoryByName(const string &name) const {
 	vector<Territorio *> territoriesKingdom = kingdom.getTerritories();
 	for (auto &territory : territoriesKingdom) {
 		if (territory->getName() == name) return territory;
@@ -72,7 +72,7 @@ Territorio *Jogo::getKingdomTerritoryByName(const string &name) const {
 	return nullptr;
 }
 
-void Jogo::printGame(ostream &out) const {
+void Game::printGame(ostream &out) const {
 
 	out << "Turno : " << getTurn() << " \tFase : " << getPhase() << "\n";
 
@@ -82,11 +82,11 @@ void Jogo::printGame(ostream &out) const {
 	//TODO adicionar tecnologias e restantes cenas
 }
 
-void Jogo::addTerritoryToWorld(Territorio *territory) {
+void Game::addTerritoryToWorld(Territorio *territory) {
 	world.addTerritory(territory);
 }
 
-int Jogo::conquer(std::string &territoryName) {
+int Game::conquer(std::string &territoryName) {
 	Territorio *toConquer = getWorldTerritoryByName(territoryName);
 	if (toConquer == nullptr) return -1;
 	if (toConquer->isIsland()) { // check if has requirements to conquer island
@@ -108,7 +108,7 @@ int Jogo::conquer(std::string &territoryName) {
 	return false;
 }
 
-Jogo::Jogo(ifstream &file, ostream &out) : Jogo() {
+Game::Game(ifstream &file, ostream &out) : Game() {
 
 	int fileLine = 0;
 	string line;
@@ -123,7 +123,7 @@ Jogo::Jogo(ifstream &file, ostream &out) : Jogo() {
 		stringStream >> amount;
 
 		for (int i = 0; i < amount; i++) {
-			Territorio *terr = Jogo::createTerritoryFromType(type);
+			Territorio *terr = Game::createTerritoryFromType(type);
 			if (terr != nullptr) this->addTerritoryToWorld(terr);
 			else {
 				out << "Ficheiro contem tipos inválidos na linha : " << fileLine << " -> " << type
@@ -134,7 +134,7 @@ Jogo::Jogo(ifstream &file, ostream &out) : Jogo() {
 	}
 }
 
-Territorio *Jogo::createTerritoryFromType(const string &type) {
+Territorio *Game::createTerritoryFromType(const string &type) {
 	if (type == "planicie") return new Planicie;
 	if (type == "montanha") return new Montanha;
 	if (type == "fortaleza") return new Fortaleza;

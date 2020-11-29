@@ -2,13 +2,13 @@
 // Created by Rodrigo on 17/11/2020.
 //
 
-#ifndef TRABALHOPRATICO_IMPERIO_H
-#define TRABALHOPRATICO_IMPERIO_H
+#ifndef TRABALHOPRATICO_KINGDOM_H
+#define TRABALHOPRATICO_KINGDOM_H
 
 #include <vector>
 #include "Territorios/Territorio.h"
 
-class Imperio {
+class Kingdom {
 
 	std::vector<Territorio *> territories;
 	int warehouse = 3;
@@ -19,7 +19,7 @@ public:
 
 	const std::vector<Territorio *> &getTerritories() const;
 
-	virtual ~Imperio();
+	virtual ~Kingdom();
 
 	int getProducts() const;
 
@@ -39,4 +39,4 @@ public:
 };
 
 
-#endif //TRABALHOPRATICO_IMPERIO_H
+#endif //TRABALHOPRATICO_KINGDOM_H

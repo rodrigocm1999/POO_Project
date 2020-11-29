@@ -4,9 +4,9 @@
 #include <ctime>
 #include <fstream>
 
-#include "ComanFase.h"
-#include "Imperio.h"
-#include "Jogo.h"
+#include "PhaseCommand.h"
+#include "Kingdom.h"
+#include "Game.h"
 
 #include "Utils.h"
 #include "GameSaver.h"
@@ -18,19 +18,19 @@ void printMenu();
 int main() {
 	srand((unsigned) time(nullptr));
 
-	ComanFase phaseCommand[] = {ComanFase("conquista", 1), ComanFase("passa", 1),
-								ComanFase("maisouro", 1), ComanFase("maisprod", 1),
-								ComanFase("maismilitar", 1), ComanFase("adquire", 1),
-								ComanFase("lista", 1), ComanFase("avanca", 1),
-								ComanFase("maismilitar", 1), ComanFase("adquire", 1),
-								ComanFase("lista", 1), ComanFase("avanca", 1),
-								ComanFase("grava", 1), ComanFase("ativa", 1),
-								ComanFase("apaga", 1), ComanFase("toma", 1),
-								ComanFase("modifica", 1), ComanFase("fevento", 1)};
+	PhaseCommand phaseCommand[] = {PhaseCommand("conquista", 1), PhaseCommand("passa", 1),
+								   PhaseCommand("maisouro", 1), PhaseCommand("maisprod", 1),
+								   PhaseCommand("maismilitar", 1), PhaseCommand("adquire", 1),
+								   PhaseCommand("lista", 1), PhaseCommand("avanca", 1),
+								   PhaseCommand("maismilitar", 1), PhaseCommand("adquire", 1),
+								   PhaseCommand("lista", 1), PhaseCommand("avanca", 1),
+								   PhaseCommand("grava", 1), PhaseCommand("ativa", 1),
+								   PhaseCommand("apaga", 1), PhaseCommand("toma", 1),
+								   PhaseCommand("modifica", 1), PhaseCommand("fevento", 1)};
 
 
 	GameSaver gameSaver;
-	Jogo *currentGame = new Jogo();
+	Game *currentGame = new Game();
 
 	bool exit = false;
 
@@ -58,7 +58,7 @@ int main() {
 				string &type = inputParts[1];
 
 				for (int i = 0; i < amount; ++i) {
-					Territorio *newTerritory = Jogo::createTerritoryFromType(type);
+					Territorio *newTerritory = Game::createTerritoryFromType(type);
 					currentGame->addTerritoryToWorld(newTerritory);
 				}
 			} else {
@@ -72,7 +72,7 @@ int main() {
 					cout << "Couldnt open file : " << filePath << " \n";
 				} else {
 
-					Jogo *newGame = new Jogo(file,cout);
+					Game *newGame = new Game(file, cout);
 					delete currentGame;
 					currentGame = newGame;
 					currentGame->printGame(cout);
@@ -97,7 +97,7 @@ int main() {
 			}
 		} else if (action == "conquista") {
 			//conquista <nome> - Dá a ordem ao império para adquirir um determinado território
-			//neste turno desde que este esteja disponível no Mundo. O parâmetro nome indica
+			//neste turno desde que este esteja disponível no World. O parâmetro nome indica
 			//qual o nome do território a conquistar (planicie1, duna3, etc.).
 
 			if (inputParts.size() == 2) {
