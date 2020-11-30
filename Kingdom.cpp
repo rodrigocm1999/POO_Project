@@ -4,6 +4,8 @@
 
 #include "Kingdom.h"
 
+using namespace std;
+
 const std::vector<Territorio *> &Kingdom::getTerritories() const {
 	return territories;
 }
@@ -50,4 +52,11 @@ void Kingdom::print(std::ostream &out) const {
 	for (Territorio *territory : territories) {
 		out << "\t" << *territory << "\n";
 	}
+}
+
+Territorio *Kingdom::getTerritoryByName(const string &name) {
+	for (auto &territory : territories) {
+		if (territory->getName() == name) return territory;
+	}
+	return nullptr;
 }

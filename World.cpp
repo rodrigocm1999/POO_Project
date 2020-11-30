@@ -41,3 +41,10 @@ void World::print(ostream &out) const {
 	}
 	out << "------------------------------ \n";
 }
+
+Territorio *World::getTerritoryByName(const string &name) {
+	for (auto &territory : territories) {
+		if (territory->getName() == name) return territory;
+	}
+	return nullptr;
+}

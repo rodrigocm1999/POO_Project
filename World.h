@@ -27,6 +27,8 @@ public:
 
 	void print(std::ostream &out) const;
 
+	Territorio *getTerritoryByName(const std::string &name);
+
 };
 
 

@@ -12,7 +12,7 @@
 class GameInterface {
 
 	GameSaver gameSaver;
-	Game *currentGame = new Game();
+	Game *currentGame;
 	const PhaseCommand *phaseCommand;
 
 	void handleCreationCommand(std::ostream &out, std::vector<std::string> &inputParts);

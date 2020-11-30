@@ -54,25 +54,9 @@ vector<Territorio *> Game::getAllTerritories() const {
 	return all;
 }
 
-const Territorio *Game::getTerritoryByName(const string &name) const {
-	Territorio *land = getWorldTerritoryByName(name);
-	return land != nullptr ? land : getKingdomTerritoryByName(name);
-}
-
-Territorio *Game::getWorldTerritoryByName(const string &name) const {
-	vector<Territorio *> territoriesWorld = world.getTerritories();
-	for (auto &territory : territoriesWorld) {
-		if (territory->getName() == name) return territory;
-	}
-	return nullptr;
-}
-
-Territorio *Game::getKingdomTerritoryByName(const string &name) const {
-	vector<Territorio *> territoriesKingdom = kingdom.getTerritories();
-	for (auto &territory : territoriesKingdom) {
-		if (territory->getName() == name) return territory;
-	}
-	return nullptr;
+const Territorio *Game::getTerritoryByName(const string &name) {
+	Territorio *land = world.getTerritoryByName(name);
+	return land != nullptr ? land : kingdom.getTerritoryByName(name);
 }
 
 void Game::printGame(ostream &out) const {
@@ -88,7 +72,7 @@ void Game::addTerritoryToWorld(Territorio *territory) {
 }
 
 int Game::conquer(std::string &territoryName) {
-	Territorio *toConquer = getWorldTerritoryByName(territoryName);
+	Territorio *toConquer = world.getTerritoryByName(territoryName);
 	if (toConquer == nullptr) return -1;
 	if (toConquer->isIsland()) { // check if has requirements to conquer island
 		//TODO if has technology required "Misseis Teleguiados"

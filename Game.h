@@ -19,10 +19,6 @@ private:
 	World world;
 	Kingdom kingdom;
 
-	Territorio *getWorldTerritoryByName(const std::string &name) const;
-
-	Territorio *getKingdomTerritoryByName(const std::string &name) const;
-
 public:
 
 	Game();
@@ -37,7 +33,7 @@ public:
 
 	int conquer(std::string &territoryName);
 
-	bool isInProgress() const { return turn > 0; } // TODO change this to make sense
+	bool isInProgress() const { return turn > 0; }
 
 	const std::string &getName() const { return gameName; }
 
@@ -49,9 +45,9 @@ public:
 
 	const Kingdom &getKingdom() const { return kingdom; }
 
-	void setName(const std::string &_name) { gameName = _name; }
+	void setName(const std::string &name) { gameName = name; }
 
-	const Territorio *getTerritoryByName(const std::string &name) const;
+	const Territorio *getTerritoryByName(const std::string &name);
 
 	std::vector<Territorio *> getAllTerritories() const;
 

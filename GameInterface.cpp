@@ -10,6 +10,8 @@
 using namespace std;
 
 GameInterface::GameInterface() {
+	currentGame = new Game();
+
 	phaseCommand = new PhaseCommand[]
 			{PhaseCommand("conquista", 1), PhaseCommand("passa", 1),
 			 PhaseCommand("maisouro", 1), PhaseCommand("maisprod", 1),
@@ -25,7 +27,7 @@ GameInterface::GameInterface() {
 
 void GameInterface::printMenu(ostream &out) {
 	//TODO make this proper
-	out << "Introduza o commando que deseja correr\n -> ";
+	out << "\nIntroduza o commando que deseja correr\n ->";
 }
 
 void GameInterface::handleCommand(ostream &out, vector<std::string> &inputParts) {
@@ -56,16 +58,16 @@ void GameInterface::handleCommand(ostream &out, vector<std::string> &inputParts)
 		return;
 	}
 
-	// Pre Game ----------------------------------------------------------------------------------------------------
-	//Criação do jogo
 	//if (!currentGame->isInProgress()) {
-		handleCreationCommand(out, inputParts);
+	handleCreationCommand(out, inputParts);
 	//} else {
-		handleGameCommand(out, inputParts);
+	handleGameCommand(out, inputParts);
 	//}
 }
 
 void GameInterface::handleCreationCommand(ostream &out, vector<std::string> &inputParts) {
+	// Pre Game ----------------------------------------------------------------------------------------------------
+	//Criação do jogo
 	const string &action = inputParts[0];
 
 	if (action == "cria") {
@@ -87,7 +89,7 @@ void GameInterface::handleCreationCommand(ostream &out, vector<std::string> &inp
 			string filePath = inputParts[1];
 			ifstream file(filePath);
 			if (!file.is_open()) {
-				out << "Couldnt open file : " << filePath << " \n";
+				out << "Nao foi possivel abrir o ficheiro : " << filePath << " \n";
 			} else {
 				Game *newGame = new Game(file, cout);
 				delete currentGame;
@@ -95,10 +97,10 @@ void GameInterface::handleCreationCommand(ostream &out, vector<std::string> &inp
 				currentGame->printGame(cout);
 			}
 		} else {
-			out << "sintaxe valida -> carrega <nome_ficheiro>\n";
+			out << "Sintaxe valida -> carrega <nome_ficheiro>\n";
 		}
-	}else{
-		out << "comando invalido para a criacao do jogo\n";
+	} else {
+		out << "Comando invalido para a criacao do jogo\n";
 	}
 }
 
@@ -134,10 +136,10 @@ void GameInterface::handleGameCommand(ostream &out, vector<std::string> &inputPa
 				out << "Conquistado com sucesso\n";
 			}
 		} else {
-			out << "sintaxe valida -> conquista <nome_do_territorio>\n";
+			out << "Sintaxe valida -> conquista <nome_do_territorio>\n";
 		}
-	} else{
-		out << "comando invalido para durante o jogo\n";
+	} else {
+		out << "Comando invalido para durante o jogo\n";
 	}
 }
 
