@@ -31,11 +31,13 @@ public:
 
 	Game(std::ifstream &file, std::ostream &out);
 
+	virtual ~Game();
+
 	void addTerritoryToWorld(Territorio *newTerritory);
 
 	int conquer(std::string &territoryName);
 
-	bool isInProgress() const { return turn > 0; }
+	bool isInProgress() const { return turn > 0; } // TODO change this to make sense
 
 	const std::string &getName() const { return gameName; }
 

@@ -4,4 +4,15 @@
 
 #include "PhaseCommand.h"
 
-PhaseCommand::PhaseCommand(const std::string command, int phase) : command(command), phase(phase) {}
+PhaseCommand::PhaseCommand(const std::string &command, int phase) {
+	this->command = command;
+	this->phase = phase;
+}
+
+const std::string &PhaseCommand::getCommand() const {
+	return command;
+}
+
+int PhaseCommand::getPhase() const {
+	return phase;
+}

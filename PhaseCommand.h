@@ -9,12 +9,15 @@
 #include <string>
 
 class PhaseCommand {
+	std::string command;
+	int phase;
 
 public:
-    std::string command;
-    int phase;
+	PhaseCommand(const std::string &command, int phase);
 
-    PhaseCommand(const std::string command, int phase);
+	const std::string &getCommand() const;
+
+	int getPhase() const;
 };
 
 

@@ -27,7 +27,7 @@
 using namespace std;
 
 Game::Game() {
-	kingdom.gotConquered(new TerritorioInicial);;
+	kingdom.gotConquered(new TerritorioInicial);
 }
 
 Game::Game(const Game *otherGame) {
@@ -36,18 +36,21 @@ Game::Game(const Game *otherGame) {
 
 }
 
+Game::~Game() {
+	//Doesnt need to do anything because the objects are not dynamically allocated
+}
+
 vector<Territorio *> Game::getAllTerritories() const {
-	vector<Territorio *> all;
 	vector<Territorio *> territoriesKingdom = kingdom.getTerritories();
 	vector<Territorio *> territoriesWorld = world.getTerritories();
 
+	vector<Territorio *> all;
 	all.reserve(territoriesKingdom.size() + territoriesWorld.size());
-	for (int i = 0; i < territoriesKingdom.size(); ++i) {
-		all.push_back(territoriesKingdom[i]);
-	}
-	for (int i = 0; i < territoriesWorld.size(); ++i) {
-		all.push_back(territoriesWorld[i]);
-	}
+
+	for (auto i : territoriesKingdom)
+		all.push_back(i);
+	for (auto i : territoriesWorld)
+		all.push_back(i);
 	return all;
 }
 
@@ -73,9 +76,7 @@ Territorio *Game::getKingdomTerritoryByName(const string &name) const {
 }
 
 void Game::printGame(ostream &out) const {
-
 	out << "Turno : " << getTurn() << " \tFase : " << getPhase() << "\n";
-
 	kingdom.print(out);
 	out << "------------------------------ \n";
 	world.print(out);
