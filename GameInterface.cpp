@@ -79,8 +79,13 @@ void GameInterface::handleCreationCommand(ostream &out, vector<std::string> &inp
 
 			for (int i = 0; i < amount; ++i) {
 				Territorio *newTerritory = Game::createTerritoryFromType(type);
-				currentGame->addTerritoryToWorld(newTerritory);
+				if (newTerritory != nullptr) currentGame->addTerritoryToWorld(newTerritory);
+				else {
+					out << "tipo de territorio invalido : " << type << endl;
+					break;
+				}
 			}
+			out << type << " criado(a) na fase de criacao\n";
 		} else {
 			out << "sintaxe valida -> cria <tipo> <quantidade>\n";
 		}
@@ -95,6 +100,7 @@ void GameInterface::handleCreationCommand(ostream &out, vector<std::string> &inp
 				delete currentGame;
 				currentGame = newGame;
 				currentGame->printGame(cout);
+				out << "Carregado o ficheiro com sucesso\n";
 			}
 		} else {
 			out << "Sintaxe valida -> carrega <nome_ficheiro>\n";
