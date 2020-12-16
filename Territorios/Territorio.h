@@ -21,7 +21,7 @@ protected:
 	int victoryPoints = 0;
 
 public:
-//TODO saber porque é que da problemas de linkagem se colocar os construtores no cpp em todas as classes
+
 	Territorio() = default;
 
 	virtual bool isContinent() const { return false; }

@@ -16,3 +16,7 @@ const std::string &PhaseCommand::getCommand() const {
 int PhaseCommand::getPhase() const {
 	return phase;
 }
+
+PhaseCommand::PhaseCommand() {
+
+}

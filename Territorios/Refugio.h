@@ -9,6 +9,8 @@
 
 class Refugio : public Ilha {
 
+	static int idCounter;
+
 public:
 	std::string getType() const override { return Ilha::getType() + "_Refugio"; }
 

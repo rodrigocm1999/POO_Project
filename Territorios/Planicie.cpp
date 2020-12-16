@@ -4,8 +4,9 @@
 
 #include "Planicie.h"
 
+int Planicie::idCounter = 0;
+
 Planicie::Planicie() {
-	static int idCounter = 0;
 	this->name = "Planicie" + std::to_string(++idCounter);
 	this->resistance = 5;
 	this->goldProduction = 1;

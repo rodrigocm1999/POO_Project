@@ -4,8 +4,9 @@
 
 #include "Mina.h"
 
+int Mina::idCounter = 0;
+
 Mina::Mina() {
-	static int idCounter = 0;
 	this->name = "Mina" + std::to_string(++idCounter);
 	this->resistance = 5;
 	this->goldProduction = 1;

@@ -14,8 +14,8 @@ GameInterface::GameInterface() {
 
 	phaseCommand = new PhaseCommand[]
 			{PhaseCommand("conquista", 1), PhaseCommand("passa", 1),
-			 PhaseCommand("maisouro", 1), PhaseCommand("maisprod", 1),
-			 PhaseCommand("maismilitar", 1), PhaseCommand("adquire", 1),
+			 PhaseCommand("maisouro", 1), PhaseCommand("maisprod", 2),
+			 PhaseCommand("maismilitar", 1), PhaseCommand("adquire", 3),
 			 PhaseCommand("lista", 1), PhaseCommand("avanca", 1),
 			 PhaseCommand("maismilitar", 1), PhaseCommand("adquire", 1),
 			 PhaseCommand("lista", 1), PhaseCommand("avanca", 1),
@@ -149,4 +149,7 @@ void GameInterface::handleGameCommand(ostream &out, vector<std::string> &inputPa
 	}
 }
 
-GameInterface::~GameInterface() = default;
+GameInterface::~GameInterface(){
+	delete [] phaseCommand;
+	delete currentGame;
+};

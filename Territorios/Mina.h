@@ -9,6 +9,8 @@
 
 class Mina : public Continente {
 
+	static int idCounter;
+
 public:
     std::string getType() const override { return Continente::getType() + "_Mina"; }
 

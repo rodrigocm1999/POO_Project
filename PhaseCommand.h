@@ -15,6 +15,8 @@ class PhaseCommand {
 public:
 	PhaseCommand(const std::string &command, int phase);
 
+	PhaseCommand();
+
 	const std::string &getCommand() const;
 
 	int getPhase() const;

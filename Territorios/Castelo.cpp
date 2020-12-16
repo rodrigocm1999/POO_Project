@@ -4,8 +4,9 @@
 
 #include "Castelo.h"
 
+int Castelo::idCounter = 0;
+
 Castelo::Castelo() {
-	static int idCounter = 0;
 	this->name = "Castelo" + std::to_string(++idCounter);
 	this->resistance = 7;
 	this->goldProduction = 1;
