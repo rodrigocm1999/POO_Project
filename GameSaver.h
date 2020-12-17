@@ -15,6 +15,8 @@ class GameSaver {
 
 public:
 
+	virtual ~GameSaver();
+
 	void saveGame(const std::string &name, Game *currentGame);
 
 	bool usedSaveGameName(const std::string &gameName);

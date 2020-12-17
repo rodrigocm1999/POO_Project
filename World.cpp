@@ -24,7 +24,7 @@ void World::addTerritory(Territorio *territory) {
 	territories.push_back(territory);
 }
 
-void World::gotConquered(const Territorio *territory) {
+void World::lostTerritory(const Territorio *territory) {
 	for (auto item = territories.begin(); item != territories.end(); ++item) {
 		if (*item == territory) {
 			territories.erase(item);

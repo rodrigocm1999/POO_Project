@@ -11,19 +11,21 @@
 
 class World {
 
-    std::vector<Territorio *> territories;
+	std::vector<Territorio *> territories;
 
 public:
 
-    virtual ~World();
+	virtual ~World();
 
-    const std::vector<Territorio *> &getTerritories() const;
+	const std::vector<Territorio *> &getTerritories() const;
 
-    void setTerritories(const std::vector<Territorio *> &territories);
+	void setTerritories(const std::vector<Territorio *> &territories);
 
-    void addTerritory(Territorio *territory);
+	void addTerritory(Territorio *territory);
 
-    void gotConquered(const Territorio *territory);
+	void lostTerritory(const Territorio *territory);
+
+	int getSize() const { return territories.size(); }
 
 	void print(std::ostream &out) const;
 

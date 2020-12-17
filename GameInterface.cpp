@@ -21,7 +21,7 @@ GameInterface::GameInterface() {
 			 PhaseCommand("lista", 1), PhaseCommand("avanca", 1),
 			 PhaseCommand("grava", 1), PhaseCommand("ativa", 1),
 			 PhaseCommand("apaga", 1), PhaseCommand("toma", 1),
-			 PhaseCommand("modifica", 1), PhaseCommand("fevento", 1)};
+			 PhaseCommand("modifica", 1), PhaseCommand("fevento", -1)};
 
 }
 
@@ -152,4 +152,4 @@ void GameInterface::handleGameCommand(ostream &out, vector<std::string> &inputPa
 GameInterface::~GameInterface(){
 	delete [] phaseCommand;
 	delete currentGame;
-};
+}

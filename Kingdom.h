@@ -25,19 +25,34 @@ public:
 
 	int getProductsCapacity() const;
 
+	void addProducts(int amount);
+
 	int getGold() const;
 
 	int getGoldCapacity() const;
+
+	void addGold(int amount);
 
 	int getMilitaryForce() const;
 
 	int getSize() const;
 
-	void gotConquered(Territorio *conquered);
+	void addTerritory(Territorio *conquered);
+
+	void addMilitaryForce(int amount);
+
+	int getMaxMilitaryForce();
 
 	void print(std::ostream &out) const;
 
-	Territorio *getTerritoryByName(const std::string &name) ;
+	Territorio *getTerritoryByName(const std::string &name);
+
+	void lostTerritory(const Territorio *territory);
+
+	Territorio *getLastConquered() const;
+
+	void foundAbandonedResource(int year);
+
 };
 
 

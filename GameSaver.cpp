@@ -18,3 +18,8 @@ bool GameSaver::usedSaveGameName(const string &gameName) {
 			return true;
 	return false;
 }
+
+GameSaver::~GameSaver() {
+	for (Game *game : savedGames)
+		delete game;
+}
