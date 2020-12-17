@@ -16,6 +16,7 @@ public:
 
     Planicie();
 
+	void updateValues(int turn, int year) override;
 };
 
 

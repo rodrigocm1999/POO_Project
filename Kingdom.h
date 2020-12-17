@@ -7,13 +7,19 @@
 
 #include <vector>
 #include "Territorios/Territorio.h"
+#include "Technologies/Technology.h"
 
 class Kingdom {
 
 	std::vector<Territorio *> territories;
-	int warehouse = 3;
-	int safe = 3;
+	std::vector<Technology *> technologies;
+	int warehouseAmount = 0;
+	int warehouseCapacity = 3;
+	int safeAmount = 0;
+	int safeCapacity = 3;
 	int militaryForce = 0;
+	int militaryForceCapacity = 3;
+	bool canMakeTrades = false;
 
 public:
 
@@ -35,13 +41,13 @@ public:
 
 	int getMilitaryForce() const;
 
-	int getSize() const;
-
-	void addTerritory(Territorio *conquered);
-
 	void addMilitaryForce(int amount);
 
 	int getMaxMilitaryForce();
+
+	int getSize() const;
+
+	void addTerritory(Territorio *conquered);
 
 	void print(std::ostream &out) const;
 
@@ -53,6 +59,13 @@ public:
 
 	void foundAbandonedResource(int year);
 
+	bool hasTechnology(const std::string &name) const;
+
+	void setWarehouseCapacity(int warehouseCapacity);
+
+	void setSafeCapacity(int safeCapacity);
+
+	void setMilitaryForceCapacity(int militaryForceCapacity);
 };
 
 

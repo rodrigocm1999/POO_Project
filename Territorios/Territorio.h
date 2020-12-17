@@ -10,6 +10,7 @@
 #include <ostream>
 #include <iostream>
 
+
 class Territorio {
 
 protected:
@@ -19,6 +20,7 @@ protected:
 	int productProduction = 0;
 	int goldProduction = 0;
 	int victoryPoints = 0;
+
 
 public:
 
@@ -40,11 +42,13 @@ public:
 
 	int getVictoryPoints() const { return victoryPoints; }
 
+	virtual void updateValues(int turn, int year);
+
 	friend std::ostream &operator<<(std::ostream &os, const Territorio &terr);
 
 };
 
-//std::ostream &operator<<(std::ostream &os, const Territorio &territory);
+//std::ostream &operator<<(std::ostream &os, const Territory &territory);
 
 
 #endif //TRABALHOPRATICO_TERRITORIO_H

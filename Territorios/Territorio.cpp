@@ -13,3 +13,5 @@ std::ostream &operator<<(std::ostream &os, const Territorio &terr) {
 	   << ", pontos: " << terr.victoryPoints;
 	return os;
 }
+
+void Territorio::updateValues(int turn, int year) {}

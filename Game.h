@@ -5,10 +5,9 @@
 #ifndef TRABALHOPRATICO_GAME_H
 #define TRABALHOPRATICO_GAME_H
 
-#define TURNSPERYEAR 6
-
 #include "World.h"
 #include "Kingdom.h"
+#include "Utils.h"
 
 class Game {
 
@@ -57,7 +56,7 @@ public:
 
 	bool gameIsFinished() const { return turn > 12; }
 
-	int getYear() const { return (int) (turn / TURNSPERYEAR); }
+	int getYear() const { return Utils::turnToYear(turn); }
 
 	void printGame(std::ostream &out) const;
 

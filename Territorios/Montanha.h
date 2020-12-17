@@ -10,11 +10,14 @@
 class Montanha : public Continente {
 
 	static int idCounter;
+	int turnCounter;
 
 public:
     std::string getType() const override { return Continente::getType() + "_Montanha"; }
 
     Montanha();
+
+	void updateValues(int turn, int year) override;
 };
 
 

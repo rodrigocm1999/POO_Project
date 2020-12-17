@@ -16,6 +16,8 @@ public:
     std::string getType() const override { return Continente::getType() + "_Castelo"; }
 
     Castelo();
+
+	void updateValues(int turn, int year) override;
 };
 
 

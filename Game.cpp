@@ -174,9 +174,12 @@ void Game::invaded() {
 	int baseInvasionStrength = getYear() == 1 ? 2 : 3;
 	int invasionStrength = baseInvasionStrength + luckStrength;
 
+	bool hasBonus = kingdom.hasTechnology("DefesasTerritoriais");
+	int bonusResistance = hasBonus ? 1 : 0;
+
 	Territorio *terr = kingdom.getLastConquered();
 
-	if (invasionStrength > terr->getResistance()) {
+	if (invasionStrength > terr->getResistance() + bonusResistance) {
 		kingdom.lostTerritory(terr);
 		world.addTerritory(terr);
 

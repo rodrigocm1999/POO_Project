@@ -11,6 +11,7 @@ add_executable(TrabalhoPratico main.cpp
         PhaseCommand.cpp PhaseCommand.h
         GameSaver.cpp GameSaver.h
         GameInterface.cpp GameInterface.h
+
         Territorios/Castelo.cpp Territorios/Castelo.h
         Territorios/Continente.cpp Territorios/Continente.h
         Territorios/Duna.cpp Territorios/Duna.h
@@ -23,4 +24,11 @@ add_executable(TrabalhoPratico main.cpp
         Territorios/Refugio.cpp Territorios/Refugio.h
         Territorios/Territorio.cpp Territorios/Territorio.h
         Territorios/TerritorioInicial.cpp Territorios/TerritorioInicial.h
+
+        Technologies/Technology.cpp Technologies/Technology.h
+        Technologies/BancoCentral.cpp Technologies/BancoCentral.h
+        Technologies/BolsaValores.cpp Technologies/BolsaValores.h
+        Technologies/DefesasTerritoriais.cpp Technologies/DefesasTerritoriais.h
+        Technologies/DroneMilitar.cpp Technologies/DroneMilitar.h
+        Technologies/MisseisTeleguiados.cpp Technologies/MisseisTeleguiados.h
         )

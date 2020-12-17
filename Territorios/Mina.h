@@ -15,6 +15,8 @@ public:
     std::string getType() const override { return Continente::getType() + "_Mina"; }
 
     Mina();
+
+	void updateValues(int turn, int year) override;
 };
 
 #endif //TRABALHOPRATICO_MINA_H

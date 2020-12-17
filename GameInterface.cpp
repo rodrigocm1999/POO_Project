@@ -50,7 +50,7 @@ void GameInterface::handleCommand(ostream &out, vector<std::string> &inputParts)
 			if (territory != nullptr) {
 				out << *territory << endl;
 			} else {
-				out << "Territorio com esse nome nao encontrado\n";
+				out << "Territory com esse nome nao encontrado\n";
 			}
 		} else {
 			out << "sintaxe valida -> lista OU lista <nome_do_territorio>\n";

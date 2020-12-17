@@ -4,6 +4,12 @@
 
 #include "Kingdom.h"
 
+#define TEC_DRONE "DroneMilitar"
+#define TEC_MISSEIS "MisseisTeleguiados"
+#define TEC_DEFESAS "DefesasTerritoriais"
+#define TEC_BANCO "BancoCentral"
+#define TEC_BOLSA "BolsaValores"
+
 using namespace std;
 
 const std::vector<Territorio *> &Kingdom::getTerritories() const {
@@ -11,33 +17,33 @@ const std::vector<Territorio *> &Kingdom::getTerritories() const {
 }
 
 int Kingdom::getProducts() const {
-	return warehouse;
+	return warehouseAmount;
 }
 
 void Kingdom::addProducts(int amount) {
-	warehouse += amount;
+	warehouseAmount += amount;
 	int limit = getProductsCapacity();
-	if (warehouse > limit)
-		warehouse = limit;
-}
-
-int Kingdom::getGold() const {
-	return safe;
-}
-
-void Kingdom::addGold(int amount) {
-	safe += amount;
-	int limit = getGoldCapacity();
-	if (safe > limit)
-		safe = limit;
+	if (warehouseAmount > limit)
+		warehouseAmount = limit;
 }
 
 int Kingdom::getProductsCapacity() const {
-	return 3; // TODO calculate capacity from technologies
+	return warehouseCapacity;
+}
+
+int Kingdom::getGold() const {
+	return safeAmount;
+}
+
+void Kingdom::addGold(int amount) {
+	safeAmount += amount;
+	int limit = getGoldCapacity();
+	if (safeAmount > limit)
+		safeAmount = limit;
 }
 
 int Kingdom::getGoldCapacity() const {
-	return 3; // TODO calculate capacity from technologies
+	return safeCapacity;
 }
 
 int Kingdom::getMilitaryForce() const {
@@ -52,7 +58,7 @@ void Kingdom::addMilitaryForce(int amount) {
 }
 
 int Kingdom::getMaxMilitaryForce() {
-	return 3;// TODO calculate capacity from technologies
+	return militaryForceCapacity;
 }
 
 Kingdom::~Kingdom() {
@@ -105,4 +111,25 @@ void Kingdom::foundAbandonedResource(int year) {
 	} else {
 		addGold(1);
 	}
+}
+
+bool Kingdom::hasTechnology(const string &name) const {
+	for (auto tec : technologies) {
+		if (tec->getName() == name) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void Kingdom::setWarehouseCapacity(int warehouseCapacity) {
+	Kingdom::warehouseCapacity = warehouseCapacity;
+}
+
+void Kingdom::setSafeCapacity(int safeCapacity) {
+	Kingdom::safeCapacity = safeCapacity;
+}
+
+void Kingdom::setMilitaryForceCapacity(int militaryForceCapacity) {
+	Kingdom::militaryForceCapacity = militaryForceCapacity;
 }

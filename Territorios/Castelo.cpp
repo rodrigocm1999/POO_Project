@@ -11,5 +11,8 @@ Castelo::Castelo() {
 	this->resistance = 7;
 	this->goldProduction = 1;
 	this->productProduction = 3;
-	//TODO special rule for this one too. produuct production 0 after 2 turns of the year
+}
+
+void Castelo::updateValues(int turn, int year) {
+	productProduction = turn <= 2 ? 3 : 0;
 }

@@ -45,7 +45,7 @@
 		2. Invasão - Ultimo territorio conquistado volta para o mundo (fator sorte 1-6)
 		    Sorte + forca de invasao (1 ano = 2; 2 ano = 3) se maior a resistencia do territorio entao ja nao é adicionado
 		    Caso contrario e exista Defesas Territoriais é add 1 nivel de resistencia do territorio que sofre a invasao
-		    Se o Territorio Inicial for invadido o jogo acaba em derrota
+		    Se o Territory Inicial for invadido o jogo acaba em derrota
 		3. Aliança Diplomatica - Adiciona 1 unidade de Força Militar caso seja menor que max
 		4. Sem evento
 

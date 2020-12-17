@@ -15,6 +15,8 @@ public:
     std::string getType() const override { return Ilha::getType() + "_Pescaria"; }
 
     Pescaria();
+
+	void updateValues(int turn, int year) override;
 };
 
 
