@@ -24,16 +24,24 @@
 #include <sstream>
 #include <fstream>
 
+#define GAME_NOT_STARTED 1
+#define GAME_IN_PROGRESS 2
+#define GAME_FINISHED 3
+
 using namespace std;
 
 Game::Game() {
-	kingdom.gotConquered(new TerritorioInicial);
+	gameState = GAME_NOT_STARTED;
+	turn = 1;
+	phase = 1;
+	kingdom.addTerritory(new TerritorioInicial);
 }
 
 Game::Game(const Game *otherGame) {
 
 	//TODO create a full game copy
 
+	Game *nGame = new Game;
 }
 
 Game::~Game() {
@@ -85,11 +93,10 @@ int Game::conquer(std::string &territoryName) {
 	int conqueringPower = kingdom.getMilitaryForce() + random;
 
 	if (conqueringPower > toConquer->getResistance()) {
-		world.gotConquered(toConquer);
-		kingdom.gotConquered(toConquer);
+		world.lostTerritory(toConquer);
+		kingdom.addTerritory(toConquer);
 		return true;
 	}
-
 	return false;
 }
 
@@ -119,6 +126,20 @@ Game::Game(ifstream &file, ostream &out) : Game() {
 	}
 }
 
+bool Game::start() {
+	if (world.getSize() == 0) {
+		return false;
+	}
+	gameState = GAME_IN_PROGRESS;
+	turn = 1;
+	phase = 1;
+	return true;
+}
+
+void Game::nextPhase() {
+	//TODO nextPhase
+}
+
 Territorio *Game::createTerritoryFromType(const string &type) {
 	if (type == "planicie") return new Planicie;
 	if (type == "montanha") return new Montanha;
@@ -129,5 +150,52 @@ Territorio *Game::createTerritoryFromType(const string &type) {
 	if (type == "refugio") return new Refugio;
 	if (type == "pescaria") return new Pescaria;
 	return nullptr;
+}
+
+int Game::eventMaybeHappens() {
+	int eventType = Utils::getRandom(1, 4);
+	if (eventType == 1) {
+		abandonedResource();
+	} else if (eventType == 2) {
+		invaded();
+	} else if (eventType == 3) {
+		diplomaticAlliance();
+	} // else do nothing
+	return eventType;
+}
+
+void Game::abandonedResource() {
+	kingdom.foundAbandonedResource(getYear());
+}
+
+void Game::invaded() {
+
+	int luckStrength = Utils::getRandom(1, 6);
+	int baseInvasionStrength = getYear() == 1 ? 2 : 3;
+	int invasionStrength = baseInvasionStrength + luckStrength;
+
+	Territorio *terr = kingdom.getLastConquered();
+
+	if (invasionStrength > terr->getResistance()) {
+		kingdom.lostTerritory(terr);
+		world.addTerritory(terr);
+
+		if (kingdom.getSize() == 0) {
+			finishGame();
+		}
+	}
+}
+
+void Game::diplomaticAlliance() {
+	kingdom.addMilitaryForce(1);
+}
+
+bool Game::isGameFinished() {
+	return gameState == GAME_FINISHED;
+}
+
+void Game::finishGame() {
+	gameState = GAME_FINISHED;
+	//TODO maybe calculate score
 }
 

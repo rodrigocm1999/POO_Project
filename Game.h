@@ -5,6 +5,7 @@
 #ifndef TRABALHOPRATICO_GAME_H
 #define TRABALHOPRATICO_GAME_H
 
+#define TURNSPERYEAR 6
 
 #include "World.h"
 #include "Kingdom.h"
@@ -14,10 +15,15 @@ class Game {
 private:
 
 	std::string gameName;
-	int turn = -1;
-	int phase = -1;
+	int turn;
+	int phase;
+	int gameState;
 	World world;
 	Kingdom kingdom;
+
+	void abandonedResource();
+	void invaded();
+	void diplomaticAlliance();
 
 public:
 
@@ -41,19 +47,29 @@ public:
 
 	int getPhase() const { return phase; }
 
-	const World &getWorld() const { return world; }
-
-	const Kingdom &getKingdom() const { return kingdom; }
-
 	void setName(const std::string &name) { gameName = name; }
 
 	const Territorio *getTerritoryByName(const std::string &name);
 
 	std::vector<Territorio *> getAllTerritories() const;
 
+	void nextPhase();
+
+	bool gameIsFinished() const { return turn > 12; }
+
+	int getYear() const { return (int) (turn / TURNSPERYEAR); }
+
 	void printGame(std::ostream &out) const;
 
+	int eventMaybeHappens();
+
 	static Territorio *createTerritoryFromType(const std::string &type);
+
+	void finishGame();
+
+	bool isGameFinished();
+
+	bool start();
 };
 
 
