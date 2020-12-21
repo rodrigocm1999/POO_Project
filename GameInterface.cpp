@@ -12,16 +12,14 @@ using namespace std;
 GameInterface::GameInterface() {
 	currentGame = new Game();
 
-	phaseCommand = new PhaseCommand[]
+	phaseCommand =
 			{PhaseCommand("conquista", 1), PhaseCommand("passa", 1),
-			 PhaseCommand("maisouro", 1), PhaseCommand("maisprod", 2),
-			 PhaseCommand("maismilitar", 1), PhaseCommand("adquire", 3),
-			 PhaseCommand("lista", 1), PhaseCommand("avanca", 1),
-			 PhaseCommand("maismilitar", 1), PhaseCommand("adquire", 1),
-			 PhaseCommand("lista", 1), PhaseCommand("avanca", 1),
-			 PhaseCommand("grava", 1), PhaseCommand("ativa", 1),
-			 PhaseCommand("apaga", 1), PhaseCommand("toma", 1),
-			 PhaseCommand("modifica", 1), PhaseCommand("fevento", -1)};
+			 PhaseCommand("maisouro", 2), PhaseCommand("maisprod", 2),
+			 PhaseCommand("maismilitar", 3), PhaseCommand("adquire", 3),
+			 PhaseCommand("lista", 0), PhaseCommand("avanca", 0),
+			 PhaseCommand("grava", 0), PhaseCommand("ativa", 0),
+			 PhaseCommand("apaga", 0), PhaseCommand("toma", 0),
+			 PhaseCommand("modifica", 1), PhaseCommand("fevento", 0)};
 
 }
 
@@ -58,19 +56,24 @@ void GameInterface::handleCommand(ostream &out, vector<std::string> &inputParts)
 		return;
 	}
 
-	//if (!currentGame->isInProgress()) {
-	handleCreationCommand(out, inputParts);
-	//} else {
-	handleGameCommand(out, inputParts);
-	//}
+	if (!currentGame->isInProgress()) {
+		handleCreationCommand(out, inputParts);
+	} else {
+		handleGameCommand(out, inputParts);
+	}
 }
 
 void GameInterface::handleCreationCommand(ostream &out, vector<std::string> &inputParts) {
 	// Pre Game ----------------------------------------------------------------------------------------------------
 	//Criação do jogo
 	const string &action = inputParts[0];
-
-	if (action == "cria") {
+	if (action == "avanca") {
+		if (currentGame->start()) {
+			out << "Jogo iniciado\n";
+		} else {
+			out << "Mundo vazio, adicione territorios primeiro\n";
+		}
+	} else if (action == "cria") {
 		//cria <tipo> <n> - Acrescenta ao mundo n territórios de um determinado tipo (exemplo:
 		//mina, refugio, para respetivamente um território do tipo Mina ou do tipo Refugio).
 		if (inputParts.size() == 3) {
@@ -116,18 +119,34 @@ void GameInterface::handleGameCommand(ostream &out, vector<std::string> &inputPa
 	//Durante o jogo
 	const string &action = inputParts[0];
 
-	if (action == "grava") {
-		if (inputParts.size() == 2) {
-			const string &name = inputParts[1];
-			if (!gameSaver.usedSaveGameName(name)) {
-				gameSaver.saveGame(name, currentGame);
+	int commandPhase = getCommandPhase(action);
+
+	if (commandPhase != currentGame->getPhase()) {
+		out << "Commando invalido para a fase atual\n";
+		return;
+	}
+
+	if (commandPhase == 0) { // TODO comandos que podem ocorrer em quaquer fase
+		if (action == "grava") {
+			if (inputParts.size() == 2) {
+				const string &name = inputParts[1];
+				if (!gameSaver.usedSaveGameName(name)) {
+					gameSaver.saveGame(name, currentGame);
+				} else {
+					out << "Ja existe um jogo guardado com esse nome\n";
+				}
 			} else {
-				out << "Ja existe um jogo guardado com esse nome\n";
+				out << "sintaxe valida -> grava <nome_do_jogo>\n";
 			}
-		} else {
-			out << "sintaxe valida -> grava <nome_do_jogo>\n";
 		}
-	} else if (action == "conquista") {
+	} else if (commandPhase == 1) {
+		handleCommandPhase1(out, inputParts);
+	}
+}
+
+void GameInterface::handleCommandPhase1(ostream &out, vector<std::string> &inputParts) {
+	const string &action = inputParts[0];
+	if (action == "conquista") {
 		//conquista <nome> - Dá a ordem ao império para adquirir um determinado território
 		//neste turno desde que este esteja disponível no World. O parâmetro nome indica
 		//qual o nome do território a conquistar (planicie1, duna3, etc.).
@@ -139,17 +158,41 @@ void GameInterface::handleGameCommand(ostream &out, vector<std::string> &inputPa
 			} else if (whatHappened == false) {
 				out << "Nao consegui conquistar\n";
 			} else {
+				// Conquistou
+				currentGame->nextPhase();
 				out << "Conquistado com sucesso\n";
 			}
 		} else {
 			out << "Sintaxe valida -> conquista <nome_do_territorio>\n";
 		}
-	} else {
-		out << "Comando invalido para durante o jogo\n";
+	}
+	if (action == "passa") {
+		currentGame->nextPhase();
+		out << "Passou o turno a frente\n";
 	}
 }
 
-GameInterface::~GameInterface(){
-	delete [] phaseCommand;
+void GameInterface::handleCommandPhase2(ostream &out, vector<std::string> &inputParts) {
+	const string &action = inputParts[0];
+}
+
+void GameInterface::handleCommandPhase3(ostream &out, vector<std::string> &inputParts) {
+	const string &action = inputParts[0];
+}
+
+void GameInterface::handleCommandPhase4(ostream &out, vector<std::string> &inputParts) {
+	const string &action = inputParts[0];
+}
+
+int GameInterface::getCommandPhase(const string &command) {
+	for (const auto &item : phaseCommand) {
+		if (item.getCommand() == command)
+			return item.getPhase();
+	}
+	return -1;
+}
+
+GameInterface::~GameInterface() {
+	//delete [] phaseCommand; // já não é necessário porque passou a ser um vector com objetos
 	delete currentGame;
 }

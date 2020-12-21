@@ -18,6 +18,8 @@ public:
     Montanha();
 
 	void updateValues(int turn, int year) override;
+
+	Territorio &operator=(const Territorio *other) override;
 };
 
 

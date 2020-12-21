@@ -11,7 +11,6 @@ Mina::Mina() {
 	this->name = "Mina" + std::to_string(++idCounter);
 	this->resistance = 5;
 	this->goldProduction = 1;
-	//TODO regra especial prozus 2 a partir do 4 turno
 }
 
 void Mina::updateValues(int turn, int year) {

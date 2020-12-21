@@ -13,7 +13,7 @@ class GameInterface {
 
 	GameSaver gameSaver;
 	Game *currentGame;
-	const PhaseCommand *phaseCommand;
+	std::vector<PhaseCommand> phaseCommand;
 
 	void handleCreationCommand(std::ostream &out, std::vector<std::string> &inputParts);
 
@@ -29,6 +29,15 @@ public:
 
 	void handleCommand(std::ostream &out, std::vector<std::string> &inputParts);
 
+	int getCommandPhase(const std::string &command);
+
+	void handleCommandPhase1(std::ostream &out, std::vector<std::string> &inputParts);
+
+	void handleCommandPhase2(std::ostream &out, std::vector<std::string> &inputParts);
+
+	void handleCommandPhase3(std::ostream &out, std::vector<std::string> &inputParts);
+
+	void handleCommandPhase4(std::ostream &out, std::vector<std::string> &inputParts);
 };
 
 

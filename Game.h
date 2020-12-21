@@ -28,7 +28,7 @@ public:
 
 	Game();
 
-	explicit Game(const Game *otherGame);
+	explicit Game(const Game &otherGame);
 
 	Game(std::ifstream &file, std::ostream &out);
 
@@ -38,7 +38,7 @@ public:
 
 	int conquer(std::string &territoryName);
 
-	bool isInProgress() const { return turn > 0; }
+	bool isInProgress() const;
 
 	const std::string &getName() const { return gameName; }
 

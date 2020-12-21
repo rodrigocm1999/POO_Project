@@ -22,3 +22,9 @@ void Montanha::updateValues(int turn, int year) {
 		productProduction = 1;
 	}
 }
+
+Territorio &Montanha::operator=(const Territorio *other) {
+	*this = &Territorio::operator=(other);
+	this->turnCounter = ((Montanha *) other)->turnCounter;
+	return *this;
+}

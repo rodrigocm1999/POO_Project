@@ -133,3 +133,26 @@ void Kingdom::setSafeCapacity(int safeCapacity) {
 void Kingdom::setMilitaryForceCapacity(int militaryForceCapacity) {
 	Kingdom::militaryForceCapacity = militaryForceCapacity;
 }
+
+Kingdom &Kingdom::operator=(const Kingdom &other) {
+	cout << "copy kingdom";
+
+	this->territories.reserve(other.territories.size());
+	for (auto &territory : other.territories) {
+		this->territories.push_back(territory->createCopy());
+	}
+
+	this->technologies.reserve(other.technologies.size());
+	for (auto &technology : other.technologies) {
+		this->technologies.push_back(technology->createCopy());
+	}
+
+	this->warehouseAmount = other.warehouseAmount;
+	this->warehouseCapacity = other.warehouseCapacity;
+	this->safeAmount = other.safeAmount;
+	this->safeCapacity = other.safeCapacity;
+	this->militaryForce = other.militaryForce;
+	this->militaryForceCapacity = other.militaryForceCapacity;
+
+	return *this;
+}

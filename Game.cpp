@@ -37,11 +37,15 @@ Game::Game() {
 	kingdom.addTerritory(new TerritorioInicial);
 }
 
-Game::Game(const Game *otherGame) {
+Game::Game(const Game &otherGame) {
+	cout << "copy game";
 
-	//TODO create a full game copy
+	this->turn = otherGame.turn;
+	this->phase = otherGame.phase;
+	this->gameState = otherGame.gameState;
 
-	Game *nGame = new Game;
+	this->world = otherGame.world;
+	this->kingdom = otherGame.kingdom;
 }
 
 Game::~Game() {
@@ -68,11 +72,11 @@ const Territorio *Game::getTerritoryByName(const string &name) {
 }
 
 void Game::printGame(ostream &out) const {
-	out << "Turno : " << getTurn() << " \tFase : " << getPhase() << "\n";
+	out << "\tTurno : " << getTurn() << " \tFase : " << getPhase() << "\n";
 	kingdom.print(out);
 	out << "------------------------------ \n";
 	world.print(out);
-	//TODO adicionar tecnologias e restantes cenas
+	//TODO adicionar tecnologias e restantes cenas aka tecnhologiaas
 }
 
 void Game::addTerritoryToWorld(Territorio *territory) {
@@ -137,7 +141,11 @@ bool Game::start() {
 }
 
 void Game::nextPhase() {
-	//TODO nextPhase
+	phase++;
+	if (phase % 4 == 0) {
+		turn++;
+		phase = 1;
+	}
 }
 
 Territorio *Game::createTerritoryFromType(const string &type) {
@@ -191,6 +199,10 @@ void Game::invaded() {
 
 void Game::diplomaticAlliance() {
 	kingdom.addMilitaryForce(1);
+}
+
+bool Game::isInProgress() const {
+	return gameState == GAME_IN_PROGRESS;
 }
 
 bool Game::isGameFinished() {

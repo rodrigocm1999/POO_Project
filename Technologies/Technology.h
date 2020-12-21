@@ -22,7 +22,9 @@ public:
 
 	int getCost() const { return cost; }
 
-	virtual void makeChanges(Kingdom* kingdom) const;
+	virtual void makeChanges(Kingdom *kingdom) const;
+
+	virtual Technology *createCopy() const;
 };
 
 

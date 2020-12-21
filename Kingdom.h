@@ -19,7 +19,6 @@ class Kingdom {
 	int safeCapacity = 3;
 	int militaryForce = 0;
 	int militaryForceCapacity = 3;
-	bool canMakeTrades = false;
 
 public:
 
@@ -66,6 +65,8 @@ public:
 	void setSafeCapacity(int safeCapacity);
 
 	void setMilitaryForceCapacity(int militaryForceCapacity);
+
+	Kingdom &operator=(const Kingdom &other);
 };
 
 

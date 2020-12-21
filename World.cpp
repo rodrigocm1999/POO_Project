@@ -48,3 +48,13 @@ Territorio *World::getTerritoryByName(const string &name) {
 	}
 	return nullptr;
 }
+
+World &World::operator=(const World &other) {
+	std::cout << "copy world";
+	territories.reserve(other.territories.size());
+
+	for (auto &territory : other.territories) {
+		territories.push_back(territory->createCopy());
+	}
+	return *this;
+}

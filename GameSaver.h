@@ -19,7 +19,7 @@ public:
 
 	void saveGame(const std::string &name, Game *currentGame);
 
-	bool usedSaveGameName(const std::string &gameName);
+	bool usedSaveGameName(const std::string &gameName) const;
 };
 
 

@@ -31,6 +31,8 @@ public:
 
 	Territorio *getTerritoryByName(const std::string &name);
 
+	World &operator=(const World &other);
+
 };
 
 

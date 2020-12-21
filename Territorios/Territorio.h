@@ -44,6 +44,10 @@ public:
 
 	virtual void updateValues(int turn, int year);
 
+	virtual Territorio *createCopy() const;
+
+	virtual Territorio &operator=(const Territorio* other);
+
 	friend std::ostream &operator<<(std::ostream &os, const Territorio &terr);
 
 };
