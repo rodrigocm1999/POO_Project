@@ -4,86 +4,238 @@
 	<Project>
 		<Option title="TrabalhoPratico"/>
 		<Option makefile_is_custom="1"/>
-		<Option compiler="gcc"/>
+		<Option compiler="msvc8"/>
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug"/>
+				<Option working_dir="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 all"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="TrabalhoPratico">
-				<Option output="C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/TrabalhoPratico.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug"/>
+				<Option output="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/cmake-build-debug/TrabalhoPratico.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
-				<Option compiler="gcc"/>
+				<Option compiler="msvc8"/>
 				<Compiler>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++/mingw32"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++/backward"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/../../../../include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include-fixed"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 TrabalhoPratico"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 TrabalhoPratico"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="TrabalhoPratico/fast">
-				<Option output="C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/TrabalhoPratico.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug"/>
+				<Option output="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/cmake-build-debug/TrabalhoPratico.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
-				<Option compiler="gcc"/>
+				<Option compiler="msvc8"/>
 				<Compiler>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++/mingw32"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++/backward"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/../../../../include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include-fixed"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 TrabalhoPratico/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 TrabalhoPratico/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug"/>
+				<Option working_dir="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 edit_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug"/>
+				<Option working_dir="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/cenas/CLionProjects/POO_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\cenas\Desktop\Licenciatura\2Ano\POO\TrabalhoPratico\cmake-build-debug\Makefile VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/cenas/CLionProjects/POO_Project/main.cpp">
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Game.cpp">
 			<Option target="TrabalhoPratico"/>
 		</Unit>
-		<Unit filename="C:/Users/cenas/CLionProjects/POO_Project/CMakeLists.txt">
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Game.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/GameInterface.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/GameInterface.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/GameSaver.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/GameSaver.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Kingdom.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Kingdom.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/PhaseCommand.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/PhaseCommand.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Technologies/BancoCentral.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Technologies/BancoCentral.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Technologies/BolsaValores.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Technologies/BolsaValores.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Technologies/DefesasTerritoriais.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Technologies/DefesasTerritoriais.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Technologies/DroneMilitar.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Technologies/DroneMilitar.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Technologies/MisseisTeleguiados.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Technologies/MisseisTeleguiados.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Technologies/Technology.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Technologies/Technology.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Castelo.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Castelo.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Continente.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Continente.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Duna.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Duna.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Fortaleza.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Fortaleza.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Ilha.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Ilha.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Mina.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Mina.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Montanha.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Montanha.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Pescaria.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Pescaria.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Planicie.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Planicie.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Refugio.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Refugio.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Territorio.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/Territorio.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/TerritorioInicial.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Territorios/TerritorioInicial.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Utils.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/Utils.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/World.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/World.h">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/main.cpp">
+			<Option target="TrabalhoPratico"/>
+		</Unit>
+		<Unit filename="C:/Users/cenas/Desktop/Licenciatura/2Ano/POO/TrabalhoPratico/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

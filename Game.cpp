@@ -8,10 +8,18 @@
 #include "World.h"
 #include "Kingdom.h"
 
+#include "Territorios/Castelo.h"
+#include "Territorios/Continente.h"
+#include "Territorios/Duna.h"
+#include "Territorios/Fortaleza.h"
+#include "Territorios/Ilha.h"
+#include "Territorios/Mina.h"
+#include "Territorios/Montanha.h"
+#include "Territorios/Pescaria.h"
+#include "Territorios/Planicie.h"
+#include "Territorios/Refugio.h"
 #include "Territorios/Territorio.h"
 #include "Territorios/TerritorioInicial.h"
-#include "Technologies/Technology.h"
-#include "Factory.h"
 
 #include <sstream>
 #include <fstream>
@@ -228,4 +236,11 @@ bool Game::acquire(const string &name) {
 	return false;//TODO acquire tá por fazer e na chamada ainda não está completo
 }
 
+
+int Game::finalPoints() {
+    if (gameState == GAME_FINISHED){
+        return 0;
+    }
+    return kingdom.getFinalPoints(world);
+}
 

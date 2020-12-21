@@ -8,6 +8,8 @@
 #include <vector>
 #include "Territorios/Territorio.h"
 #include "Technologies/Technology.h"
+#include "World.h"
+
 
 class Kingdom {
 
@@ -19,6 +21,7 @@ class Kingdom {
 	int safeCapacity = 3;
 	int militaryForce = 0;
 	int militaryForceCapacity = 3;
+	bool canMakeTrades = false;
 
 public:
 
@@ -67,6 +70,8 @@ public:
 	void setMilitaryForceCapacity(int militaryForceCapacity);
 
 	Kingdom &operator=(const Kingdom &other);
+
+	int getFinalPoints(World &world);
 };
 
 

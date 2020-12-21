@@ -72,8 +72,9 @@ public:
 	bool moreGold();
 	bool moreMilitary();
 	bool acquire(const std::string &name);
-};
 
+	int finalPoints();
+};
 
 
 #endif //TRABALHOPRATICO_GAME_H
