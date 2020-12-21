@@ -3,19 +3,19 @@
 //
 
 #include "Factory.h"
+#include "Territorios/TerritorioInicial.h"
 
-#include "Territorios/Castelo.h"
+#include "Territorios/Territorio.h"
 #include "Territorios/Continente.h"
+#include "Territorios/Ilha.h"
+#include "Territorios/Castelo.h"
 #include "Territorios/Duna.h"
 #include "Territorios/Fortaleza.h"
-#include "Territorios/Ilha.h"
 #include "Territorios/Mina.h"
 #include "Territorios/Montanha.h"
 #include "Territorios/Pescaria.h"
 #include "Territorios/Planicie.h"
 #include "Territorios/Refugio.h"
-#include "Territorios/Territorio.h"
-#include "Territorios/TerritorioInicial.h"
 
 #include "Technologies/BancoCentral.h"
 #include "Technologies/DroneMilitar.h"
@@ -33,7 +33,6 @@ Territorio *Factory::createTerritoryFromType(const std::string &type) {
 	if (type == "castelo") return new Castelo;
 	if (type == "refugio") return new Refugio;
 	if (type == "pescaria") return new Pescaria;
-	if (type == "continent") return new Continente;
 	return nullptr;
 }
 

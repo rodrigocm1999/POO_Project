@@ -57,7 +57,7 @@ void Kingdom::addMilitaryForce(int amount) {
 		militaryForce = limit;
 }
 
-int Kingdom::getMaxMilitaryForce() {
+int Kingdom::getMaxMilitaryForce() const {
 	return militaryForceCapacity;
 }
 
@@ -158,7 +158,10 @@ Kingdom &Kingdom::operator=(const Kingdom &other) {
 }
 
 int Kingdom::getFinalPoints(World &world) {
-    int points = getSize();
+    int points = 0;
+    for(auto &terr : territories){
+    	points += terr->getVictoryPoints();
+    }
     points += technologies.size();
     if (technologies.size() == 5){
         //Bonus Cientifico

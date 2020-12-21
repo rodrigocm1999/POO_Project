@@ -7,6 +7,7 @@
 
 #include "World.h"
 #include "Kingdom.h"
+#include "Factory.h"
 
 #include "Territorios/Castelo.h"
 #include "Territorios/Continente.h"
@@ -141,14 +142,13 @@ bool Game::start() {
 }
 
 void Game::nextPhase() {
+	// TODO arranjar um sitio para ver quando acaba
 	phase++;
 	if (phase % 4 == 0) {
 		turn++;
 		phase = 1;
 	}
 }
-
-
 
 int Game::eventMaybeHappens() {
 	int eventType = Utils::getRandom(1, 4);
@@ -167,7 +167,6 @@ void Game::abandonedResource() {
 }
 
 void Game::invaded() {
-
 	int luckStrength = Utils::getRandom(1, 6);
 	int baseInvasionStrength = getYear() == 1 ? 2 : 3;
 	int invasionStrength = baseInvasionStrength + luckStrength;
@@ -195,7 +194,7 @@ bool Game::isInProgress() const {
 	return gameState == GAME_IN_PROGRESS;
 }
 
-bool Game::isGameFinished() {
+bool Game::isGameFinished() const {
 	return gameState == GAME_FINISHED;
 }
 
@@ -238,7 +237,7 @@ bool Game::acquire(const string &name) {
 
 
 int Game::finalPoints() {
-    if (gameState == GAME_FINISHED){
+    if (gameState != GAME_FINISHED){
         return 0;
     }
     return kingdom.getFinalPoints(world);

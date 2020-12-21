@@ -45,7 +45,7 @@ public:
 
 	void addMilitaryForce(int amount);
 
-	int getMaxMilitaryForce();
+	int getMaxMilitaryForce() const;
 
 	int getSize() const;
 

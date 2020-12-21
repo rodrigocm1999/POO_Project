@@ -28,7 +28,7 @@ public:
 
 	Game();
 
-	explicit Game(const Game &otherGame);
+	Game(const Game &otherGame);
 
 	Game(std::ifstream &file, std::ostream &out);
 
@@ -64,7 +64,7 @@ public:
 
 	void finishGame();
 
-	bool isGameFinished();
+	bool isGameFinished() const;
 
 	bool start();
 
