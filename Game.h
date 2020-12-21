@@ -62,14 +62,18 @@ public:
 
 	int eventMaybeHappens();
 
-	static Territorio *createTerritoryFromType(const std::string &type);
-
 	void finishGame();
 
 	bool isGameFinished();
 
 	bool start();
+
+	bool moreProducts();
+	bool moreGold();
+	bool moreMilitary();
+	bool acquire(const std::string &name);
 };
+
 
 
 #endif //TRABALHOPRATICO_GAME_H

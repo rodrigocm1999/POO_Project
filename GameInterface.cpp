@@ -3,6 +3,7 @@
 //
 
 #include "GameInterface.h"
+#include "Factory.h"
 
 #include <ostream>
 #include <fstream>
@@ -23,6 +24,11 @@ GameInterface::GameInterface() {
 
 }
 
+GameInterface::~GameInterface() {
+	//delete [] phaseCommand; // já não é necessário porque passou a ser um vector com objetos que não sao criados no heap
+	delete currentGame;
+}
+
 void GameInterface::printMenu(ostream &out) {
 	//TODO make this proper
 	out << "\nIntroduza o commando que deseja correr\n ->";
@@ -35,26 +41,6 @@ void GameInterface::handleCommand(ostream &out, vector<std::string> &inputParts)
 		return;
 	}
 	const string &action = inputParts[0];
-
-	if (action == "lista") {
-		//lista <nome>- Obtém a informação do jogo, tanto globalmente como apenas de um
-		//território específico caso o seu nome seja indicado como parâmetro.
-
-		if (inputParts.size() == 1) {
-			currentGame->printGame(cout); // Print the whole game
-		} else if (inputParts.size() == 2) {
-			string &name = inputParts[1];
-			const Territorio *territory = currentGame->getTerritoryByName(name);
-			if (territory != nullptr) {
-				out << *territory << endl;
-			} else {
-				out << "Territory com esse nome nao encontrado\n";
-			}
-		} else {
-			out << "sintaxe valida -> lista OU lista <nome_do_territorio>\n";
-		}
-		return;
-	}
 
 	if (!currentGame->isInProgress()) {
 		handleCreationCommand(out, inputParts);
@@ -81,7 +67,7 @@ void GameInterface::handleCreationCommand(ostream &out, vector<std::string> &inp
 			string &type = inputParts[1];
 
 			for (int i = 0; i < amount; ++i) {
-				Territorio *newTerritory = Game::createTerritoryFromType(type);
+				Territorio *newTerritory = Factory::createTerritoryFromType(type);
 				if (newTerritory != nullptr) currentGame->addTerritoryToWorld(newTerritory);
 				else {
 					out << "tipo de territorio invalido : " << type << endl;
@@ -114,34 +100,25 @@ void GameInterface::handleCreationCommand(ostream &out, vector<std::string> &inp
 }
 
 void GameInterface::handleGameCommand(ostream &out, vector<std::string> &inputParts) {
-	// if game is running
-	//In Game ------------------------------------------------------------------------------------------------------
-	//Durante o jogo
+	//In Game ----------------------------------------------------------------------------------------------------------
 	const string &action = inputParts[0];
 
 	int commandPhase = getCommandPhase(action);
 
-	if (commandPhase != currentGame->getPhase()) {
+	if (commandPhase != currentGame->getPhase() && commandPhase != 0) { // = 0 ,quer dizer que é para todas as fazes
 		out << "Commando invalido para a fase atual\n";
 		return;
 	}
 
-	if (commandPhase == 0) { // TODO comandos que podem ocorrer em quaquer fase
-		if (action == "grava") {
-			if (inputParts.size() == 2) {
-				const string &name = inputParts[1];
-				if (!gameSaver.usedSaveGameName(name)) {
-					gameSaver.saveGame(name, currentGame);
-				} else {
-					out << "Ja existe um jogo guardado com esse nome\n";
-				}
-			} else {
-				out << "sintaxe valida -> grava <nome_do_jogo>\n";
-			}
-		}
+	if (commandPhase == 0) { //
+		handleCommandAnyPhase(out, inputParts);
 	} else if (commandPhase == 1) {
 		handleCommandPhase1(out, inputParts);
-	}
+	} else if (commandPhase == 2) {
+		handleCommandPhase2(out, inputParts);
+	} else if (commandPhase == 3) {
+		handleCommandPhase3(out, inputParts);
+	} // na fase 4 não existem comandos, apenas podem acontecer coisas que o jogador não pode afetar
 }
 
 void GameInterface::handleCommandPhase1(ostream &out, vector<std::string> &inputParts) {
@@ -165,8 +142,8 @@ void GameInterface::handleCommandPhase1(ostream &out, vector<std::string> &input
 		} else {
 			out << "Sintaxe valida -> conquista <nome_do_territorio>\n";
 		}
-	}
-	if (action == "passa") {
+
+	} else if (action == "passa") {
 		currentGame->nextPhase();
 		out << "Passou o turno a frente\n";
 	}
@@ -174,14 +151,96 @@ void GameInterface::handleCommandPhase1(ostream &out, vector<std::string> &input
 
 void GameInterface::handleCommandPhase2(ostream &out, vector<std::string> &inputParts) {
 	const string &action = inputParts[0];
+
+	if (action == "maisouro") {
+		if (currentGame->moreGold()) {
+			out << "Obteve mais 1 de ouro e perdeu 2 de produtos\n";
+		} else {
+			out << "Nao tens produtos suficientes para trocar, necessario 2\n";
+		}
+	} else if (action == "maisprod") {
+		if (currentGame->moreProducts()) {
+			out << "Obteve mais 1 de produtos e perdeu 2 de ouro\n";
+		} else {
+			out << "Nao tens ouro suficiente para trocar, necessario 2\n";
+		}
+	}
 }
 
 void GameInterface::handleCommandPhase3(ostream &out, vector<std::string> &inputParts) {
 	const string &action = inputParts[0];
+
+	if (action == "maismilitar") {
+		if (currentGame->moreMilitary()) {
+			out << "Obteve mais 1 de forca militar á custa de 1 de ouro e 1 de produutos\n";
+		} else {
+			out << "Nao tens produtos e ouro suficientes para trocar, necessario 1 de cada\n";
+		}
+	} else if (action == "adquire") {
+		if (inputParts.size() == 2) {
+			if (currentGame->acquire(inputParts[1])) {
+				//TODO finish this part
+			}
+		} else {
+			out << "sintaxe valida -> adquire <tipo>\n";
+		}
+	}
 }
 
-void GameInterface::handleCommandPhase4(ostream &out, vector<std::string> &inputParts) {
+void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inputParts) {
 	const string &action = inputParts[0];
+	//TODO acabar de fazer estes comandos
+
+	if (action == "lista") {
+		// Lista o jogo ou territorio ----------------------------------------------------------------------------------
+		if (inputParts.size() == 1) {
+			currentGame->printGame(cout);
+		} else if (inputParts.size() == 2) {
+			string &name = inputParts[1];
+			const Territorio *territory = currentGame->getTerritoryByName(name);
+			if (territory != nullptr) {
+				out << *territory << endl;
+			} else {
+				out << "Territory com esse nome nao encontrado\n";
+			}
+		} else {
+			out << "sintaxe valida -> lista OU lista <nome_do_territorio>\n";
+		}
+	} else if (action == "avanca") {
+		// Avança para a próxima fase ----------------------------------------------------------------------------------
+		if (inputParts.size() == 2) {
+			const string &name = inputParts[1];
+			if (!gameSaver.usedSaveGameName(name)) {
+				gameSaver.saveGame(name, currentGame);
+			} else {
+				out << "Ja existe um jogo guardado com esse nome\n";
+			}
+		} else {
+			out << "sintaxe valida -> grava <nome_do_jogo>\n";
+		}
+	} else if (action == "grava") {
+		// Grava o jogo em memória -------------------------------------------------------------------------------------
+		if (inputParts.size() == 2) {
+			const string &name = inputParts[1];
+			if (!gameSaver.usedSaveGameName(name)) {
+				gameSaver.saveGame(name, currentGame);
+			} else {
+				out << "Ja existe um jogo guardado com esse nome\n";
+			}
+		} else {
+			out << "sintaxe valida -> grava <nome_do_jogo>\n";
+		}
+	} else if (action == "ativa") { // TODO ativa
+		// Recupera um jogo que estava em memória ----------------------------------------------------------------------
+	} else if (action == "apaga") { // TODO apaga
+		// Apaga um jogo que estava em memória -------------------------------------------------------------------------
+	} else if (action == "toma") { // TODO toma
+		// Obtem tecnologia ou territorio sem seguir as regras do jogo -------------------------------------------------
+	} else if (action == "modifica") { // TODO modifica
+		// Modifica a quantidade de recursos sem seguir as regras do jogo ----------------------------------------------
+	} else if (action == "fevento") { // TODO fevento
+		// Força o acontecimento de um evento --------------------------------------------------------------------------
+	}
 }
 
 int GameInterface::getCommandPhase(const string &command) {
@@ -190,9 +249,4 @@ int GameInterface::getCommandPhase(const string &command) {
 			return item.getPhase();
 	}
 	return -1;
-}
-
-GameInterface::~GameInterface() {
-	//delete [] phaseCommand; // já não é necessário porque passou a ser um vector com objetos
-	delete currentGame;
 }

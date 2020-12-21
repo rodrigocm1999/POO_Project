@@ -11,6 +11,7 @@ add_executable(TrabalhoPratico main.cpp
         PhaseCommand.cpp PhaseCommand.h
         GameSaver.cpp GameSaver.h
         GameInterface.cpp GameInterface.h
+        Factory.cpp Factory.h
 
         Territorios/Castelo.cpp Territorios/Castelo.h
         Territorios/Continente.cpp Territorios/Continente.h

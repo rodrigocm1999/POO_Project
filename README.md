@@ -56,21 +56,26 @@
     4. Imperador Supremo - 3 pontos se todos os territorios fizerem parte do Imperio
     
 ## Comandos
-    1. carrega - done
-    2. cria - done
-    3. conquista - almost done
-    4. passa - passa o turno sem fazer nada
-    5. maisouro - trocar 2 produtos por 1 ouro
-    6. maisprod - trocar 2 ouro por 1 produto
-    7. maismilitar - trocar 1 ouro e 1 produto por 1 força militar
-    8. adquire <tipo> - adquirir o tipo de tecnologio com o respetivo preço
-    9. lista <nome> - kinda done
-    10. anvanca - passa para a proxima fase 
-    11. grava <nome> - grava o jogo em memoria
-    12. ativa <nome> - recupera um jogo da memoria e passa a ser o atual
-    13. apaga <nome> - apaga o jogo da memoria
-    14. toma <qual> <nome> - adquirir territorio ou tecnologia sem seguir as regras **apenas para debug**
-    15. modifica <ouro|prod> N - modifica a quantide de prod ou ouro **apenas para debug**
-    16. fevento <nome-evento> - força um evento **apenas para debug**
+    Criação do Jogo:
+        1. carrega - done
+        2. cria - done
+    Fase 1:
+        3. conquista - almost done
+        4. passa - passa a conquista á frente
+    Fase 2:    
+        5. maisouro - trocar 2 produtos por 1 ouro
+        6. maisprod - trocar 2 ouro por 1 produto
+    Fase 3:        
+        7. maismilitar - trocar 1 ouro e 1 produto por 1 força militar
+        8. adquire <tipo> - adquirir o tipo de tecnologio com o respetivo preço
+    Qualquer Fase:
+        9. lista <nome> - mostra tudo do jogo ou so um territorio
+        10. avanca - passa para a proxima fase
+        11. grava <nome> - grava o jogo em memoria
+        12. ativa <nome> - recupera um jogo da memoria e passa a ser o atual
+        13. apaga <nome> - apaga o jogo da memoria
+        14. toma <qual> <nome> - adquirir territorio ou tecnologia sem seguir as regras **apenas para debug**
+        15. modifica <ouro|prod> N - modifica a quantide de prod ou ouro **apenas para debug**
+        16. fevento <nome-evento> - força um evento **apenas para debug**
     
     
