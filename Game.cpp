@@ -202,3 +202,10 @@ void Game::finishGame() {
 	//TODO maybe calculate score
 }
 
+int Game::finalPoints() {
+    if (gameState == GAME_FINISHED){
+        return 0;
+    }
+    return kingdom.getFinalPoints(world);
+}
+

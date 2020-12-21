@@ -4,6 +4,7 @@
 
 #include "Kingdom.h"
 
+
 #define TEC_DRONE "DroneMilitar"
 #define TEC_MISSEIS "MisseisTeleguiados"
 #define TEC_DEFESAS "DefesasTerritoriais"
@@ -132,4 +133,18 @@ void Kingdom::setSafeCapacity(int safeCapacity) {
 
 void Kingdom::setMilitaryForceCapacity(int militaryForceCapacity) {
 	Kingdom::militaryForceCapacity = militaryForceCapacity;
+}
+
+int Kingdom::getFinalPoints(World &world) {
+    int points = getSize();
+    points += technologies.size();
+    if (technologies.size() == 5){
+        //Bonus Cientifico
+        points += 1;
+    }
+    if (world.getSize() == 0){
+        //Imperador Supremo
+        points += 3;
+    }
+    return points;
 }

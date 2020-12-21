@@ -69,6 +69,8 @@ public:
 	bool isGameFinished();
 
 	bool start();
+
+	int finalPoints();
 };
 
 

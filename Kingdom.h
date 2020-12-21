@@ -8,6 +8,8 @@
 #include <vector>
 #include "Territorios/Territorio.h"
 #include "Technologies/Technology.h"
+#include "World.h"
+
 
 class Kingdom {
 
@@ -66,6 +68,8 @@ public:
 	void setSafeCapacity(int safeCapacity);
 
 	void setMilitaryForceCapacity(int militaryForceCapacity);
+
+	int getFinalPoints(World &world);
 };
 
 
