@@ -72,6 +72,8 @@ public:
 	Kingdom &operator=(const Kingdom &other);
 
 	int getFinalPoints(World &world);
+
+	void updateTerritories(int turn, int year);
 };
 
 

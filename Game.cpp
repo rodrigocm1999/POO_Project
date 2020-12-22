@@ -46,7 +46,7 @@ Game::Game(const Game &otherGame) {
 	this->gameState = otherGame.gameState;
 
 	this->world = otherGame.world;
-	this->kingdom = otherGame.kingdom;
+	this->kingdom = otherGame.kingdom; // TODO make sure the copies work, for now they dont, the functions dont even get called I think
 }
 
 Game::~Game() {
@@ -142,9 +142,14 @@ bool Game::start() {
 }
 
 void Game::nextPhase() {
-	// TODO arranjar um sitio para ver quando acaba
+	// TODO arranjar um sitio para ver quando acaba e fazer as várias alterações entre as várias rondas tipo atualizar os territorio entre outros
 	phase++;
-	if (phase % 4 == 0) {
+	if (phase == 1) {
+	} else if (phase == 2) {
+		kingdom.updateTerritories(getTurn(), getYear());
+	} else if (phase == 3) {
+
+	} else if (phase == 4) {
 		turn++;
 		phase = 1;
 	}
@@ -235,11 +240,12 @@ bool Game::acquire(const string &name) {
 	return false;//TODO acquire tá por fazer e na chamada ainda não está completo
 }
 
-
-int Game::finalPoints() {
-    if (gameState != GAME_FINISHED){
-        return 0;
-    }
-    return kingdom.getFinalPoints(world);
+int Game::calculateFinalPoints() {
+	if (!isGameFinished()) {
+		return 0;
+	}
+	finalScore = kingdom.getFinalPoints(world);
+	return finalScore;
 }
+
 

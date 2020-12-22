@@ -173,3 +173,9 @@ int Kingdom::getFinalPoints(World &world) {
     }
     return points;
 }
+
+void Kingdom::updateTerritories(int turn,int year) {
+	for(auto &terr: territories){
+		terr->updateValues(turn,year);
+	}
+}
