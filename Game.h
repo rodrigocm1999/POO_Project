@@ -78,6 +78,8 @@ public:
 	bool acquire(const std::string &name);
 
 	int calculateFinalPoints();
+
+	bool forceConquer(const std::string &name);
 };
 
 

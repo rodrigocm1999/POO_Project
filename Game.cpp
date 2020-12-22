@@ -205,7 +205,6 @@ bool Game::isGameFinished() const {
 
 void Game::finishGame() {
 	gameState = GAME_FINISHED;
-	//TODO maybe calculate score
 }
 
 bool Game::moreProducts() {
@@ -246,6 +245,10 @@ int Game::calculateFinalPoints() {
 	}
 	finalScore = kingdom.getFinalPoints(world);
 	return finalScore;
+}
+
+bool Game::forceConquer(const std::string &name) {
+    return false;
 }
 
 
