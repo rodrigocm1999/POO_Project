@@ -20,6 +20,10 @@ public:
 	void saveGame(const std::string &name, Game *currentGame);
 
 	bool usedSaveGameName(const std::string &gameName) const;
+
+    Game *const getSavedGameByName(const std::string &gameName) const;
+
+    void deleteGame(const std::string &gameName);
 };
 
 

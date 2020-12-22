@@ -223,11 +223,43 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 			out << "sintaxe valida -> grava <nome_do_jogo>\n";
 		}
 	} else if (action == "ativa") { // TODO ativa
-		// Recupera um jogo que estava em memória ----------------------------------------------------------------------
-	} else if (action == "apaga") { // TODO apaga
-		// Apaga um jogo que estava em memória -------------------------------------------------------------------------
+        // Recupera um jogo que estava em memória ----------------------------------------------------------------------
+        if (inputParts.size() == 2){
+            const string &name = inputParts[1];
+            if (gameSaver.usedSaveGameName(name)){
+                Game *newGame = gameSaver.getSavedGameByName(name);
+                gameSaver.deleteGame(name);
+                delete currentGame;
+                currentGame = newGame;
+                cout << "Jogo " << currentGame->getName() << " retomado\n";
+            } else{
+                out << "Nao existe jogo com esse nome\n";
+            }
+        }
+    } else if (action == "apaga") { // TODO apaga
+        // Apaga um jogo que estava em memória -------------------------------------------------------------------------
+        if (inputParts.size() == 2){
+            const string &name = inputParts[1];
+            if (gameSaver.usedSaveGameName(name)){
+                gameSaver.deleteGame(name);
+                cout << "Jogo " << name << " apagado com sucesso\n";
+            } else{
+                out << "Nao existe jogo com esse nome\n";
+            }
+        }
 	} else if (action == "toma") { // TODO toma
 		// Obtem tecnologia ou territorio sem seguir as regras do jogo -------------------------------------------------
+		if (inputParts.size() == 3 || inputParts[1] == "terr" || inputParts[1] == "tec" ){
+            const string &qual = inputParts[1];
+            const string &nome = inputParts[2];
+            if (qual == "terr"){
+                currentGame->kingdom.addTerritory()
+            } else{
+
+            }
+		}else{
+            out << "sintaxe valida -> toma <terr || tec> <nome>\n";
+		}
 	} else if (action == "modifica") { // TODO modifica
 		// Modifica a quantidade de recursos sem seguir as regras do jogo ----------------------------------------------
 	} else if (action == "fevento") { // TODO fevento

@@ -23,3 +23,22 @@ GameSaver::~GameSaver() {
 	for (Game *game : savedGames)
 		delete game;
 }
+
+Game *const GameSaver::getSavedGameByName(const std::string &gameName) const {
+	for(Game *game :savedGames){
+		if (game->getName() == gameName){
+			Game * gameToReturn = game;
+			delete game;
+			return gameToReturn;
+		}
+	}
+	return nullptr;
+}
+
+void GameSaver::deleteGame(const string &gameName) {
+	for(Game *game :savedGames){
+		if (game->getName() == gameName){
+			delete game;
+		}
+	}
+}
