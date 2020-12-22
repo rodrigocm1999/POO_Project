@@ -38,22 +38,15 @@ public:
 	virtual ~Game();
 
 	const std::string &getName() const { return gameName; }
-
 	int getTurn() const { return turn; }
-
 	int getPhase() const { return phase; }
-
 	int getYear() const { return Utils::turnToYear(turn); }
-
 	void setName(const std::string &name) { gameName = name; }
 
 	const Territorio *getTerritoryByName(const std::string &name);
-
 	void addTerritoryToWorld(Territorio *newTerritory);
-
-	int conquer(std::string &territoryName);
-
 	std::vector<Territorio *> getAllTerritories() const;
+	int conquer(std::string &territoryName);
 
 	void nextPhase();
 
@@ -62,19 +55,13 @@ public:
 	int eventMaybeHappens();
 
 	bool isGameFinished() const;
-
 	bool isInProgress() const;
-
 	void finishGame();
-
 	bool start();
 
 	bool moreProducts();
-
 	bool moreGold();
-
 	bool moreMilitary();
-
 	bool acquire(const std::string &name);
 
 	int calculateFinalPoints();

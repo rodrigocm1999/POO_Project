@@ -16,3 +16,9 @@ Mina::Mina() {
 void Mina::updateValues(int turn, int year) {
 	goldProduction = turn <= 3 ? 1 : 2;
 }
+
+Territorio *Mina::createCopy() const {
+	Mina *temp = new Mina;
+	*temp = *this;
+	return temp;
+}

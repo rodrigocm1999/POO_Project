@@ -15,6 +15,8 @@ public:
     std::string getType() const override { return Continente::getType() + "_Fortaleza"; }
 
     Fortaleza();
+
+	Territorio *createCopy() const override;
 };
 
 

@@ -11,11 +11,11 @@
 class Ilha : public Territorio {
 
 public:
-    bool isIsland() const { return true; }
+	bool isIsland() const { return true; }
 
-    std::string getType() const { return "Ilha"; }
+	std::string getType() const { return "Ilha"; }
 
-    Ilha();
+	Ilha();
 };
 
 

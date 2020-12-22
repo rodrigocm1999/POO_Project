@@ -11,3 +11,9 @@ Refugio::Refugio() {
 	this->resistance = 9;
 	this->goldProduction = 1;
 }
+
+Territorio *Refugio::createCopy() const {
+	Refugio * temp = new Refugio;
+	*temp = *this;
+	return temp;
+}

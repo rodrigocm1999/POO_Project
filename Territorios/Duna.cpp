@@ -11,3 +11,9 @@ Duna::Duna() {
 	this->resistance = 4;
 	this->productProduction = 1;
 }
+
+Territorio *Duna::createCopy() const {
+	Duna * temp = new Duna;
+	*temp = *this;
+	return temp;
+}

@@ -63,17 +63,17 @@ public:
 
 	bool hasTechnology(const std::string &name) const;
 
-	void setWarehouseCapacity(int warehouseCapacity);
+	void setWarehouseCapacity(int _warehouseCapacity);
 
-	void setSafeCapacity(int safeCapacity);
+	void setSafeCapacity(int _safeCapacity);
 
-	void setMilitaryForceCapacity(int militaryForceCapacity);
-
-	Kingdom &operator=(const Kingdom &other);
+	void setMilitaryForceCapacity(int _militaryForceCapacity);
 
 	int getFinalPoints(World &world);
 
 	void updateTerritories(int turn, int year);
+
+	Kingdom &operator=(const Kingdom &other);
 };
 
 

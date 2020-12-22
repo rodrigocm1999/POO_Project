@@ -39,7 +39,7 @@ Game::Game() {
 }
 
 Game::Game(const Game &otherGame) {
-	cout << "copy game";
+	cout << "copy game\n";
 
 	this->turn = otherGame.turn;
 	this->phase = otherGame.phase;
@@ -75,7 +75,7 @@ const Territorio *Game::getTerritoryByName(const string &name) {
 void Game::printGame(ostream &out) const {
 	out << "\tTurno : " << getTurn() << " \tFase : " << getPhase() << "\n";
 	kingdom.print(out);
-	out << "------------------------------ \n";
+	out << "World ------------------------ \n";
 	world.print(out);
 	//TODO adicionar tecnologias e restantes cenas aka tecnhologiaas
 }

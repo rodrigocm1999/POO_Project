@@ -15,3 +15,9 @@ Pescaria::Pescaria() {
 void Pescaria::updateValues(int turn, int year) {
 	productProduction = year == 1 ? 2 : 4;
 }
+
+Territorio *Pescaria::createCopy() const {
+	Pescaria * temp = new Pescaria;
+	*temp = *this;
+	return temp;
+}

@@ -16,8 +16,6 @@ public:
     std::string getType() const { return "Continente"; }
 
     Continente();
-
-
 };
 
 

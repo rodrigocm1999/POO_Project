@@ -10,3 +10,9 @@ Fortaleza::Fortaleza() {
 	this->name = "Fortaleza" + std::to_string(++idCounter);
 	this->resistance = 8;
 }
+
+Territorio *Fortaleza::createCopy() const {
+	Fortaleza * temp = new Fortaleza;
+	*temp = *this;
+	return temp;
+}

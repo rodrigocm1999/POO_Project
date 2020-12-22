@@ -17,6 +17,8 @@ public:
     Pescaria();
 
 	void updateValues(int turn, int year) override;
+
+	Territorio *createCopy() const override;
 };
 
 

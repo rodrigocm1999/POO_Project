@@ -36,14 +36,10 @@ public:
 	int getVictoryPoints() const { return victoryPoints; }
 
 	virtual void updateValues(int turn, int year);
-	virtual Territorio *createCopy() const;
+	virtual Territorio *createCopy() const = 0;
 
 	virtual Territorio &operator=(const Territorio* other);
 	friend std::ostream &operator<<(std::ostream &os, const Territorio &terr);
-
 };
-
-//std::ostream &operator<<(std::ostream &os, const Territory &territory);
-
 
 #endif //TRABALHOPRATICO_TERRITORIO_H

@@ -16,3 +16,9 @@ Castelo::Castelo() {
 void Castelo::updateValues(int turn, int year) {
 	productProduction = turn <= 2 ? 3 : 0;
 }
+
+Territorio *Castelo::createCopy() const {
+	Castelo * temp = new Castelo;
+	*temp = *this;
+	return temp;
+}

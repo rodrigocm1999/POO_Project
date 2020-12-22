@@ -91,7 +91,7 @@ Territorio *Kingdom::getLastConquered() const {
 void Kingdom::print(std::ostream &out) const {
 	out << "Kingdom --------------------- \nArmazem : " << getProducts() << " \t Capacidade : " << getProductsCapacity()
 		<< "\nCofre : " << getGold() << " \t Capacidade : " << getGoldCapacity()
-		<< "\nForca Militar : " << getMilitaryForce() << "\n"
+		<< "\nForca Militar : " << getMilitaryForce() << "\t Capacidade : " << getMaxMilitaryForce() << "\n"
 		<< "Todos os territorios do Kingdom (quantidade : " << getSize() << " ) : \n";
 	for (Territorio *territory : territories) {
 		out << "\t" << *territory << "\n";
@@ -122,20 +122,20 @@ bool Kingdom::hasTechnology(const string &name) const {
 	return false;
 }
 
-void Kingdom::setWarehouseCapacity(int warehouseCapacity) {
-	Kingdom::warehouseCapacity = warehouseCapacity;
+void Kingdom::setWarehouseCapacity(int _warehouseCapacity) {
+	this->warehouseCapacity = _warehouseCapacity;
 }
 
-void Kingdom::setSafeCapacity(int safeCapacity) {
-	Kingdom::safeCapacity = safeCapacity;
+void Kingdom::setSafeCapacity(int _safeCapacity) {
+	this->safeCapacity = _safeCapacity;
 }
 
-void Kingdom::setMilitaryForceCapacity(int militaryForceCapacity) {
-	Kingdom::militaryForceCapacity = militaryForceCapacity;
+void Kingdom::setMilitaryForceCapacity(int _militaryForceCapacity) {
+	this->militaryForceCapacity = _militaryForceCapacity;
 }
 
 Kingdom &Kingdom::operator=(const Kingdom &other) {
-	cout << "copy kingdom";
+	cout << "copy kingdom\n";
 
 	this->territories.reserve(other.territories.size());
 	for (auto &territory : other.territories) {
@@ -158,24 +158,24 @@ Kingdom &Kingdom::operator=(const Kingdom &other) {
 }
 
 int Kingdom::getFinalPoints(World &world) {
-    int points = 0;
-    for(auto &terr : territories){
-    	points += terr->getVictoryPoints();
-    }
-    points += technologies.size();
-    if (technologies.size() == 5){
-        //Bonus Cientifico
-        points += 1;
-    }
-    if (world.getSize() == 0){
-        //Imperador Supremo
-        points += 3;
-    }
-    return points;
+	int points = 0;
+	for (auto &terr : territories) {
+		points += terr->getVictoryPoints();
+	}
+	points += technologies.size();
+	if (technologies.size() == 5) {
+		//Bonus Cientifico
+		points += 1;
+	}
+	if (world.getSize() == 0) {
+		//Imperador Supremo
+		points += 3;
+	}
+	return points;
 }
 
-void Kingdom::updateTerritories(int turn,int year) {
-	for(auto &terr: territories){
-		terr->updateValues(turn,year);
+void Kingdom::updateTerritories(int turn, int year) {
+	for (auto &terr: territories) {
+		terr->updateValues(turn, year);
 	}
 }

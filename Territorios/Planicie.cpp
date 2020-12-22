@@ -19,3 +19,9 @@ void Planicie::updateValues(int turn, int year) {
 	goldProduction = value;
 	productProduction = value;
 }
+
+Territorio *Planicie::createCopy() const {
+	Planicie * temp = new Planicie;
+	*temp = *this;
+	return temp;
+}

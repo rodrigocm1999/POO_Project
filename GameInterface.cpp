@@ -42,6 +42,11 @@ void GameInterface::handleCommand(ostream &out, vector<std::string> &inputParts)
 	}
 	const string &action = inputParts[0];
 
+	if (action == "lista") {
+		listGame(inputParts, out);
+		return;
+	}
+
 	if (!currentGame->isInProgress()) {
 		handleCreationCommand(out, inputParts);
 	} else {
@@ -192,20 +197,7 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 	//TODO acabar de fazer estes comandos
 
 	if (action == "lista") {
-		// Lista o jogo ou territorio ----------------------------------------------------------------------------------
-		if (inputParts.size() == 1) {
-			currentGame->printGame(cout);
-		} else if (inputParts.size() == 2) {
-			string &name = inputParts[1];
-			const Territorio *territory = currentGame->getTerritoryByName(name);
-			if (territory != nullptr) {
-				out << *territory << endl;
-			} else {
-				out << "Territory com esse nome nao encontrado\n";
-			}
-		} else {
-			out << "sintaxe valida -> lista OU lista <nome_do_territorio>\n";
-		}
+		listGame(inputParts, out);
 	} else if (action == "avanca") {
 		// Avança para a próxima fase ----------------------------------------------------------------------------------
 		if (inputParts.size() == 2) {
@@ -249,4 +241,21 @@ int GameInterface::getCommandPhase(const string &command) {
 			return item.getPhase();
 	}
 	return -1;
+}
+
+void GameInterface::listGame(vector<std::string> &inputParts, ostream &out) {
+// Lista o jogo ou territorio ----------------------------------------------------------------------------------
+	if (inputParts.size() == 1) {
+		currentGame->printGame(cout);
+	} else if (inputParts.size() == 2) {
+		string &name = inputParts[1];
+		const Territorio *territory = currentGame->getTerritoryByName(name);
+		if (territory != nullptr) {
+			out << *territory << endl;
+		} else {
+			out << "Territory com esse nome nao encontrado\n";
+		}
+	} else {
+		out << "sintaxe valida -> lista OU lista <nome_do_territorio>\n";
+	}
 }

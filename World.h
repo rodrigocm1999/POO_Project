@@ -25,7 +25,7 @@ public:
 
 	void lostTerritory(const Territorio *territory);
 
-	int getSize() const { return territories.size(); }
+	int getSize() const;
 
 	void print(std::ostream &out) const;
 

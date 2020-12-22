@@ -17,6 +17,8 @@ public:
     Mina();
 
 	void updateValues(int turn, int year) override;
+
+	Territorio *createCopy() const override;
 };
 
 #endif //TRABALHOPRATICO_MINA_H

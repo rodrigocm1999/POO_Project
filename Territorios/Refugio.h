@@ -16,6 +16,7 @@ public:
 
 	Refugio();
 
+	Territorio *createCopy() const override;
 };
 
 

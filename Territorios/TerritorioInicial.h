@@ -13,6 +13,8 @@ public:
 	std::string getType() const override { return "Inicial"; }
 
 	TerritorioInicial();
+
+	Territorio *createCopy() const override;
 };
 
 

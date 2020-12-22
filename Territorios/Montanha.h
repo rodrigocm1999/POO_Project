@@ -13,13 +13,15 @@ class Montanha : public Continente {
 	int turnCounter;
 
 public:
-    std::string getType() const override { return Continente::getType() + "_Montanha"; }
+	std::string getType() const override { return Continente::getType() + "_Montanha"; }
 
-    Montanha();
+	Montanha();
 
 	void updateValues(int turn, int year) override;
 
 	Territorio &operator=(const Territorio *other) override;
+
+	Territorio *createCopy() const override;
 };
 
 

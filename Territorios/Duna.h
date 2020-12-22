@@ -16,7 +16,7 @@ public:
 
     Duna();
 
-
+	Territorio *createCopy() const override;
 };
 
 

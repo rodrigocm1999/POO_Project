@@ -24,7 +24,15 @@ void Montanha::updateValues(int turn, int year) {
 }
 
 Territorio &Montanha::operator=(const Territorio *other) {
-	*this = &Territorio::operator=(other);
-	this->turnCounter = ((Montanha *) other)->turnCounter;
+	std::cout << "Montanha copia\n";
+	Montanha *otherRightType = (Montanha *) other;
+	Territorio::operator=(otherRightType);
+	this->turnCounter = otherRightType->turnCounter;
 	return *this;
+}
+
+Territorio *Montanha::createCopy() const {
+	Montanha *temp = new Montanha;
+	*temp = *this;
+	return temp;
 }
