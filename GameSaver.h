@@ -21,7 +21,7 @@ public:
 
 	bool usedSaveGameName(const std::string &gameName) const;
 
-    Game *const getSavedGameByName(const std::string &gameName) const;
+    Game * getSavedGameByName(const std::string &gameName) const;
 
     void deleteGame(const std::string &gameName);
 };

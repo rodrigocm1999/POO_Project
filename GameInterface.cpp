@@ -236,11 +236,11 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
             const string &name = inputParts[1];
             if (gameSaver.usedSaveGameName(name)){
                 Game *newGame = gameSaver.getSavedGameByName(name);
-                gameSaver.deleteGame(name);
                 delete currentGame;
                 currentGame = newGame;
                 cout << "Jogo " << currentGame->getName() << " retomado\n";
             } else{
+                //TODO LISTA OS JOGOS EM MEMORIA
                 out << "Nao existe jogo com esse nome\n";
             }
         }
@@ -261,8 +261,15 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
             const string &qual = inputParts[1];
             const string &nome = inputParts[2];
             if (qual == "terr"){
-                currentGame->kingdom.addTerritory()
-            } else{
+                const Territorio * terr = currentGame->getTerritoryByName(nome);
+                if (terr != nullptr){
+                    // RODRIGO EXPLICA ME PORQUE ISTO TEM QUE ESTAR CONST
+                    currentGame->forceConquer(const_cast<Territorio *>(terr));
+                } else{
+                    cout << "O territorio nao existe\n";
+                }
+            } else if (qual == "tec"){
+                //TODO CHECK FOR SINTAXE ON TECNOLOGY
 
             }
 		}else{

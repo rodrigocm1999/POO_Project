@@ -247,8 +247,9 @@ int Game::calculateFinalPoints() {
 	return finalScore;
 }
 
-bool Game::forceConquer(const std::string &name) {
-    return false;
+bool Game::forceConquer(Territorio * terr) {
+    world.lostTerritory(terr);
+    kingdom.addTerritory(terr);
 }
 
 

@@ -79,7 +79,7 @@ public:
 
 	int calculateFinalPoints();
 
-	bool forceConquer(const std::string &name);
+	bool forceConquer(Territorio * terr);
 };
 
 
