@@ -21,12 +21,6 @@ private:
 	Kingdom kingdom;
 	int finalScore;
 
-	void abandonedResource();
-
-	void invaded();
-
-	void diplomaticAlliance();
-
 public:
 
 	Game();
@@ -79,7 +73,17 @@ public:
 
 	int calculateFinalPoints();
 
-	bool forceConquer(Territorio * terr);
+	void forceConquer(Territorio * terr);
+
+    void setKingdomGold(int amount);
+
+    void setKingdomWarehouse(int amount);
+
+    void abandonedResource();
+
+    void invaded();
+
+    void diplomaticAlliance();
 };
 
 

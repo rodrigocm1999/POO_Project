@@ -247,9 +247,19 @@ int Game::calculateFinalPoints() {
 	return finalScore;
 }
 
-bool Game::forceConquer(Territorio * terr) {
+void Game::forceConquer(Territorio * terr) {
     world.lostTerritory(terr);
     kingdom.addTerritory(terr);
+}
+
+void Game::setKingdomGold(int amount) {
+    //only for command midifica - if n more than capacity should set capacity too ?!
+    kingdom.setSafeAmount(amount);
+}
+
+void Game::setKingdomWarehouse(int amount) {
+    //only for command midifica - if n more than capacity should set capacity too ?!
+    kingdom.setWarehouseAmount(amount);
 }
 
 
