@@ -37,7 +37,11 @@ public:
 
 	int getGold() const;
 
-	int getGoldCapacity() const;
+    void setWarehouseAmount(int warehouseAmount);
+
+    void setSafeAmount(int safeAmount);
+
+    int getGoldCapacity() const;
 
 	void addGold(int amount);
 

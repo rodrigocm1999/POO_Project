@@ -179,3 +179,11 @@ void Kingdom::updateTerritories(int turn, int year) {
 		terr->updateValues(turn, year);
 	}
 }
+
+void Kingdom::setWarehouseAmount(int warehouseAmount) {
+    Kingdom::warehouseAmount = warehouseAmount;
+}
+
+void Kingdom::setSafeAmount(int safeAmount) {
+    Kingdom::safeAmount = safeAmount;
+}

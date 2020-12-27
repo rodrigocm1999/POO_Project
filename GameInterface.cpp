@@ -222,17 +222,17 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 		} else {
 			out << "sintaxe valida -> grava <nome_do_jogo>\n";
 		}
-	} else if (action == "ativa") { // TODO ativa
+	} else if (action == "ativa") { // TODO ver se funciona
         // Recupera um jogo que estava em memória ----------------------------------------------------------------------
         if (inputParts.size() == 2){
             const string &name = inputParts[1];
             if (gameSaver.usedSaveGameName(name)){
                 Game *newGame = gameSaver.getSavedGameByName(name);
-                gameSaver.deleteGame(name);
                 delete currentGame;
                 currentGame = newGame;
                 cout << "Jogo " << currentGame->getName() << " retomado\n";
             } else{
+                //TODO LISTA OS JOGOS EM MEMORIA
                 out << "Nao existe jogo com esse nome\n";
             }
         }
@@ -249,21 +249,63 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
         }
 	} else if (action == "toma") { // TODO toma
 		// Obtem tecnologia ou territorio sem seguir as regras do jogo -------------------------------------------------
-		if (inputParts.size() == 3 || inputParts[1] == "terr" || inputParts[1] == "tec" ){
+		if (inputParts.size() == 3 && inputParts[1] == "terr" || inputParts[1] == "tec" ){
             const string &qual = inputParts[1];
-            const string &nome = inputParts[2];
+            const string &name = inputParts[2];
             if (qual == "terr"){
-                currentGame->kingdom.addTerritory()
-            } else{
-
+                const Territorio * terr = currentGame->getTerritoryByName(name);
+                if (terr != nullptr){
+                    // RODRIGO EXPLICA ME PORQUE ISTO TEM QUE ESTAR CONST
+                    currentGame->forceConquer(const_cast<Territorio *>(terr));
+                } else{
+                    cout << "O territorio nao existe\n";
+                }
+            } else if (qual == "tec"){
+                //TODO AINDA E PRECISO FAZER
+                if (Factory::createTechnologyFromType(name)){
+                    // NOT WORKING
+                    currentGame->acquire(name);
+                } else{
+                    out << "sintaxe valida -> toma <terr || tec> <nome>\n";
+                }
             }
 		}else{
             out << "sintaxe valida -> toma <terr || tec> <nome>\n";
 		}
-	} else if (action == "modifica") { // TODO modifica
-		// Modifica a quantidade de recursos sem seguir as regras do jogo ----------------------------------------------
+	} else if (action == "modifica") { //TODO VER SE FUNCIONA
+        // Modifica a quantidade de recursos sem seguir as regras do jogo ----------------------------------------------
+        if (inputParts.size() == 3 && inputParts[1] == "ouro" || inputParts[1] == "prod"){
+            const string &qual = inputParts[1];
+            int amount = stoi(inputParts[2]);
+            if (stoi(inputParts[2])){
+                if (qual == "ouro"){
+                    currentGame->setKingdomGold(amount);
+                } else if (qual == "prod"){
+                    currentGame->setKingdomWarehouse(amount);
+                }
+            } else {
+                out << "sintaxe valida -> modifica <ouro|prod> N\n";
+            }
+        } else{
+            out << "sintaxe valida -> modifica <ouro|prod> N\n";
+        }
 	} else if (action == "fevento") { // TODO fevento
 		// Força o acontecimento de um evento --------------------------------------------------------------------------
+		if (inputParts.size() == 2){
+		    const string &eventType = inputParts[1];
+		    //TODO FAZER UM MENU COM NUMEROS
+		    if (eventType == "abandona"){
+		        currentGame->abandonedResource();
+		    }else if (eventType == "invasao"){
+		        currentGame->invaded();
+		    } else if (eventType == "alianca"){
+		        currentGame->diplomaticAlliance();
+		    } else{
+                out << "sintaxe valida -> fevento <abandona || invasao || alianca>\n";
+		    }
+		} else{
+            out << "sintaxe valida -> fevento <nome-evento>\n";
+		}
 	}
 }
 
