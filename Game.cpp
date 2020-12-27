@@ -24,6 +24,8 @@
 
 #include <sstream>
 #include <fstream>
+#include "Factory.h"
+#include "Constants.h"
 
 #define GAME_NOT_STARTED 1
 #define GAME_IN_PROGRESS 2
@@ -35,18 +37,19 @@ Game::Game() {
 	gameState = GAME_NOT_STARTED;
 	turn = 1;
 	phase = 1;
+	finalScore = 0;
 	kingdom.addTerritory(new TerritorioInicial);
 }
 
 Game::Game(const Game &otherGame) {
-	cout << "copy game\n";
 
 	this->turn = otherGame.turn;
 	this->phase = otherGame.phase;
 	this->gameState = otherGame.gameState;
+	this->finalScore = otherGame.finalScore;
 
 	this->world = otherGame.world;
-	this->kingdom = otherGame.kingdom; // TODO make sure the copies work, for now they dont, the functions dont even get called I think
+	this->kingdom = otherGame.kingdom;
 }
 
 Game::~Game() {
@@ -67,17 +70,25 @@ vector<Territorio *> Game::getAllTerritories() const {
 	return all;
 }
 
-const Territorio *Game::getTerritoryByName(const string &name) {
+Territorio *Game::getTerritoryByName(const string &name) {
 	Territorio *land = world.getTerritoryByName(name);
 	return land != nullptr ? land : kingdom.getTerritoryByName(name);
 }
 
-void Game::printGame(ostream &out) const {
-	out << "\tTurno : " << getTurn() << " \tFase : " << getPhase() << "\n";
+void Game::print(ostream &out) const {
+	out << "Turno : " << getTurn() << " \tFase : " << getPhase() << "\n";
 	kingdom.print(out);
-	out << "World ------------------------ \n";
+	out << "Mundo ------------------------ \n";
 	world.print(out);
-	//TODO adicionar tecnologias e restantes cenas aka tecnhologiaas
+	out << "------------------------------ \n";
+}
+
+void Game::simplePrint(ostream &out) const {
+	out << "Turno : " << getTurn() << " \tFase : " << getPhase() << "\n";
+	kingdom.simplePrint(out);
+	out << "\tQuantidade de territorios : " << kingdom.getSize()
+		<< "\n\tQuantidade de tecnologias : " << kingdom.getTechnologies().size()
+		<< "\nQuantidade de territorios no Mundo: " << world.getSize() << " \n";
 }
 
 void Game::addTerritoryToWorld(Territorio *territory) {
@@ -88,8 +99,7 @@ int Game::conquer(std::string &territoryName) {
 	Territorio *toConquer = world.getTerritoryByName(territoryName);
 	if (toConquer == nullptr) return -1;
 	if (toConquer->isIsland()) { // check if has requirements to conquer island
-		//TODO if has technology required "Misseis Teleguiados"
-		if (kingdom.getSize() < 5) {
+		if (kingdom.getSize() < 5 || !kingdom.hasTechnology(TEC_MISSEIS)) {
 			return false;
 		}
 	}
@@ -141,26 +151,38 @@ bool Game::start() {
 	return true;
 }
 
-void Game::nextPhase() {
-	// TODO arranjar um sitio para ver quando acaba e fazer as várias alterações entre as várias rondas tipo atualizar os territorio entre outros
+void Game::nextPhase(ostream &out) {
 	phase++;
 	if (phase == 1) {
+		// Conquista e passa
 	} else if (phase == 2) {
 		kingdom.updateTerritories(getTurn(), getYear());
+		// fazer troca de produtos ou ouro
 	} else if (phase == 3) {
-
+		// comprar militar entre outros
 	} else if (phase == 4) {
+		eventMaybeHappens(out);
 		turn++;
 		phase = 1;
+
+		if (turn > 12) {
+			finishGame();
+			calculateFinalPoints();
+		}
 	}
 }
 
-int Game::eventMaybeHappens() {
+int Game::eventMaybeHappens(ostream &out) {
 	int eventType = Utils::getRandom(1, 4);
 	if (eventType == 1) {
 		abandonedResource();
 	} else if (eventType == 2) {
-		invaded();
+		Territorio *invadedTerr = kingdom.getLastConquered();
+		if (invaded()) {
+			out << "Perdeste o teu ultimo territorio conquistado:\n\t" << *invadedTerr << "\n";
+		} else {
+			out << "Tiveste sorte! nao perdeste o teu terrritorio conquistado mais recentemente\n";
+		}
 	} else if (eventType == 3) {
 		diplomaticAlliance();
 	} // else do nothing
@@ -171,24 +193,28 @@ void Game::abandonedResource() {
 	kingdom.foundAbandonedResource(getYear());
 }
 
-void Game::invaded() {
+bool Game::invaded() {
 	int luckStrength = Utils::getRandom(1, 6);
 	int baseInvasionStrength = getYear() == 1 ? 2 : 3;
 	int invasionStrength = baseInvasionStrength + luckStrength;
 
-	bool hasBonus = kingdom.hasTechnology("DefesasTerritoriais");
+	bool hasBonus = kingdom.hasTechnology(TEC_DEFESAS);
 	int bonusResistance = hasBonus ? 1 : 0;
 
 	Territorio *terr = kingdom.getLastConquered();
+	int territoryResistance = terr->getResistance() + bonusResistance;
 
-	if (invasionStrength > terr->getResistance() + bonusResistance) {
+	if (invasionStrength > territoryResistance) {
 		kingdom.lostTerritory(terr);
 		world.addTerritory(terr);
 
 		if (kingdom.getSize() == 0) {
 			finishGame();
 		}
+
+		return true;
 	}
+	return false;
 }
 
 void Game::diplomaticAlliance() {
@@ -240,26 +266,35 @@ bool Game::acquire(const string &name) {
 }
 
 int Game::calculateFinalPoints() {
-	if (!isGameFinished()) {
-		return 0;
-	}
 	finalScore = kingdom.getFinalPoints(world);
 	return finalScore;
 }
 
-void Game::forceConquer(Territorio * terr) {
-    world.lostTerritory(terr);
-    kingdom.addTerritory(terr);
+void Game::forceConquer(Territorio *terr) {
+	world.lostTerritory(terr);
+	kingdom.addTerritory(terr);
 }
 
 void Game::setKingdomGold(int amount) {
-    //only for command midifica - if n more than capacity should set capacity too ?!
-    kingdom.setSafeAmount(amount);
+	//only for command midifica - if n more than capacity should set capacity too ?!
+	kingdom.setSafeAmount(amount);
 }
 
 void Game::setKingdomWarehouse(int amount) {
-    //only for command midifica - if n more than capacity should set capacity too ?!
-    kingdom.setWarehouseAmount(amount);
+	//only for command midifica - if n more than capacity should set capacity too ?!
+	kingdom.setWarehouseAmount(amount);
+}
+
+int Game::getFinalScore() const {
+	return finalScore;
+}
+
+const World &Game::getWorld() const {
+	return world;
+}
+
+const Kingdom &Game::getKingdom() const {
+	return kingdom;
 }
 
 

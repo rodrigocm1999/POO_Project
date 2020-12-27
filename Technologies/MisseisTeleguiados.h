@@ -11,6 +11,8 @@ class MisseisTeleguiados : public Technology {
 
 public:
 	MisseisTeleguiados():Technology("MisseisTeleguiados",4){}
+
+	Technology *createCopy() const override;
 };
 
 

@@ -32,4 +32,4 @@ add_executable(TrabalhoPratico main.cpp
         Technologies/DefesasTerritoriais.cpp Technologies/DefesasTerritoriais.h
         Technologies/DroneMilitar.cpp Technologies/DroneMilitar.h
         Technologies/MisseisTeleguiados.cpp Technologies/MisseisTeleguiados.h
-        )
+        Constants.h)

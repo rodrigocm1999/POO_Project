@@ -12,7 +12,9 @@ class DroneMilitar : public Technology {
 public:
 	DroneMilitar():Technology("DroneMilitar",3){}
 
-	void makeChanges(Kingdom *kingdom) const override;
+	void makeChanges(Kingdom *kingdom) const override; // TODO chamar esta funcção quando se adquirir techonolias
+
+	Technology *createCopy() const override;
 };
 
 

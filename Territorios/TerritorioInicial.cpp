@@ -12,7 +12,7 @@ TerritorioInicial::TerritorioInicial() {
 }
 
 Territorio *TerritorioInicial::createCopy() const {
-	TerritorioInicial * temp = new TerritorioInicial;
+	auto * temp = new TerritorioInicial;
 	*temp = *this;
 	return temp;
 }

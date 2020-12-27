@@ -9,3 +9,9 @@
 void DroneMilitar::makeChanges(Kingdom *kingdom) const {
 	kingdom->setMilitaryForceCapacity(5);
 }
+
+Technology *DroneMilitar::createCopy() const {
+	auto temp = new DroneMilitar;
+	*temp = *this;
+	return temp;
+}

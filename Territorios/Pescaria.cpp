@@ -17,7 +17,7 @@ void Pescaria::updateValues(int turn, int year) {
 }
 
 Territorio *Pescaria::createCopy() const {
-	Pescaria * temp = new Pescaria;
+	auto * temp = new Pescaria;
 	*temp = *this;
 	return temp;
 }

@@ -11,6 +11,8 @@ class BolsaValores : public Technology{
 
 public:
 	BolsaValores() : Technology("BolsaValores", 2) {}
+
+	Technology *createCopy() const override;
 };
 
 

@@ -24,6 +24,8 @@ public:
     Game * getSavedGameByName(const std::string &gameName) const;
 
     void deleteGame(const std::string &gameName);
+
+    void printAll(std::ostream &out) const;
 };
 
 

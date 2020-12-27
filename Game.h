@@ -17,9 +17,12 @@ private:
 	int turn;
 	int phase;
 	int gameState;
+	int finalScore;
 	World world;
 	Kingdom kingdom;
-	int finalScore;
+
+
+	int calculateFinalPoints();
 
 public:
 
@@ -37,18 +40,20 @@ public:
 	int getYear() const { return Utils::turnToYear(turn); }
 	void setName(const std::string &name) { gameName = name; }
 
-	const Territorio *getTerritoryByName(const std::string &name);
+	Territorio *getTerritoryByName(const std::string &name);
 	void addTerritoryToWorld(Territorio *newTerritory);
 	std::vector<Territorio *> getAllTerritories() const;
 	int conquer(std::string &territoryName);
 
-	void nextPhase();
+	void nextPhase(std::ostream &out);
 
-	void printGame(std::ostream &out) const;
+	void print(std::ostream &out) const;
+	void simplePrint(std::ostream &out) const;
 
-	int eventMaybeHappens();
+	int eventMaybeHappens(std::ostream &out);
 
 	bool isGameFinished() const;
+	int getFinalScore() const;
 	bool isInProgress() const;
 	void finishGame();
 	bool start();
@@ -58,8 +63,6 @@ public:
 	bool moreMilitary();
 	bool acquire(const std::string &name);
 
-	int calculateFinalPoints();
-
 	void forceConquer(Territorio * terr);
 
     void setKingdomGold(int amount);
@@ -68,9 +71,13 @@ public:
 
     void abandonedResource();
 
-    void invaded();
+    bool invaded();
 
     void diplomaticAlliance();
+
+	const World &getWorld() const;
+
+	const Kingdom &getKingdom() const;
 };
 
 

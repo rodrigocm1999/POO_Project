@@ -21,11 +21,11 @@ class Kingdom {
 	int safeCapacity = 3;
 	int militaryForce = 0;
 	int militaryForceCapacity = 3;
-	bool canMakeTrades = false;
 
 public:
 
 	const std::vector<Territorio *> &getTerritories() const;
+	const std::vector<Technology *> &getTechnologies() const;
 
 	virtual ~Kingdom();
 
@@ -56,6 +56,7 @@ public:
 	void addTerritory(Territorio *conquered);
 
 	void print(std::ostream &out) const;
+	void simplePrint(std::ostream &out) const;
 
 	Territorio *getTerritoryByName(const std::string &name);
 
@@ -78,6 +79,7 @@ public:
 	void updateTerritories(int turn, int year);
 
 	Kingdom &operator=(const Kingdom &other);
+
 };
 
 

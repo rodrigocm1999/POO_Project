@@ -25,6 +25,8 @@ public:
 
 	Territorio() = default;
 
+	virtual ~Territorio() = default;
+
 	virtual bool isContinent() const { return false; }
 	virtual bool isIsland() const { return false; }
 

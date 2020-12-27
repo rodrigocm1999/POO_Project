@@ -39,7 +39,6 @@ void World::print(ostream &out) const {
 	for (Territorio *territory : territories) {
 		out << "\t" << *territory << endl;
 	}
-	out << "------------------------------ \n";
 }
 
 Territorio *World::getTerritoryByName(const string &name) {

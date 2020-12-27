@@ -3,17 +3,16 @@
 //
 
 #include "Kingdom.h"
-
-#define TEC_DRONE "DroneMilitar"
-#define TEC_MISSEIS "MisseisTeleguiados"
-#define TEC_DEFESAS "DefesasTerritoriais"
-#define TEC_BANCO "BancoCentral"
-#define TEC_BOLSA "BolsaValores"
+#include "Constants.h"
 
 using namespace std;
 
 const std::vector<Territorio *> &Kingdom::getTerritories() const {
 	return territories;
+}
+
+const std::vector<Technology *> &Kingdom::getTechnologies() const {
+	return technologies;
 }
 
 int Kingdom::getProducts() const {
@@ -89,14 +88,23 @@ Territorio *Kingdom::getLastConquered() const {
 }
 
 void Kingdom::print(std::ostream &out) const {
-	out << "Kingdom --------------------- \nArmazem : " << getProducts() << " \t Capacidade : " << getProductsCapacity()
-		<< "\nCofre : " << getGold() << " \t Capacidade : " << getGoldCapacity()
-		<< "\nForca Militar : " << getMilitaryForce() << "\t Capacidade : " << getMaxMilitaryForce() << "\n"
-		<< "Todos os territorios do Kingdom (quantidade : " << getSize() << " ) : \n";
-	for (Territorio *territory : territories) {
-		out << "\t" << *territory << "\n";
+	simplePrint(out);
+	out << "Todos os territorios do Kingdom (quantidade : " << territories.size() << " ) : \n";
+	for (Territorio *item : territories) {
+		out << "\t" << *item << "\n";
+	}
+	out << "Tecnologias ---------------- \n";
+	for (Technology *item : technologies) {
+		out << "\t" << *item << "\n";
 	}
 }
+
+void Kingdom::simplePrint(ostream &out) const {
+	out << "Imperio --------------------- \n\tArmazem : " << getProducts() << " \t Capacidade : " << getProductsCapacity()
+		<< "\n\tCofre : " << getGold() << " \t Capacidade : " << getGoldCapacity()
+		<< "\n\tForca Militar : " << getMilitaryForce() << "\t Capacidade : " << getMaxMilitaryForce() << "\n";
+}
+
 
 Territorio *Kingdom::getTerritoryByName(const string &name) {
 	for (auto &territory : territories) {
@@ -135,7 +143,6 @@ void Kingdom::setMilitaryForceCapacity(int _militaryForceCapacity) {
 }
 
 Kingdom &Kingdom::operator=(const Kingdom &other) {
-	cout << "copy kingdom\n";
 
 	this->territories.reserve(other.territories.size());
 	for (auto &territory : other.territories) {
@@ -144,7 +151,7 @@ Kingdom &Kingdom::operator=(const Kingdom &other) {
 
 	this->technologies.reserve(other.technologies.size());
 	for (auto &technology : other.technologies) {
-		this->technologies.push_back(technology->createCopy());
+		this->technologies.push_back(technology->createCopy()); // TODO testar se as copias estão corretas
 	}
 
 	this->warehouseAmount = other.warehouseAmount;
@@ -181,9 +188,9 @@ void Kingdom::updateTerritories(int turn, int year) {
 }
 
 void Kingdom::setWarehouseAmount(int warehouseAmount) {
-    Kingdom::warehouseAmount = warehouseAmount;
+	Kingdom::warehouseAmount = warehouseAmount;
 }
 
 void Kingdom::setSafeAmount(int safeAmount) {
-    Kingdom::safeAmount = safeAmount;
+	Kingdom::safeAmount = safeAmount;
 }

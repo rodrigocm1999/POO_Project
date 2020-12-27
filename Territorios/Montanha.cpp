@@ -14,7 +14,6 @@ Montanha::Montanha() {
 	this->turnCounter = 0;
 }
 
-//TODO O que acontece se um territorio for conquistado e depois perder e voltar a conquistar?
 void Montanha::updateValues(int turn, int year) {
 	turnCounter++;
 	if (turnCounter == 2) {
@@ -25,14 +24,15 @@ void Montanha::updateValues(int turn, int year) {
 
 Territorio &Montanha::operator=(const Territorio *other) {
 	std::cout << "Montanha copia\n";
-	Montanha *otherRightType = (Montanha *) other;
+	auto *otherRightType = (Montanha *) other;
 	Territorio::operator=(otherRightType);
 	this->turnCounter = otherRightType->turnCounter;
 	return *this;
 }
 
 Territorio *Montanha::createCopy() const {
-	Montanha *temp = new Montanha;
+	auto *temp = new Montanha;
 	*temp = *this;
+	temp->turnCounter = 0;
 	return temp;
 }

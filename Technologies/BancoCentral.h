@@ -13,6 +13,8 @@ public:
 	BancoCentral():Technology("BancoCentral",3){}
 
 	void makeChanges(Kingdom *kingdom) const override;
+
+	Technology *createCopy() const override;
 };
 
 

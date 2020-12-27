@@ -11,6 +11,8 @@ class DefesasTerritoriais : public Technology {
 
 public:
 	DefesasTerritoriais():Technology("DefesasTerritoriais",4){}
+
+	Technology *createCopy() const override;
 };
 
 

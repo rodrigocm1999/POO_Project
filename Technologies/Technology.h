@@ -6,6 +6,7 @@
 #define TRABALHOPRATICO_TECHNOLOGY_H
 
 #include <string>
+#include <ostream>
 
 class Kingdom;
 
@@ -24,7 +25,9 @@ public:
 
 	virtual void makeChanges(Kingdom *kingdom) const;
 
-	virtual Technology *createCopy() const;
+	virtual Technology *createCopy() const = 0;
+
+	friend std::ostream &operator<<(std::ostream &os, const Technology &technology);
 };
 
 

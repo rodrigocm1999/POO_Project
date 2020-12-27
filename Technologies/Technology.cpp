@@ -10,7 +10,7 @@ Technology::Technology(const std::string &name,int cost) : name(name),cost(cost)
 
 void Technology::makeChanges(Kingdom *kingdom) const {}
 
-Technology *Technology::createCopy() const {
-	std::cout << "create copy technology";
-	return nullptr;
+std::ostream &operator<<(std::ostream &os, const Technology &technology) {
+	os << "nome: " << technology.name << " custo: " << technology.cost;
+	return os;
 }

@@ -25,3 +25,4 @@ Territorio &Territorio::operator=(const Territorio *other) {
 	this->victoryPoints = other->victoryPoints;
 	return *this;
 }
+

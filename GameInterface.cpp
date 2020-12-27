@@ -20,7 +20,7 @@ GameInterface::GameInterface() {
 			 PhaseCommand("lista", 0), PhaseCommand("avanca", 0),
 			 PhaseCommand("grava", 0), PhaseCommand("ativa", 0),
 			 PhaseCommand("apaga", 0), PhaseCommand("toma", 0),
-			 PhaseCommand("modifica", 1), PhaseCommand("fevento", 0)};
+			 PhaseCommand("modifica", 0), PhaseCommand("fevento", 0)};
 
 }
 
@@ -59,7 +59,9 @@ void GameInterface::handleCreationCommand(ostream &out, vector<std::string> &inp
 	//Criação do jogo
 	const string &action = inputParts[0];
 	if (action == "avanca") {
-		if (currentGame->start()) {
+		if (currentGame->isInProgress()) {
+			currentGame->nextPhase(out);
+		} else if (currentGame->start()) {
 			out << "Jogo iniciado\n";
 		} else {
 			out << "Mundo vazio, adicione territorios primeiro\n";
@@ -93,7 +95,7 @@ void GameInterface::handleCreationCommand(ostream &out, vector<std::string> &inp
 				Game *newGame = new Game(file, cout);
 				delete currentGame;
 				currentGame = newGame;
-				currentGame->printGame(cout);
+				currentGame->print(cout);
 				out << "Carregado o ficheiro com sucesso\n";
 			}
 		} else {
@@ -139,17 +141,17 @@ void GameInterface::handleCommandPhase1(ostream &out, vector<std::string> &input
 				out << "Nome de territorio invalido\n";
 			} else if (whatHappened == false) {
 				out << "Nao consegui conquistar\n";
+				currentGame->nextPhase(out);
 			} else {
-				// Conquistou
-				currentGame->nextPhase();
 				out << "Conquistado com sucesso\n";
+				//currentGame->nextPhase(out); // TODO REMOVE MAKE THIS NOT A COMMENT, this is nice for testing
 			}
 		} else {
 			out << "Sintaxe valida -> conquista <nome_do_territorio>\n";
 		}
 
 	} else if (action == "passa") {
-		currentGame->nextPhase();
+		currentGame->nextPhase(out);
 		out << "Passou o turno a frente\n";
 	}
 }
@@ -222,89 +224,104 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 		} else {
 			out << "sintaxe valida -> grava <nome_do_jogo>\n";
 		}
-	} else if (action == "ativa") { // TODO ver se funciona
-        // Recupera um jogo que estava em memória ----------------------------------------------------------------------
-        if (inputParts.size() == 2){
-            const string &name = inputParts[1];
-            if (gameSaver.usedSaveGameName(name)){
-                Game *newGame = gameSaver.getSavedGameByName(name);
-                delete currentGame;
-                currentGame = newGame;
-                cout << "Jogo " << currentGame->getName() << " retomado\n";
-            } else{
-                //TODO LISTA OS JOGOS EM MEMORIA
-                out << "Nao existe jogo com esse nome\n";
-            }
-        }
-    } else if (action == "apaga") { // TODO apaga
-        // Apaga um jogo que estava em memória -------------------------------------------------------------------------
-        if (inputParts.size() == 2){
-            const string &name = inputParts[1];
-            if (gameSaver.usedSaveGameName(name)){
-                gameSaver.deleteGame(name);
-                cout << "Jogo " << name << " apagado com sucesso\n";
-            } else{
-                out << "Nao existe jogo com esse nome\n";
-            }
-        }
+	} else if (action == "ativa") {
+		// Recupera um jogo que estava em memória ----------------------------------------------------------------------
+		if (inputParts.size() == 2) {
+			const string &name = inputParts[1];
+			if (gameSaver.usedSaveGameName(name)) {
+				Game *newGame = gameSaver.getSavedGameByName(name);
+				delete currentGame;
+				currentGame = new Game(*newGame);
+				cout << "Jogo " << currentGame->getName() << " retomado\n";
+			} else {
+				out << "Nao existe jogo com esse nome\n";
+				gameSaver.printAll(out);
+			}
+		} else {
+			out << "sintaxe valida -> ativa <nome_do_jogo>\n Jogos guardados atualmente: -----------------------------";
+			gameSaver.printAll(out);
+			out << "---------------------------------------------\n";
+		}
+	} else if (action == "apaga") {
+		// Apaga um jogo que estava em memória -------------------------------------------------------------------------
+		if (inputParts.size() == 2) {
+			const string &name = inputParts[1];
+			if (gameSaver.usedSaveGameName(name)) {
+				gameSaver.deleteGame(name);
+				cout << "Jogo " << name << " apagado com sucesso\n";
+			} else {
+				out << "Nao existe jogo com esse nome\n";
+			}
+		}
 	} else if (action == "toma") { // TODO toma
 		// Obtem tecnologia ou territorio sem seguir as regras do jogo -------------------------------------------------
-		if (inputParts.size() == 3 && inputParts[1] == "terr" || inputParts[1] == "tec" ){
-            const string &qual = inputParts[1];
-            const string &name = inputParts[2];
-            if (qual == "terr"){
-                const Territorio * terr = currentGame->getTerritoryByName(name);
-                if (terr != nullptr){
-                    // RODRIGO EXPLICA ME PORQUE ISTO TEM QUE ESTAR CONST
-                    currentGame->forceConquer(const_cast<Territorio *>(terr));
-                } else{
-                    cout << "O territorio nao existe\n";
-                }
-            } else if (qual == "tec"){
-                //TODO AINDA E PRECISO FAZER
-                if (Factory::createTechnologyFromType(name)){
-                    // NOT WORKING
-                    currentGame->acquire(name);
-                } else{
-                    out << "sintaxe valida -> toma <terr || tec> <nome>\n";
-                }
-            }
-		}else{
-            out << "sintaxe valida -> toma <terr || tec> <nome>\n";
+		if (inputParts.size() == 3 && inputParts[1] == "terr" || inputParts[1] == "tec") {
+			const string &qual = inputParts[1];
+			const string &name = inputParts[2];
+			if (qual == "terr") {
+				Territorio *terr = currentGame->getTerritoryByName(name);
+				if (terr != nullptr) {
+					currentGame->forceConquer(terr);
+				} else {
+					cout << "O territorio nao existe\n";
+				}
+			} else if (qual == "tec") {
+				//TODO AINDA E PRECISO FAZER
+				if (Factory::createTechnologyFromType(name)) {
+					// NOT WORKING
+					currentGame->acquire(name);
+				} else {
+					out << "sintaxe valida -> toma <terr || tec> <nome>\n";
+				}
+			}
+		} else {
+			out << "sintaxe valida -> toma <terr || tec> <nome>\n";
 		}
-	} else if (action == "modifica") { //TODO VER SE FUNCIONA
-        // Modifica a quantidade de recursos sem seguir as regras do jogo ----------------------------------------------
-        if (inputParts.size() == 3 && inputParts[1] == "ouro" || inputParts[1] == "prod"){
-            const string &qual = inputParts[1];
-            int amount = stoi(inputParts[2]);
-            if (stoi(inputParts[2])){
-                if (qual == "ouro"){
-                    currentGame->setKingdomGold(amount);
-                } else if (qual == "prod"){
-                    currentGame->setKingdomWarehouse(amount);
-                }
-            } else {
-                out << "sintaxe valida -> modifica <ouro|prod> N\n";
-            }
-        } else{
-            out << "sintaxe valida -> modifica <ouro|prod> N\n";
-        }
-	} else if (action == "fevento") { // TODO fevento
+	} else if (action == "modifica") {
+		// Modifica a quantidade de recursos sem seguir as regras do jogo ----------------------------------------------
+		if (inputParts.size() == 3) {
+
+			const string &qual = inputParts[1];
+			if (qual == "ouro" || qual == "prod") {
+
+				int amount = stoi(inputParts[2]);
+				if (amount) {
+					if (qual == "ouro") {
+						currentGame->setKingdomGold(amount);
+						out << "alterada a quantidade de ouro para : " << amount;
+						return;
+					} else if (qual == "prod") {
+						currentGame->setKingdomWarehouse(amount);
+						out << "alterada a quantidade de produtos para : " << amount;
+						return;
+					}
+				}
+			}
+		}
+		out << "sintaxe valida -> modifica <ouro|prod> <quantidade>\n";
+
+	} else if (action == "fevento") {
 		// Força o acontecimento de um evento --------------------------------------------------------------------------
-		if (inputParts.size() == 2){
-		    const string &eventType = inputParts[1];
-		    //TODO FAZER UM MENU COM NUMEROS
-		    if (eventType == "abandona"){
-		        currentGame->abandonedResource();
-		    }else if (eventType == "invasao"){
-		        currentGame->invaded();
-		    } else if (eventType == "alianca"){
-		        currentGame->diplomaticAlliance();
-		    } else{
-                out << "sintaxe valida -> fevento <abandona || invasao || alianca>\n";
-		    }
-		} else{
-            out << "sintaxe valida -> fevento <nome-evento>\n";
+		if (inputParts.size() == 2) {
+			const string &eventType = inputParts[1];
+			if (eventType == "abandona") {
+				currentGame->abandonedResource();
+				out << "Obtiveste recursos";
+			} else if (eventType == "invasao") {
+				Territorio *invaded = currentGame->getKingdom().getLastConquered();
+				if (currentGame->invaded()) {
+					out << "Perdeste o teu ultimo territorio conquistado:\n\t" << *invaded << "\n";
+				} else {
+					out << "Tiveste sorte! não perdeste o teu terrritorio conquistado mais recentemente\n";
+				}
+			} else if (eventType == "alianca") {
+				currentGame->diplomaticAlliance();
+				out << "Força militar aumentada em 1 para : " << currentGame->getKingdom().getMilitaryForce() << "\n";
+			} else {
+				out << "sintaxe valida -> fevento <abandona || invasao || alianca>\n";
+			}
+		} else {
+			out << "sintaxe valida -> fevento <abandona || invasao || alianca>\n";
 		}
 	}
 }
@@ -320,7 +337,7 @@ int GameInterface::getCommandPhase(const string &command) {
 void GameInterface::listGame(vector<std::string> &inputParts, ostream &out) {
 // Lista o jogo ou territorio ----------------------------------------------------------------------------------
 	if (inputParts.size() == 1) {
-		currentGame->printGame(cout);
+		currentGame->print(cout);
 	} else if (inputParts.size() == 2) {
 		string &name = inputParts[1];
 		const Territorio *territory = currentGame->getTerritoryByName(name);

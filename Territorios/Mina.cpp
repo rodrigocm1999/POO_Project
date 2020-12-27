@@ -18,7 +18,7 @@ void Mina::updateValues(int turn, int year) {
 }
 
 Territorio *Mina::createCopy() const {
-	Mina *temp = new Mina;
+	auto *temp = new Mina;
 	*temp = *this;
 	return temp;
 }

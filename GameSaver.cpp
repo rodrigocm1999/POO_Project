@@ -24,9 +24,9 @@ GameSaver::~GameSaver() {
 		delete game;
 }
 
-Game * GameSaver::getSavedGameByName(const std::string &gameName) const {
-	for(Game *game :savedGames){
-		if (game->getName() == gameName){
+Game *GameSaver::getSavedGameByName(const std::string &gameName) const {
+	for (Game *game :savedGames) {
+		if (game->getName() == gameName) {
 			return game;
 		}
 	}
@@ -34,9 +34,19 @@ Game * GameSaver::getSavedGameByName(const std::string &gameName) const {
 }
 
 void GameSaver::deleteGame(const string &gameName) {
-	for(Game *game :savedGames){
-		if (game->getName() == gameName){
+	for (int i = 0; i < savedGames.size(); i++) {
+		Game *game = savedGames[i];
+		if (game->getName() == gameName) {
+			savedGames.erase(savedGames.begin() + i);
 			delete game;
+			return;
 		}
+	}
+}
+
+void GameSaver::printAll(ostream &out) const {
+	for (auto game : savedGames) {
+		out << "\n\nGame name : " << game->getName() << "\n";
+		game->simplePrint(out);
 	}
 }
