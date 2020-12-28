@@ -19,6 +19,8 @@ public:
 
 	Technology(const std::string &name, int cost);
 
+	virtual ~Technology() = default;
+
 	const std::string &getName() const { return name; }
 
 	int getCost() const { return cost; }

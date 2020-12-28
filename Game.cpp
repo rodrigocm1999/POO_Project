@@ -175,6 +175,7 @@ void Game::eventMaybeHappens(ostream &out) {
 	int eventType = Utils::getRandom(1, 4);
 	if (eventType == 1) {
 		abandonedResource();
+		out << "Encontraste um recurso abandonado, ganhaste alguns recursos\n";
 	} else if (eventType == 2) {
 		Territorio *invadedTerr = kingdom.getLastConquered();
 		if (invaded()) {
@@ -186,7 +187,11 @@ void Game::eventMaybeHappens(ostream &out) {
 			out << "Tiveste sorte! nao perdeste o teu terrritorio conquistado mais recentemente\n";
 		}
 	} else if (eventType == 3) {
-		diplomaticAlliance();
+		if (diplomaticAlliance()) {
+			out << "houve uma alianaa diplomatica, ganhaste mais 1 forca militar\n";
+		}
+	} else {
+		out << "houve uma alianaa diplomatica, mas ja atingiste o maximo de forca militar\n";
 	}
 }
 
@@ -213,8 +218,8 @@ bool Game::invaded() {
 	return false;
 }
 
-void Game::diplomaticAlliance() {
-	kingdom.addMilitaryForce(1);
+bool Game::diplomaticAlliance() {
+	return kingdom.addMilitaryForce(1);
 }
 
 bool Game::isInProgress() const {
@@ -230,10 +235,10 @@ void Game::finishGame(ostream &out) {
 	phase = -1;
 
 	calculateFinalPoints();
-	if(kingdom.getSize()){
-		out << "Perdeste o jogo. Ficaste com "<< getFinalScore() << " pontos\n";
-	}else {
-		out << "Acabaste o jogo e ficaste com "<< getFinalScore() << " pontos\n";
+	if (kingdom.getSize()) {
+		out << "Perdeste o jogo. Ficaste com " << getFinalScore() << " pontos\n";
+	} else {
+		out << "Acabaste o jogo e ficaste com " << getFinalScore() << " pontos\n";
 	}
 }
 

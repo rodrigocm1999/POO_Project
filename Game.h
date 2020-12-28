@@ -73,7 +73,7 @@ public:
 
     bool invaded();
 
-    void diplomaticAlliance();
+    bool diplomaticAlliance();
 
 	const World &getWorld() const;
 

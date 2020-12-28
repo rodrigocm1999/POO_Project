@@ -49,11 +49,14 @@ int Kingdom::getMilitaryForce() const {
 	return militaryForce;
 }
 
-void Kingdom::addMilitaryForce(int amount) {
+bool Kingdom::addMilitaryForce(int amount) {
 	militaryForce += amount;
 	int limit = getMaxMilitaryForce();
-	if (militaryForce > limit)
+	if (militaryForce > limit) {
 		militaryForce = limit;
+		return false;
+	}
+	return true;
 }
 
 int Kingdom::getMaxMilitaryForce() const {
@@ -62,6 +65,9 @@ int Kingdom::getMaxMilitaryForce() const {
 
 Kingdom::~Kingdom() {
 	for (Territorio *item : territories) {
+		delete item;
+	}
+	for (Technology *item : technologies) {
 		delete item;
 	}
 }
@@ -100,7 +106,8 @@ void Kingdom::print(std::ostream &out) const {
 }
 
 void Kingdom::simplePrint(ostream &out) const {
-	out << "Imperio --------------------- \n\tArmazem : " << getProducts() << " \t Capacidade : " << getProductsCapacity()
+	out << "Imperio --------------------- \n\tArmazem : " << getProducts() << " \t Capacidade : "
+		<< getProductsCapacity()
 		<< "\n\tCofre : " << getGold() << " \t Capacidade : " << getGoldCapacity()
 		<< "\n\tForca Militar : " << getMilitaryForce() << "\t Capacidade : " << getMaxMilitaryForce() << "\n";
 }
