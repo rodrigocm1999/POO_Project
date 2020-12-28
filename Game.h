@@ -50,12 +50,12 @@ public:
 	void print(std::ostream &out) const;
 	void simplePrint(std::ostream &out) const;
 
-	int eventMaybeHappens(std::ostream &out);
+	void eventMaybeHappens(std::ostream &out);
 
 	bool isGameFinished() const;
-	int getFinalScore() const;
 	bool isInProgress() const;
-	void finishGame();
+	int getFinalScore() const;
+	void finishGame(std::ostream &out);
 	bool start();
 
 	bool moreProducts();

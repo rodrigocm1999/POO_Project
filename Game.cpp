@@ -159,20 +159,19 @@ void Game::nextPhase(ostream &out) {
 		kingdom.updateTerritories(getTurn(), getYear());
 		// fazer troca de produtos ou ouro
 	} else if (phase == 3) {
-		// comprar militar entre outros
+		// comprar militar e tecnologias
 	} else if (phase == 4) {
 		eventMaybeHappens(out);
 		turn++;
 		phase = 1;
 
 		if (turn > 12) {
-			finishGame();
-			calculateFinalPoints();
+			finishGame(out);
 		}
 	}
 }
 
-int Game::eventMaybeHappens(ostream &out) {
+void Game::eventMaybeHappens(ostream &out) {
 	int eventType = Utils::getRandom(1, 4);
 	if (eventType == 1) {
 		abandonedResource();
@@ -180,13 +179,15 @@ int Game::eventMaybeHappens(ostream &out) {
 		Territorio *invadedTerr = kingdom.getLastConquered();
 		if (invaded()) {
 			out << "Perdeste o teu ultimo territorio conquistado:\n\t" << *invadedTerr << "\n";
+			if (kingdom.getSize() == 0) {
+				finishGame(out);
+			}
 		} else {
 			out << "Tiveste sorte! nao perdeste o teu terrritorio conquistado mais recentemente\n";
 		}
 	} else if (eventType == 3) {
 		diplomaticAlliance();
-	} // else do nothing
-	return eventType;
+	}
 }
 
 void Game::abandonedResource() {
@@ -207,11 +208,6 @@ bool Game::invaded() {
 	if (invasionStrength > territoryResistance) {
 		kingdom.lostTerritory(terr);
 		world.addTerritory(terr);
-
-		if (kingdom.getSize() == 0) {
-			finishGame();
-		}
-
 		return true;
 	}
 	return false;
@@ -229,8 +225,16 @@ bool Game::isGameFinished() const {
 	return gameState == GAME_FINISHED;
 }
 
-void Game::finishGame() {
+void Game::finishGame(ostream &out) {
 	gameState = GAME_FINISHED;
+	phase = -1;
+
+	calculateFinalPoints();
+	if(kingdom.getSize()){
+		out << "Perdeste o jogo. Ficaste com "<< getFinalScore() << " pontos\n";
+	}else {
+		out << "Acabaste o jogo e ficaste com "<< getFinalScore() << " pontos\n";
+	}
 }
 
 bool Game::moreProducts() {

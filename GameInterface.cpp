@@ -47,10 +47,12 @@ void GameInterface::handleCommand(ostream &out, vector<std::string> &inputParts)
 		return;
 	}
 
-	if (!currentGame->isInProgress()) {
-		handleCreationCommand(out, inputParts);
-	} else {
+	if (currentGame->isInProgress()) {
 		handleGameCommand(out, inputParts);
+	} else if (currentGame->isGameFinished()) {
+		out << "Game is finished\n";
+	} else {
+		handleCreationCommand(out, inputParts);
 	}
 }
 
@@ -117,7 +119,7 @@ void GameInterface::handleGameCommand(ostream &out, vector<std::string> &inputPa
 		return;
 	}
 
-	if (commandPhase == 0) { //
+	if (commandPhase == 0) {
 		handleCommandAnyPhase(out, inputParts);
 	} else if (commandPhase == 1) {
 		handleCommandPhase1(out, inputParts);
@@ -200,18 +202,6 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 
 	if (action == "lista") {
 		listGame(inputParts, out);
-	} else if (action == "avanca") {
-		// Avança para a próxima fase ----------------------------------------------------------------------------------
-		if (inputParts.size() == 2) {
-			const string &name = inputParts[1];
-			if (!gameSaver.usedSaveGameName(name)) {
-				gameSaver.saveGame(name, currentGame);
-			} else {
-				out << "Ja existe um jogo guardado com esse nome\n";
-			}
-		} else {
-			out << "sintaxe valida -> grava <nome_do_jogo>\n";
-		}
 	} else if (action == "grava") {
 		// Grava o jogo em memória -------------------------------------------------------------------------------------
 		if (inputParts.size() == 2) {
@@ -253,76 +243,85 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 				out << "Nao existe jogo com esse nome\n";
 			}
 		}
-	} else if (action == "toma") { // TODO toma
-		// Obtem tecnologia ou territorio sem seguir as regras do jogo -------------------------------------------------
-		if (inputParts.size() == 3 && inputParts[1] == "terr" || inputParts[1] == "tec") {
-			const string &qual = inputParts[1];
-			const string &name = inputParts[2];
-			if (qual == "terr") {
-				Territorio *terr = currentGame->getTerritoryByName(name);
-				if (terr != nullptr) {
-					currentGame->forceConquer(terr);
-				} else {
-					cout << "O territorio nao existe\n";
+	}
+	else if (currentGame->isInProgress()) {
+		if (action == "avanca") {
+			// Avança para a próxima fase ----------------------------------------------------------------------------------
+			currentGame->nextPhase(out);
+		} else if (action == "toma") { // TODO toma
+			// Obtem tecnologia ou territorio sem seguir as regras do jogo -------------------------------------------------
+			if (inputParts.size() == 3 && inputParts[1] == "terr" || inputParts[1] == "tec") {
+				const string &qual = inputParts[1];
+				const string &name = inputParts[2];
+				if (qual == "terr") {
+					Territorio *terr = currentGame->getTerritoryByName(name);
+					if (terr != nullptr) {
+						currentGame->forceConquer(terr);
+					} else {
+						cout << "O territorio nao existe\n";
+					}
+				} else if (qual == "tec") {
+					//TODO AINDA E PRECISO FAZER
+					if (Factory::createTechnologyFromType(name)) {
+						// NOT WORKING
+						currentGame->acquire(name);
+					} else {
+						out << "sintaxe valida -> toma <terr || tec> <nome>\n";
+					}
 				}
-			} else if (qual == "tec") {
-				//TODO AINDA E PRECISO FAZER
-				if (Factory::createTechnologyFromType(name)) {
-					// NOT WORKING
-					currentGame->acquire(name);
-				} else {
-					out << "sintaxe valida -> toma <terr || tec> <nome>\n";
-				}
+			} else {
+				out << "sintaxe valida -> toma <terr || tec> <nome>\n";
 			}
-		} else {
-			out << "sintaxe valida -> toma <terr || tec> <nome>\n";
-		}
-	} else if (action == "modifica") {
-		// Modifica a quantidade de recursos sem seguir as regras do jogo ----------------------------------------------
-		if (inputParts.size() == 3) {
+		} else if (action == "modifica") {
+			// Modifica a quantidade de recursos sem seguir as regras do jogo ----------------------------------------------
+			if (inputParts.size() == 3) {
 
-			const string &qual = inputParts[1];
-			if (qual == "ouro" || qual == "prod") {
+				const string &qual = inputParts[1];
+				if (qual == "ouro" || qual == "prod") {
 
-				int amount = stoi(inputParts[2]);
-				if (amount) {
-					if (qual == "ouro") {
-						currentGame->setKingdomGold(amount);
-						out << "alterada a quantidade de ouro para : " << amount;
-						return;
-					} else if (qual == "prod") {
-						currentGame->setKingdomWarehouse(amount);
-						out << "alterada a quantidade de produtos para : " << amount;
-						return;
+					int amount = stoi(inputParts[2]);
+					if (amount) {
+						if (qual == "ouro") {
+							currentGame->setKingdomGold(amount);
+							out << "alterada a quantidade de ouro para : " << amount;
+							return;
+						} else if (qual == "prod") {
+							currentGame->setKingdomWarehouse(amount);
+							out << "alterada a quantidade de produtos para : " << amount;
+							return;
+						}
 					}
 				}
 			}
-		}
-		out << "sintaxe valida -> modifica <ouro|prod> <quantidade>\n";
+			out << "sintaxe valida -> modifica <ouro|prod> <quantidade>\n";
 
-	} else if (action == "fevento") {
-		// Força o acontecimento de um evento --------------------------------------------------------------------------
-		if (inputParts.size() == 2) {
-			const string &eventType = inputParts[1];
-			if (eventType == "abandona") {
-				currentGame->abandonedResource();
-				out << "Obtiveste recursos";
-			} else if (eventType == "invasao") {
-				Territorio *invaded = currentGame->getKingdom().getLastConquered();
-				if (currentGame->invaded()) {
-					out << "Perdeste o teu ultimo territorio conquistado:\n\t" << *invaded << "\n";
+		} else if (action == "fevento") {
+			// Força o acontecimento de um evento --------------------------------------------------------------------------
+			if (inputParts.size() == 2) {
+				const string &eventType = inputParts[1];
+				if (eventType == "abandona") {
+					currentGame->abandonedResource();
+					out << "Obtiveste recursos";
+				} else if (eventType == "invasao") {
+					Territorio *invaded = currentGame->getKingdom().getLastConquered();
+					if (currentGame->invaded()) {
+						out << "Perdeste o teu ultimo territorio conquistado:\n\t" << *invaded << "\n";
+					} else {
+						out << "Tiveste sorte! não perdeste o teu terrritorio conquistado mais recentemente\n";
+					}
+				} else if (eventType == "alianca") {
+					currentGame->diplomaticAlliance();
+					out << "Força militar aumentada em 1 para : " << currentGame->getKingdom().getMilitaryForce()
+						<< "\n";
 				} else {
-					out << "Tiveste sorte! não perdeste o teu terrritorio conquistado mais recentemente\n";
+					out << "sintaxe valida -> fevento <abandona || invasao || alianca>\n";
 				}
-			} else if (eventType == "alianca") {
-				currentGame->diplomaticAlliance();
-				out << "Força militar aumentada em 1 para : " << currentGame->getKingdom().getMilitaryForce() << "\n";
 			} else {
 				out << "sintaxe valida -> fevento <abandona || invasao || alianca>\n";
 			}
-		} else {
-			out << "sintaxe valida -> fevento <abandona || invasao || alianca>\n";
 		}
+	} else {
+		out << "Jogo ja terminado, certos comandos nao podem ser utilizados";
 	}
 }
 
