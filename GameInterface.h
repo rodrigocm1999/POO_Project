@@ -33,13 +33,15 @@ public:
 
 	virtual ~GameInterface();
 
-	static void printMenu(std::ostream &out);
+	void printMenu(std::ostream &out);
 
 	void handleCommand(std::ostream &out, std::vector<std::string> &inputParts);
 
 	int getCommandPhase(const std::string &command);
 
 	void listGame(std::vector<std::string> &inputParts, std::ostream &out);
+
+	void printPhaseCommands(std::ostream &out, int phase);
 };
 
 

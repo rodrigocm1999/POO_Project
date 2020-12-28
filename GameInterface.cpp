@@ -29,8 +29,40 @@ GameInterface::~GameInterface() {
 	delete currentGame;
 }
 
+void GameInterface::printPhaseCommands(ostream &out, int phase) {
+	bool isFirst = true;
+	for (auto &item : phaseCommand) {
+		if (item.getPhase() == phase) {
+			if (isFirst) {
+				out << item.getCommand();
+				isFirst = false;
+				continue;
+			}
+			out << ", " << item.getCommand();
+		}
+	}
+}
+
 void GameInterface::printMenu(ostream &out) {
 	//TODO make this proper
+	out << "\n\n";
+	int phase = currentGame->getPhase();
+	if (currentGame->isInCreation()) {
+		out << "Jogo a ser criado\n\tComandos disponiveis: "
+			<< "\n\t\tcria <tipo_territorio> <quantidade> \n\t\tcarrega <caminho_do_ficheiro>\n\t\tavanca";
+		out << "\nIntroduza o commando que deseja correr\n ->";
+		return;
+	}
+	if (currentGame->isInProgress()) {
+		out << "Fase " << phase << "\n\tComandos disponiveis: \n\t";
+		printPhaseCommands(out, phase);
+	} else if (currentGame->isGameFinished()) {
+		out << "Jogo terminado. Mas podes voltar aos teus jogos guardados.\n"
+			<< "Pontuacao final: " << currentGame->getFinalScore() << "\n";
+	}
+	out << "\nMais comandos: \n\t";
+	printPhaseCommands(out, 0);
+
 	out << "\nIntroduza o commando que deseja correr\n ->";
 }
 
@@ -251,8 +283,7 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 				out << "Nao existe jogo com esse nome\n";
 			}
 		}
-	}
-	else if (currentGame->isInProgress()) {
+	} else if (currentGame->isInProgress()) {
 		if (action == "avanca") {
 			// Avança para a próxima fase ----------------------------------------------------------------------------------
 			currentGame->nextPhase(out);

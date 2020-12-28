@@ -54,6 +54,7 @@ public:
 
 	bool isGameFinished() const;
 	bool isInProgress() const;
+	bool isInCreation() const;
 	int getFinalScore() const;
 	void finishGame(std::ostream &out);
 	bool start();
