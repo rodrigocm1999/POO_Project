@@ -25,7 +25,7 @@ GameInterface::GameInterface() {
 }
 
 GameInterface::~GameInterface() {
-	//delete [] phaseCommand; // já não é necessário porque passou a ser um vector com objetos que não sao criados no heap
+	//delete [] phaseCommand; // já não é necessário porque passou a ser um vector com objetos que não sao criados dinamicamente
 	delete currentGame;
 }
 
@@ -44,7 +44,6 @@ void GameInterface::printPhaseCommands(ostream &out, int phase) {
 }
 
 void GameInterface::printMenu(ostream &out) {
-	//TODO make this proper
 	out << "\n\n";
 	int phase = currentGame->getPhase();
 	if (currentGame->isInCreation()) {

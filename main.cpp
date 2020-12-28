@@ -7,13 +7,12 @@
 #include "GameInterface.h"
 #include "Utils.h"
 
-
 using namespace std;
 
 int main() {
 	srand((unsigned) time(nullptr));
 
-	{
+	{ // Para destruir a GameInterface
 		GameInterface gameInterface;
 
 		bool exit = false;
@@ -36,7 +35,6 @@ int main() {
 			}
 
 			gameInterface.handleCommand(cout, inputParts);
-
 		}
 	}
 	return 0;
