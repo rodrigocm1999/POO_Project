@@ -146,7 +146,7 @@ void GameInterface::handleCommandPhase1(ostream &out, vector<std::string> &input
 				currentGame->nextPhase(out);
 			} else {
 				out << "Conquistado com sucesso\n";
-				//currentGame->nextPhase(out); // TODO REMOVE MAKE THIS NOT A COMMENT, this is nice for testing
+				currentGame->nextPhase(out);
 			}
 		} else {
 			out << "Sintaxe valida -> conquista <nome_do_territorio>\n";
@@ -187,8 +187,17 @@ void GameInterface::handleCommandPhase3(ostream &out, vector<std::string> &input
 		}
 	} else if (action == "adquire") {
 		if (inputParts.size() == 2) {
-			if (currentGame->acquire(inputParts[1])) {
-				//TODO finish this part
+		    //TODO test this
+		    int whatHappen = currentGame->acquire(inputParts[1]);
+			if (whatHappen == -1) {
+                cout << "o Reino ja possui esta tecnologia\n";
+			} else if (whatHappen == -2 ){
+                cout << "o Reino nao consegue comprar a tecnologia\n";
+			} else if (whatHappen == false){
+                out << "sintaxe valida -> adquire <tipo>\n";
+			} else {
+                out << "Tecnlogia adquirida\n";
+                //ele que ande com as maos
 			}
 		} else {
 			out << "sintaxe valida -> adquire <tipo>\n";
@@ -198,7 +207,6 @@ void GameInterface::handleCommandPhase3(ostream &out, vector<std::string> &input
 
 void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inputParts) {
 	const string &action = inputParts[0];
-	//TODO acabar de fazer estes comandos
 
 	if (action == "lista") {
 		listGame(inputParts, out);
@@ -248,7 +256,7 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 		if (action == "avanca") {
 			// Avança para a próxima fase ----------------------------------------------------------------------------------
 			currentGame->nextPhase(out);
-		} else if (action == "toma") { // TODO toma
+		} else if (action == "toma") { // TODO TEST THIS
 			// Obtem tecnologia ou territorio sem seguir as regras do jogo -------------------------------------------------
 			if (inputParts.size() == 3 && inputParts[1] == "terr" || inputParts[1] == "tec") {
 				const string &qual = inputParts[1];
@@ -261,10 +269,9 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 						cout << "O territorio nao existe\n";
 					}
 				} else if (qual == "tec") {
-					//TODO AINDA E PRECISO FAZER
-					if (Factory::createTechnologyFromType(name)) {
-						// NOT WORKING
-						currentGame->acquire(name);
+                    Technology *technology = Factory::createTechnologyFromType(name);
+					if (technology != nullptr) {
+						currentGame->forceAcquire(technology);
 					} else {
 						out << "sintaxe valida -> toma <terr || tec> <nome>\n";
 					}

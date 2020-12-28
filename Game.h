@@ -61,7 +61,7 @@ public:
 	bool moreProducts();
 	bool moreGold();
 	bool moreMilitary();
-	bool acquire(const std::string &name);
+	int acquire(const std::string &name);
 
 	void forceConquer(Territorio * terr);
 
@@ -78,6 +78,8 @@ public:
 	const World &getWorld() const;
 
 	const Kingdom &getKingdom() const;
+
+    void forceAcquire(Technology *technology);
 };
 
 

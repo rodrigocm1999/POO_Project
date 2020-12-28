@@ -270,8 +270,23 @@ bool Game::moreMilitary() {
 	return false;
 }
 
-bool Game::acquire(const string &name) {
-	return false;//TODO acquire tá por fazer e na chamada ainda não está completo
+int Game::acquire(const string &name) {
+    if (kingdom.hasTechnology(name)){
+        return -1;
+    }
+    Technology *technology = Factory::createTechnologyFromType(name);
+    if (technology == nullptr){
+        return false;
+    }
+    if (technology->getCost() <= kingdom.getGold()){
+        kingdom.addTechnology(technology);
+        kingdom.addGold(-(technology->getCost()));
+        technology->makeChanges(&kingdom);
+        return true;
+    } else{
+        delete technology;
+        return -2;
+    }
 }
 
 int Game::calculateFinalPoints() {
@@ -304,6 +319,10 @@ const World &Game::getWorld() const {
 
 const Kingdom &Game::getKingdom() const {
 	return kingdom;
+}
+
+void Game::forceAcquire(Technology *technology) {
+    kingdom.addTechnology(technology);
 }
 
 

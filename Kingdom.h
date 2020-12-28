@@ -66,6 +66,8 @@ public:
 
 	void foundAbandonedResource(int year);
 
+	void addTechnology(Technology *technology);
+
 	bool hasTechnology(const std::string &name) const;
 
 	void setWarehouseCapacity(int _warehouseCapacity);

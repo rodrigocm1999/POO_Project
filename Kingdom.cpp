@@ -80,6 +80,8 @@ void Kingdom::addTerritory(Territorio *conquered) {
 	territories.push_back(conquered);
 }
 
+
+
 void Kingdom::lostTerritory(const Territorio *territory) {
 	for (auto item = territories.begin(); item != territories.end(); ++item) {
 		if (*item == territory) {
@@ -200,4 +202,8 @@ void Kingdom::setWarehouseAmount(int warehouseAmount) {
 
 void Kingdom::setSafeAmount(int safeAmount) {
 	Kingdom::safeAmount = safeAmount;
+}
+
+void Kingdom::addTechnology(Technology *technology) {
+    technologies.push_back(technology);
 }
