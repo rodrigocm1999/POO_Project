@@ -230,6 +230,10 @@ bool Game::isGameFinished() const {
 	return gameState == GAME_FINISHED;
 }
 
+bool Game::isInCreation() const {
+	return gameState == GAME_NOT_STARTED;
+}
+
 void Game::finishGame(ostream &out) {
 	gameState = GAME_FINISHED;
 	phase = -1;
