@@ -5,7 +5,5 @@
 #include "MisseisTeleguiados.h"
 
 Technology *MisseisTeleguiados::createCopy() const {
-	auto temp = new MisseisTeleguiados;
-	*temp = *this;
-	return temp;
+	return new MisseisTeleguiados(*this);
 }

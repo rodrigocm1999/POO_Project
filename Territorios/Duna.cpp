@@ -13,7 +13,5 @@ Duna::Duna() {
 }
 
 Territorio *Duna::createCopy() const {
-	Duna * temp = new Duna;
-	*temp = *this;
-	return temp;
+	return new Duna(*this);
 }

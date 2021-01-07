@@ -12,7 +12,5 @@ Fortaleza::Fortaleza() {
 }
 
 Territorio *Fortaleza::createCopy() const {
-	auto * temp = new Fortaleza;
-	*temp = *this;
-	return temp;
+	return new Fortaleza(*this);
 }

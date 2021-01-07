@@ -5,7 +5,5 @@
 #include "DefesasTerritoriais.h"
 
 Technology *DefesasTerritoriais::createCopy() const {
-	auto temp = new DefesasTerritoriais;
-	*temp = *this;
-	return temp;
+	return new DefesasTerritoriais(*this);
 }

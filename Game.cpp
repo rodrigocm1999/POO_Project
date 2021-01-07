@@ -157,6 +157,10 @@ void Game::nextPhase(ostream &out) {
 		// Conquista e passa
 	} else if (phase == 2) {
 		kingdom.updateTerritories(getTurn(), getYear());
+		if (!kingdom.hasTechnology(TEC_BOLSA)) {
+			out << "Como nao tens a technologia " << TEC_BOLSA << ", a segunda fase foi passada a frente\n";
+			nextPhase(out);
+		}
 		// fazer troca de produtos ou ouro
 	} else if (phase == 3) {
 		// comprar militar e tecnologias
@@ -211,6 +215,7 @@ bool Game::invaded() {
 	int territoryResistance = terr->getResistance() + bonusResistance;
 
 	if (invasionStrength > territoryResistance) {
+		// TODO quando voltarem a serem conquistados teem de levar reset
 		kingdom.lostTerritory(terr);
 		world.addTerritory(terr);
 		return true;
@@ -247,7 +252,7 @@ void Game::finishGame(ostream &out) {
 }
 
 bool Game::moreProducts() {
-	if (kingdom.getGold() >= 2) {
+	if (kingdom.getGold() >= 2 && kingdom.hasTechnology(TEC_BOLSA)) {
 		kingdom.addGold(-2);
 		kingdom.addProducts(1);
 		return true;
@@ -256,7 +261,7 @@ bool Game::moreProducts() {
 }
 
 bool Game::moreGold() {
-	if (kingdom.getProducts() >= 2) {
+	if (kingdom.getProducts() >= 2 && kingdom.hasTechnology(TEC_BOLSA)) {
 		kingdom.addProducts(-2);
 		kingdom.addGold(1);
 		return true;
@@ -275,22 +280,22 @@ bool Game::moreMilitary() {
 }
 
 int Game::acquire(const string &name) {
-    if (kingdom.hasTechnology(name)){
-        return -1;
-    }
-    Technology *technology = Factory::createTechnologyFromType(name);
-    if (technology == nullptr){
-        return false;
-    }
-    if (technology->getCost() <= kingdom.getGold()){
-        kingdom.addTechnology(technology);
-        kingdom.addGold(-(technology->getCost()));
-        technology->makeChanges(&kingdom);
-        return true;
-    } else{
-        delete technology;
-        return -2;
-    }
+	if (kingdom.hasTechnology(name)) {
+		return -1;
+	}
+	Technology *technology = Factory::createTechnologyFromType(name);
+	if (technology == nullptr) {
+		return false;
+	}
+	if (technology->getCost() <= kingdom.getGold()) {
+		kingdom.addTechnology(technology);
+		kingdom.addGold(-(technology->getCost()));
+		technology->makeChanges(&kingdom);
+		return true;
+	} else {
+		delete technology;
+		return -2;
+	}
 }
 
 int Game::calculateFinalPoints() {
@@ -326,7 +331,7 @@ const Kingdom &Game::getKingdom() const {
 }
 
 void Game::forceAcquire(Technology *technology) {
-    kingdom.addTechnology(technology);
+	kingdom.addTechnology(technology);
 }
 
 

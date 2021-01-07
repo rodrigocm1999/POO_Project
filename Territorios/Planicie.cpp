@@ -21,7 +21,5 @@ void Planicie::updateValues(int turn, int year) {
 }
 
 Territorio *Planicie::createCopy() const {
-	auto * temp = new Planicie;
-	*temp = *this;
-	return temp;
+	return new Planicie(*this);
 }

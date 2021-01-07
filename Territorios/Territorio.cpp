@@ -14,9 +14,11 @@ std::ostream &operator<<(std::ostream &os, const Territorio &terr) {
 	return os;
 }
 
-void Territorio::updateValues(int turn, int year) {}
+void Territorio::updateValues(int turn, int year) {
+	//std::cout << "Territorio update values\n";
+}
 
-Territorio &Territorio::operator=(const Territorio *other) {
+/*Territorio &Territorio::operator=(const Territorio *other) {
 	std::cout << "copy territory\n";
 	this->name = other->name;
 	this->resistance = other->resistance;
@@ -25,4 +27,4 @@ Territorio &Territorio::operator=(const Territorio *other) {
 	this->victoryPoints = other->victoryPoints;
 	return *this;
 }
-
+*/
