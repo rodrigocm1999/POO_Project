@@ -81,7 +81,6 @@ void Kingdom::addTerritory(Territorio *conquered) {
 }
 
 
-
 void Kingdom::lostTerritory(const Territorio *territory) {
 	for (auto item = territories.begin(); item != territories.end(); ++item) {
 		if (*item == territory) {
@@ -101,7 +100,7 @@ void Kingdom::print(std::ostream &out) const {
 	for (Territorio *item : territories) {
 		out << "\t" << *item << "\n";
 	}
-	out << "Tecnologias ---------------- \n";
+	out << "Tecnologias ------------------ \n";
 	for (Technology *item : technologies) {
 		out << "\t" << *item << "\n";
 	}
@@ -191,7 +190,9 @@ int Kingdom::getFinalPoints(World &world) {
 }
 
 void Kingdom::updateTerritories(int turn, int year) {
-	for (auto &terr: territories) {
+	cout << "num of ter to update : " << territories.size() << "\n";
+	for (Territorio *terr: territories) {
+		cout << "Update some terrr:";
 		terr->updateValues(turn, year);
 	}
 }
@@ -205,5 +206,5 @@ void Kingdom::setSafeAmount(int safeAmount) {
 }
 
 void Kingdom::addTechnology(Technology *technology) {
-    technologies.push_back(technology);
+	technologies.push_back(technology);
 }

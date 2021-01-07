@@ -18,7 +18,5 @@ void Castelo::updateValues(int turn, int year) {
 }
 
 Territorio *Castelo::createCopy() const {
-	Castelo * temp = new Castelo;
-	*temp = *this;
-	return temp;
+	return new Castelo(*this);
 }

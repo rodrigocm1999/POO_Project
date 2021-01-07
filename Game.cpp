@@ -215,6 +215,7 @@ bool Game::invaded() {
 	int territoryResistance = terr->getResistance() + bonusResistance;
 
 	if (invasionStrength > territoryResistance) {
+		// TODO quando voltarem a serem conquistados teem de levar reset
 		kingdom.lostTerritory(terr);
 		world.addTerritory(terr);
 		return true;

@@ -13,7 +13,5 @@ Refugio::Refugio() {
 }
 
 Territorio *Refugio::createCopy() const {
-	auto * temp = new Refugio;
-	*temp = *this;
-	return temp;
+	return new Refugio(*this);
 }
