@@ -11,7 +11,5 @@ void DroneMilitar::makeChanges(Kingdom *kingdom) const {
 }
 
 Technology *DroneMilitar::createCopy() const {
-	auto temp = new DroneMilitar;
-	*temp = *this;
-	return temp;
+	return new DroneMilitar(*this);
 }

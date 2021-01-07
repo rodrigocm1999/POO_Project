@@ -5,7 +5,5 @@
 #include "BolsaValores.h"
 
 Technology *BolsaValores::createCopy() const {
-	auto temp = new BolsaValores;
-	*temp = *this;
-	return temp;
+	return new BolsaValores(*this);
 }

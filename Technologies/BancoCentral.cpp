@@ -11,7 +11,5 @@ void BancoCentral::makeChanges(Kingdom *kingdom) const {
 }
 
 Technology *BancoCentral::createCopy() const {
-	auto temp = new BancoCentral;
-	*temp = *this;
-	return temp;
+	return new BancoCentral(*this);
 }
