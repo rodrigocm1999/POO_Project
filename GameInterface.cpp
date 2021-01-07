@@ -225,13 +225,13 @@ void GameInterface::handleCommandPhase3(ostream &out, vector<std::string> &input
 			} else if (whatHappen == -2 ){
                 cout << "o Reino nao consegue comprar a tecnologia\n";
 			} else if (whatHappen == false){
-                out << "sintaxe valida -> adquire <tipo>\n";
-			} else {
+                out << "sintaxe valida -> adquire <DroneMilitar || MisseisTeleguiados || DefesasTerritoriais || BancoCentral || BolsaValores> \n";
+            } else {
                 out << "Tecnlogia adquirida\n";
                 //ele que ande com as maos
 			}
 		} else {
-			out << "sintaxe valida -> adquire <tipo>\n";
+			out << "sintaxe valida -> adquire <DroneMilitar || MisseisTeleguiados || DefesasTerritoriais || BancoCentral || BolsaValores> \n";
 		}
 	}
 }
@@ -348,7 +348,7 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 					}
 				} else if (eventType == "alianca") {
 					currentGame->diplomaticAlliance();
-					out << "Força militar aumentada em 1 para : " << currentGame->getKingdom().getMilitaryForce()
+					out << "Forca militar aumentada em 1 para : " << currentGame->getKingdom().getMilitaryForce()
 						<< "\n";
 				} else {
 					out << "sintaxe valida -> fevento <abandona || invasao || alianca>\n";

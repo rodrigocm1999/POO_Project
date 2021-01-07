@@ -190,9 +190,7 @@ int Kingdom::getFinalPoints(World &world) {
 }
 
 void Kingdom::updateTerritories(int turn, int year) {
-	cout << "num of ter to update : " << territories.size() << "\n";
 	for (Territorio *terr: territories) {
-		cout << "Update some terrr:";
 		terr->updateValues(turn, year);
 	}
 }
