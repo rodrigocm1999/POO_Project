@@ -225,7 +225,7 @@ bool Game::isInCreation() const {
 
 void Game::finishGame(ostream &out) {
 	gameState = GAME_FINISHED;
-	phase = -1;
+	phase = 0; // Deixa usar os comandos que não são dependentes da fase, para poder gravar ou recuperar um jogo
 
 	calculateFinalPoints();
 	if (kingdom.getSize() == 0) {
