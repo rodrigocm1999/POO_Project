@@ -191,6 +191,8 @@ int Kingdom::getFinalPoints(World &world) {
 void Kingdom::updateTerritories(int turn, int year) {
 	for (Territorio *terr: territories) {
 		terr->updateValues(turn, year);
+		addProducts(terr->getProductProduction());
+		addGold(terr->getGoldProduction());
 	}
 }
 
