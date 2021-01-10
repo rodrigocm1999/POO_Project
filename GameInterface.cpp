@@ -212,7 +212,7 @@ void GameInterface::handleCommandPhase3(ostream &out, vector<std::string> &input
 
 	if (action == "maismilitar") {
 		if (currentGame->moreMilitary()) {
-			out << "Obteve mais 1 de forca militar á custa de 1 de ouro e 1 de produutos\n";
+			out << "Obteve mais 1 de forca militar a custa de 1 de ouro e 1 de produutos\n";
 		} else {
 			out << "Nao tens produtos e ouro suficientes para trocar, necessario 1 de cada\n";
 		}
@@ -279,6 +279,9 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 			} else {
 				out << "Nao existe jogo com esse nome\n";
 			}
+		} else{
+			out << "Sintaxe invalida. Jogos validos para apagar\n";
+			gameSaver.printAll(out);
 		}
 	} else if (currentGame->isInProgress()) {
 		if (action == "avanca") {

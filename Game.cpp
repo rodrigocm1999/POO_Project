@@ -116,7 +116,7 @@ Game::Game(ifstream &file, ostream &out) : Game() {
 			Territorio *terr = Factory::createTerritoryFromType(type);
 			if (terr != nullptr) this->addTerritoryToWorld(terr);
 			else {
-				out << "Ficheiro contem tipos inválidos na linha : " << fileLine << " -> " << type
+				out << "Ficheiro contem tipos invalidos na linha : " << fileLine << " -> " << type
 					<< "\nMundo ficara imcompleto \n";
 				break;
 			}

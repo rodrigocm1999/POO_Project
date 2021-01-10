@@ -51,7 +51,7 @@ Territorio *World::getTerritoryByName(const string &name) {
 int World::getSize() const { return territories.size(); }
 
 World &World::operator=(const World &other) {
-	std::cout << "copy world\n";
+	//std::cout << "copy world\n";
 
 	this->territories.reserve(other.territories.size());
 	for (auto &territory : other.territories) {
