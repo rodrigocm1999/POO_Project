@@ -218,7 +218,6 @@ void GameInterface::handleCommandPhase3(ostream &out, vector<std::string> &input
 		}
 	} else if (action == "adquire") {
 		if (inputParts.size() == 2) {
-		    //TODO test this
 		    int whatHappen = currentGame->acquire(inputParts[1]);
 			if (whatHappen == -1) {
                 cout << "o Reino ja possui esta tecnologia\n";
@@ -228,7 +227,6 @@ void GameInterface::handleCommandPhase3(ostream &out, vector<std::string> &input
                 out << "sintaxe valida -> adquire <DroneMilitar || MisseisTeleguiados || DefesasTerritoriais || BancoCentral || BolsaValores> \n";
             } else {
                 out << "Tecnlogia adquirida\n";
-                //ele que ande com as maos
 			}
 		} else {
 			out << "sintaxe valida -> adquire <DroneMilitar || MisseisTeleguiados || DefesasTerritoriais || BancoCentral || BolsaValores> \n";
@@ -286,7 +284,7 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 		if (action == "avanca") {
 			// Avança para a próxima fase ----------------------------------------------------------------------------------
 			currentGame->nextPhase(out);
-		} else if (action == "toma") { // TODO TEST THIS
+		} else if (action == "toma") {
 			// Obtem tecnologia ou territorio sem seguir as regras do jogo -------------------------------------------------
 			if (inputParts.size() == 3 && inputParts[1] == "terr" || inputParts[1] == "tec") {
 				const string &qual = inputParts[1];

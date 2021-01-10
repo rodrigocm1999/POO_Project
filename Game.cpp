@@ -3,29 +3,13 @@
 //
 
 #include "Game.h"
-#include "Utils.h"
 
-#include "World.h"
-#include "Kingdom.h"
 #include "Factory.h"
-
-#include "Territorios/Castelo.h"
-#include "Territorios/Continente.h"
-#include "Territorios/Duna.h"
-#include "Territorios/Fortaleza.h"
-#include "Territorios/Ilha.h"
-#include "Territorios/Mina.h"
-#include "Territorios/Montanha.h"
-#include "Territorios/Pescaria.h"
-#include "Territorios/Planicie.h"
-#include "Territorios/Refugio.h"
-#include "Territorios/Territorio.h"
 #include "Territorios/TerritorioInicial.h"
+#include "Constants.h"
 
 #include <sstream>
 #include <fstream>
-#include "Factory.h"
-#include "Constants.h"
 
 #define GAME_NOT_STARTED 1
 #define GAME_IN_PROGRESS 2
@@ -52,9 +36,8 @@ Game::Game(const Game &otherGame) {
 	this->kingdom = otherGame.kingdom;
 }
 
-Game::~Game() {
-	//Doesnt need to do anything because the objects are not dynamically allocated
-}
+Game::~Game() = default; //Doesnt need to do anything especial because the objects are not dynamically allocated
+
 
 vector<Territorio *> Game::getAllTerritories() const {
 	vector<Territorio *> territoriesKingdom = kingdom.getTerritories();
@@ -215,7 +198,6 @@ bool Game::invaded() {
 	int territoryResistance = terr->getResistance() + bonusResistance;
 
 	if (invasionStrength > territoryResistance) {
-		// TODO quando voltarem a serem conquistados teem de levar reset
 		kingdom.lostTerritory(terr);
 		world.addTerritory(terr);
 		return true;

@@ -3,9 +3,7 @@
 //
 
 #include "Factory.h"
-#include "Territorios/TerritorioInicial.h"
 
-#include "Territorios/Territorio.h"
 #include "Territorios/Continente.h"
 #include "Territorios/Ilha.h"
 #include "Territorios/Castelo.h"

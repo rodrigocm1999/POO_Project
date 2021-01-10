@@ -3,7 +3,6 @@
 //
 
 #include "Kingdom.h"
-#include "Constants.h"
 
 using namespace std;
 
@@ -130,7 +129,7 @@ void Kingdom::foundAbandonedResource(int year) {
 }
 
 bool Kingdom::hasTechnology(const string &name) const {
-	for (auto tec : technologies) {
+	for (Technology *tec : technologies) {
 		if (tec->getName() == name) {
 			return true;
 		}
@@ -153,13 +152,13 @@ void Kingdom::setMilitaryForceCapacity(int _militaryForceCapacity) {
 Kingdom &Kingdom::operator=(const Kingdom &other) {
 
 	this->territories.reserve(other.territories.size());
-	for (auto &territory : other.territories) {
+	for (Territorio *territory : other.territories) {
 		this->territories.push_back(territory->createCopy());
 	}
 
 	this->technologies.reserve(other.technologies.size());
-	for (auto &technology : other.technologies) {
-		this->technologies.push_back(technology->createCopy()); // TODO testar se as copias estão corretas
+	for (Technology *technology : other.technologies) {
+		this->technologies.push_back(technology->createCopy());
 	}
 
 	this->warehouseAmount = other.warehouseAmount;
