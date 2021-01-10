@@ -21,7 +21,6 @@ CMakeFiles\TrabalhoPratico.dir\Factory.cpp.obj: ..\Territorios\Pescaria.h
 CMakeFiles\TrabalhoPratico.dir\Factory.cpp.obj: ..\Territorios\Planicie.h
 CMakeFiles\TrabalhoPratico.dir\Factory.cpp.obj: ..\Territorios\Refugio.h
 CMakeFiles\TrabalhoPratico.dir\Factory.cpp.obj: ..\Territorios\Territorio.h
-CMakeFiles\TrabalhoPratico.dir\Factory.cpp.obj: ..\Territorios\TerritorioInicial.h
 
 CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Constants.h
 CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Factory.h
@@ -29,16 +28,6 @@ CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Game.cpp
 CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Game.h
 CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Kingdom.h
 CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Technologies\Technology.h
-CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Territorios\Castelo.h
-CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Territorios\Continente.h
-CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Territorios\Duna.h
-CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Territorios\Fortaleza.h
-CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Territorios\Ilha.h
-CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Territorios\Mina.h
-CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Territorios\Montanha.h
-CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Territorios\Pescaria.h
-CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Territorios\Planicie.h
-CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Territorios\Refugio.h
 CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Territorios\Territorio.h
 CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Territorios\TerritorioInicial.h
 CMakeFiles\TrabalhoPratico.dir\Game.cpp.obj: ..\Utils.h
@@ -65,7 +54,6 @@ CMakeFiles\TrabalhoPratico.dir\GameSaver.cpp.obj: ..\Territorios\Territorio.h
 CMakeFiles\TrabalhoPratico.dir\GameSaver.cpp.obj: ..\Utils.h
 CMakeFiles\TrabalhoPratico.dir\GameSaver.cpp.obj: ..\World.h
 
-CMakeFiles\TrabalhoPratico.dir\Kingdom.cpp.obj: ..\Constants.h
 CMakeFiles\TrabalhoPratico.dir\Kingdom.cpp.obj: ..\Kingdom.cpp
 CMakeFiles\TrabalhoPratico.dir\Kingdom.cpp.obj: ..\Kingdom.h
 CMakeFiles\TrabalhoPratico.dir\Kingdom.cpp.obj: ..\Technologies\Technology.h

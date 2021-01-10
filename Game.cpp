@@ -175,10 +175,12 @@ void Game::eventMaybeHappens(ostream &out) {
 		}
 	} else if (eventType == 3) {
 		if (diplomaticAlliance()) {
-			out << "houve uma alianaa diplomatica, ganhaste mais 1 forca militar\n";
+			out << "houve uma alianca diplomatica, ganhaste mais 1 forca militar\n";
+		} else {
+			out << "houve uma alianca diplomatica, mas ja atingiste o maximo de forca militar\n";
 		}
 	} else {
-		out << "houve uma alianaa diplomatica, mas ja atingiste o maximo de forca militar\n";
+		out << "Nao aconteceu nenhum evento\n";
 	}
 }
 
