@@ -78,10 +78,8 @@ void GameInterface::handleCommand(ostream &out, vector<std::string> &inputParts)
 		return;
 	}
 
-	if (currentGame->isInProgress()) {
+	if (currentGame->isInProgress() || currentGame->isGameFinished()) {
 		handleGameCommand(out, inputParts);
-	} else if (currentGame->isGameFinished()) {
-		out << "Game is finished\n";
 	} else {
 		handleCreationCommand(out, inputParts);
 	}
@@ -172,6 +170,9 @@ void GameInterface::handleCommandPhase1(ostream &out, vector<std::string> &input
 			int whatHappened = currentGame->conquer(inputParts[1]);
 			if (whatHappened == -1) {
 				out << "Nome de territorio invalido\n";
+			} else if (whatHappened == -2) {
+				out
+						<< "Necessitas de Misseis Teleguiados para conquistar uma ilha e um imperio com pelo menos 5 territorios\n";
 			} else if (whatHappened == false) {
 				out << "Nao consegui conquistar\n";
 				currentGame->nextPhase(out);
@@ -218,18 +219,20 @@ void GameInterface::handleCommandPhase3(ostream &out, vector<std::string> &input
 		}
 	} else if (action == "adquire") {
 		if (inputParts.size() == 2) {
-		    int whatHappen = currentGame->acquire(inputParts[1]);
+			int whatHappen = currentGame->acquire(inputParts[1]);
 			if (whatHappen == -1) {
-                cout << "o Reino ja possui esta tecnologia\n";
-			} else if (whatHappen == -2 ){
-                cout << "o Reino nao consegue comprar a tecnologia\n";
-			} else if (whatHappen == false){
-                out << "sintaxe valida -> adquire <DroneMilitar || MisseisTeleguiados || DefesasTerritoriais || BancoCentral || BolsaValores> \n";
-            } else {
-                out << "Tecnlogia adquirida\n";
+				cout << "o Reino ja possui esta tecnologia\n";
+			} else if (whatHappen == -2) {
+				cout << "o Reino nao consegue comprar a tecnologia\n";
+			} else if (whatHappen == false) {
+				out
+						<< "sintaxe valida -> adquire <DroneMilitar || MisseisTeleguiados || DefesasTerritoriais || BancoCentral || BolsaValores> \n";
+			} else {
+				out << "Tecnlogia adquirida\n";
 			}
 		} else {
-			out << "sintaxe valida -> adquire <DroneMilitar || MisseisTeleguiados || DefesasTerritoriais || BancoCentral || BolsaValores> \n";
+			out
+					<< "sintaxe valida -> adquire <DroneMilitar || MisseisTeleguiados || DefesasTerritoriais || BancoCentral || BolsaValores> \n";
 		}
 	}
 }
@@ -297,7 +300,7 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 						cout << "O territorio nao existe\n";
 					}
 				} else if (qual == "tec") {
-                    Technology *technology = Factory::createTechnologyFromType(name);
+					Technology *technology = Factory::createTechnologyFromType(name);
 					if (technology != nullptr) {
 						currentGame->forceAcquire(technology);
 					} else {

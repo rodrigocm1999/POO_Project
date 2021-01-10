@@ -83,7 +83,7 @@ int Game::conquer(std::string &territoryName) {
 	if (toConquer == nullptr) return -1;
 	if (toConquer->isIsland()) { // check if has requirements to conquer island
 		if (kingdom.getSize() < 5 || !kingdom.hasTechnology(TEC_MISSEIS)) {
-			return false;
+			return -2;
 		}
 	}
 
@@ -228,7 +228,7 @@ void Game::finishGame(ostream &out) {
 	phase = -1;
 
 	calculateFinalPoints();
-	if (kingdom.getSize()) {
+	if (kingdom.getSize() == 0) {
 		out << "Perdeste o jogo. Ficaste com " << getFinalScore() << " pontos\n";
 	} else {
 		out << "Acabaste o jogo e ficaste com " << getFinalScore() << " pontos\n";
