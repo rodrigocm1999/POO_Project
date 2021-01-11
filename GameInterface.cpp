@@ -7,6 +7,7 @@
 
 #include <ostream>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -123,10 +124,24 @@ void GameInterface::handleCreationCommand(ostream &out, vector<std::string> &inp
 			if (!file.is_open()) {
 				out << "Nao foi possivel abrir o ficheiro : " << filePath << " \n";
 			} else {
-				Game *newGame = new Game(file, cout);
+				Game *newGame = new Game(); // agora não é usado o contrutor que recebe um ficheiro porque se correm os comandos todos a partir desta classe
 				delete currentGame;
 				currentGame = newGame;
-				currentGame->print(cout);
+				//currentGame->print(cout);
+
+				int fileLine = 0;
+				string line;
+
+				while (getline(file, line)) {
+					fileLine++;
+
+					vector<string> inputParts = Utils::stringSplit(line, " ");
+					if (inputParts.empty()) {
+						cout << "Comando vazio. Introduza novamente\n";
+					}
+					this->handleCommand(out, inputParts);
+				}
+
 				out << "Carregado o ficheiro com sucesso\n";
 			}
 		} else {
@@ -282,7 +297,7 @@ void GameInterface::handleCommandAnyPhase(ostream &out, vector<std::string> &inp
 			} else {
 				out << "Nao existe jogo com esse nome\n";
 			}
-		} else{
+		} else {
 			out << "Sintaxe invalida. Jogos validos para apagar\n";
 			gameSaver.printAll(out);
 		}

@@ -1,8 +1,12 @@
-duna 1
-montanha 1
-planicie 3
-mina 2
-castelo 1
-fortaleza 3
-pescaria 1
-refugio 1
+cria duna 1
+cria montanha 1
+cria planicie 3
+cria mina 2
+cria castelo 1
+cria fortaleza 3
+cria pescaria 1
+cria refugio 1
+avanca
+lista
+conquista Duna1
+

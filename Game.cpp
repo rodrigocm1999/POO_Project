@@ -318,4 +318,13 @@ void Game::forceAcquire(Technology *technology) {
 	kingdom.addTechnology(technology);
 }
 
+void Game::testMemoryLeak() {
+	for (int i = 0; i < 1000000; ++i) {
+
+		ifstream stream("../carrega.txt");
+		Game *game = new Game(stream,cout);
+		delete game;
+	}
+}
+
 

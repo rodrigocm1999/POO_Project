@@ -81,6 +81,8 @@ public:
 	const Kingdom &getKingdom() const;
 
     void forceAcquire(Technology *technology);
+
+    static void testMemoryLeak();
 };
 
 

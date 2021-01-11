@@ -9,6 +9,10 @@ using namespace std;
 int main() {
 	srand((unsigned) time(nullptr));
 
+	//Game::testMemoryLeak();
+	//string str;
+	//cin >> str;
+
 	{ // Para destruir a GameInterface
 		GameInterface gameInterface;
 
