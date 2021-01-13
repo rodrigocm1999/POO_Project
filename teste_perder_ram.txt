@@ -1,0 +1,18 @@
+duna 1
+montanha 1
+planicie 3
+mina 2
+castelo 1
+fortaleza 3
+pescaria 1
+refugio 1
+fortaleza 3
+pescaria 1
+refugio 1
+fortaleza 3
+pescaria 1
+refugio 1
+fortaleza 3
+pescaria 1
+refugio 1
+
