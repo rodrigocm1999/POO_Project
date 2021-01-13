@@ -323,7 +323,7 @@ void Game::forceAcquire(Technology *technology) {
 void Game::testMemoryLeak() {
 	for (int i = 0; i < 1000000; ++i) {
 
-		ifstream stream("../carrega.txt");
+		ifstream stream("teste_perder_ram.txt");
 		Game *game = new Game(stream,cout);
 		delete game;
 	}
