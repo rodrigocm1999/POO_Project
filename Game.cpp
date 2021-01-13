@@ -95,6 +95,8 @@ int Game::conquer(std::string &territoryName) {
 		kingdom.addTerritory(toConquer);
 		return true;
 	}
+	//Perder 1 de força militar no caso de não conseguir conquistar
+	kingdom.addMilitaryForce(-1);
 	return false;
 }
 

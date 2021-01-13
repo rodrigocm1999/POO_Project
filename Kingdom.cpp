@@ -55,6 +55,10 @@ bool Kingdom::addMilitaryForce(int amount) {
 		militaryForce = limit;
 		return false;
 	}
+	if (militaryForce < 0) {
+		militaryForce = 0;
+		return false;
+	}
 	return true;
 }
 

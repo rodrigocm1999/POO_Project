@@ -186,8 +186,8 @@ void GameInterface::handleCommandPhase1(ostream &out, vector<std::string> &input
 			if (whatHappened == -1) {
 				out << "Nome de territorio invalido\n";
 			} else if (whatHappened == -2) {
-				out
-						<< "Necessitas de Misseis Teleguiados para conquistar uma ilha e um imperio com pelo menos 5 territorios\n";
+				out << "Necessitas de Misseis Teleguiados para conquistar uma ilha e"
+					   " um imperio com pelo menos 5 territorios\n";
 			} else if (whatHappened == false) {
 				out << "Nao consegui conquistar\n";
 				currentGame->nextPhase(out);
