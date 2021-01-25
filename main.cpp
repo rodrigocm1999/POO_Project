@@ -13,31 +13,31 @@ int main() {
 	//string str;
 	//cin >> str;
 
-	{ // Para destruir a GameInterface
-		GameInterface gameInterface;
+	auto gameInterface = new GameInterface;
 
-		bool exit = false;
+	bool exit = false;
 
-		while (!exit) {
+	while (!exit) {
 
-			gameInterface.printMenu(cout);
+		gameInterface->printMenu(cout);
 
-			string inputString;
-			getline(cin, inputString);
-			vector<string> inputParts = Utils::stringSplit(inputString, " ");
-			if (inputParts.empty()) {
-				cout << "Comando vazio. Introduza novamente\n";
-			}
-			string &action = inputParts[0];
-
-			if (action == "sair") {
-				exit = true;
-				continue;
-			}
-
-			gameInterface.handleCommand(cout, inputParts);
+		string inputString;
+		getline(cin, inputString);
+		vector<string> inputParts = Utils::stringSplit(inputString, " ");
+		if (inputParts.empty()) {
+			cout << "Comando vazio. Introduza novamente\n";
 		}
+		string &action = inputParts[0];
+
+		if (action == "sair") {
+			exit = true;
+			continue;
+		}
+
+		gameInterface->handleCommand(cout, inputParts);
 	}
+
+	delete gameInterface;
 	return 0;
 }
 
